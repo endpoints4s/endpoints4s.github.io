@@ -20,7 +20,7 @@
 
 <meta name="description" content="manual">
 <link rel="shortcut icon" href="../assets/images/favicon.png">
-<title>Multiplexed Endpoints · endpoints</title>
+<title>Multiplexed Endpoints · endpoints4s</title>
 <link rel="stylesheet" href="../assets/stylesheets/application.451f80e5.css">
 <link rel="stylesheet" href="../lib/material__tabs/dist/mdc.tabs.min.css">
 <link rel="stylesheet" href="../lib/prettify/prettify.css">
@@ -44,7 +44,7 @@ code,kbd,pre{font-family:"Roboto Mono","Courier New",Courier,monospace}
 <nav class="md-header-nav md-grid">
 <div class="md-flex">
 <div class="md-flex__cell md-flex__cell--shrink">
-<a href="../index.html" title="endpoints" class="md-header-nav__button md-logo">
+<a href="../index.html" title="endpoints4s" class="md-header-nav__button md-logo">
 <i class="md-icon">local_library</i>
 </a>
 </div>
@@ -54,7 +54,7 @@ code,kbd,pre{font-family:"Roboto Mono","Courier New",Courier,monospace}
 <div class="md-flex__cell md-flex__cell--stretch">
 <div class="md-flex__ellipsis md-header-nav__title" data-md-component="title">
 <span class="md-header-nav__topic">
-endpoints
+endpoints4s
 </span>
 <span class="md-header-nav__topic">
 Multiplexed Endpoints
@@ -87,7 +87,7 @@ Type to start searching
 </div>
 <div class="md-flex__cell md-flex__cell--shrink">
 <div class="md-header-nav__source">
-<a href="https://github.com/julienrf/endpoints"
+<a href="https://github.com/endpoints4s/endpoints4s"
 title="Go to repository"
 class="md-source"
 data-md-source="github">
@@ -95,7 +95,7 @@ data-md-source="github">
 <i class="fa fa-github"></i>
 </div>
 <div class="md-source__repository">
-julienrf/endpoints
+endpoints4s/endpoints4s
 </div>
 </a>
 
@@ -113,16 +113,16 @@ julienrf/endpoints
 <div class="md-sidebar__inner">
 <nav class="md-nav md-nav--primary" data-md-level="0" style="visibility: hidden">
 <label class="md-nav__title md-nav__title--site" for="drawer">
-<a href="../index.html" title="endpoints" class="md-nav__button md-logo">
+<a href="../index.html" title="endpoints4s" class="md-nav__button md-logo">
 <span class="md-nav__button md-logo">
 <i class="md-icon">local_library</i>
 </a>
-<a href="../index.html" title="endpoints">
-endpoints
+<a href="../index.html" title="endpoints4s">
+endpoints4s
 </a>
 </label>
 <div class="md-nav__source">
-<a href="https://github.com/julienrf/endpoints"
+<a href="https://github.com/endpoints4s/endpoints4s"
 title="Go to repository"
 class="md-source"
 data-md-source="github">
@@ -130,7 +130,7 @@ data-md-source="github">
 <i class="fa fa-github"></i>
 </div>
 <div class="md-source__repository">
-julienrf/endpoints
+endpoints4s/endpoints4s
 </div>
 </a>
 
@@ -164,6 +164,7 @@ julienrf/endpoints
   </ul></li>
   <li><a href="../comparison.html" class="page">Comparison with similar tools</a></li>
   <li><a href="../talks.html" class="page">Talks and Publications</a></li>
+  <li><a href="../release-and-compatibility-notes.html" class="page">Release and Compatibility Notes</a></li>
 </ul>
 <nav class="md-nav md-nav--secondary">
 </nav>
@@ -172,7 +173,7 @@ julienrf/endpoints
 <ul style="display: none">
 <li class="md-nav__item md-version" id="project.version">
 <label class="md-nav__link" for="__version">
-<i class="md-icon" title="Version">label_outline</i> 0.15.0
+<i class="md-icon" title="Version">label_outline</i> 1.0.0
 </label>
 </li>
 </ul>
@@ -184,15 +185,15 @@ julienrf/endpoints
 <div class="md-content__searchable">
 <h1><a href="#multiplexed-endpoints" name="multiplexed-endpoints" class="anchor"><span class="anchor-link"></span></a>Multiplexed Endpoints</h1>
 <p>This algebra provides vocabulary to define endpoints multiplexing several requests and responses.</p>
-<pre class="prettyprint"><code class="language-scala">&quot;org.julienrf&quot; %% &quot;endpoints-algebra&quot; % &quot;0.15.0&quot;
+<pre class="prettyprint"><code class="language-scala">&quot;org.endpoints4s&quot; %% &quot;algebra&quot; % &quot;1.0.0&quot;
 </code></pre>
-<p><a href="../api/endpoints/algebra/MuxEndpoints.html">API documentation</a></p>
+<p><a href="../api/endpoints4s/algebra/MuxEndpoints.html">API documentation</a></p>
 <p>In general, each possible resource or action supported by a service is exposed through a specific endpoint, taking a specific request type and a specific response type.</p>
 <p>However, in some cases it is useful to use a same endpoint to manage several resources or actions. We call them <em>multiplexed</em> endpoints.</p>
 <p>The algebra enriches the <code>Endpoints</code> algebra with the concept of <code>MuxEndpoint[Req, Resp, Transport]</code>, defining a multiplexed endpoint with a request containing a type <code>Req</code>, a response of type <code>Resp</code>, and serializing data to and from the <code>Transport</code> type.</p>
 <p>For instance, the type <code>MuxEndpoint[Command, Event, Json]</code> defines and endpoint whose requests contain <code>Command</code> values, whose responses contain <code>Event</code> values, and which serialize commands and events to <code>Json</code>.</p>
 <p>Since the type of a response can vary according to the type of specific request, multiplexed endpoints require that request types extend the <code>MuxRequest</code> type:</p>
-<pre class="prettyprint"><a class="icon go-to-source" href="https://github.com/julienrf/endpoints/tree/v0.15.0/algebras/algebra/src/test/scala/endpoints/algebra/MuxEndpointsDocs.scala#L11-L29" target="_blank" title="Go to snippet source"></a><code class="language-scala">val users: MuxEndpoint[Command, Event, Json] =
+<pre class="prettyprint"><a class="icon go-to-source" href="https://github.com/endpoints4s/endpoints4s/tree/v1.0.0/algebras/algebra/src/test/scala/endpoints4s/algebra/MuxEndpointsDocs.scala#L14-L32" target="_blank" title="Go to snippet source"></a><code class="language-scala">val users: MuxEndpoint[Command, Event, Json] =
   muxEndpoint[Command, Event, Json](
     post(path / &quot;users&quot;, jsonRequest[Json]),
     ok(jsonResponse[Json])
@@ -215,13 +216,13 @@ case class UserDeleted(id: Long) extends Event</code></pre>
 <p>Typically, client interpreters fix the <code>MuxEndpoint[Req, Resp, Transport]</code> type to be a function from <code>Req</code> to <code>Future[Req#Response]</code>, so that calling <code>users(CreateUser(&quot;Alice&quot;))</code> (statically) returns a <code>Future[CreatedUser]</code>, and calling <code>users(DeleteUser(42))</code> returns a <code>Future[DeletedUser]</code>.</p>
 </div>
 <div>
-<a href="https://github.com/julienrf/endpoints/tree/v0.15.0/documentation/manual/src/paradox/algebras/mux-endpoints.md" title="Edit this page" class="md-source-file md-edit">
+<a href="https://github.com/endpoints4s/endpoints4s/tree/v1.0.0/documentation/manual/src/paradox/algebras/mux-endpoints.md" title="Edit this page" class="md-source-file md-edit">
 Edit this page
 </a>
 </div>
 <div class="print-only">
 <span class="md-source-file md-version">
-0.15.0
+1.0.0
 </span>
 </div>
 </article>
@@ -269,7 +270,7 @@ and
 
 </div>
 <div class="md-footer-social">
-<a href="https://github.com/julienrf/endpoints" class="md-footer-social__link fa fa-github"></a>
+<a href="https://github.com/endpoints4s/endpoints4s" class="md-footer-social__link fa fa-github"></a>
 </div>
 
 </div>

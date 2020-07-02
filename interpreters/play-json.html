@@ -20,7 +20,7 @@
 
 <meta name="description" content="manual">
 <link rel="shortcut icon" href="../assets/images/favicon.png">
-<title>Play JSON · endpoints</title>
+<title>Play JSON · endpoints4s</title>
 <link rel="stylesheet" href="../assets/stylesheets/application.451f80e5.css">
 <link rel="stylesheet" href="../lib/material__tabs/dist/mdc.tabs.min.css">
 <link rel="stylesheet" href="../lib/prettify/prettify.css">
@@ -44,7 +44,7 @@ code,kbd,pre{font-family:"Roboto Mono","Courier New",Courier,monospace}
 <nav class="md-header-nav md-grid">
 <div class="md-flex">
 <div class="md-flex__cell md-flex__cell--shrink">
-<a href="../index.html" title="endpoints" class="md-header-nav__button md-logo">
+<a href="../index.html" title="endpoints4s" class="md-header-nav__button md-logo">
 <i class="md-icon">local_library</i>
 </a>
 </div>
@@ -54,7 +54,7 @@ code,kbd,pre{font-family:"Roboto Mono","Courier New",Courier,monospace}
 <div class="md-flex__cell md-flex__cell--stretch">
 <div class="md-flex__ellipsis md-header-nav__title" data-md-component="title">
 <span class="md-header-nav__topic">
-endpoints
+endpoints4s
 </span>
 <span class="md-header-nav__topic">
 Play JSON
@@ -87,7 +87,7 @@ Type to start searching
 </div>
 <div class="md-flex__cell md-flex__cell--shrink">
 <div class="md-header-nav__source">
-<a href="https://github.com/julienrf/endpoints"
+<a href="https://github.com/endpoints4s/endpoints4s"
 title="Go to repository"
 class="md-source"
 data-md-source="github">
@@ -95,7 +95,7 @@ data-md-source="github">
 <i class="fa fa-github"></i>
 </div>
 <div class="md-source__repository">
-julienrf/endpoints
+endpoints4s/endpoints4s
 </div>
 </a>
 
@@ -113,16 +113,16 @@ julienrf/endpoints
 <div class="md-sidebar__inner">
 <nav class="md-nav md-nav--primary" data-md-level="0" style="visibility: hidden">
 <label class="md-nav__title md-nav__title--site" for="drawer">
-<a href="../index.html" title="endpoints" class="md-nav__button md-logo">
+<a href="../index.html" title="endpoints4s" class="md-nav__button md-logo">
 <span class="md-nav__button md-logo">
 <i class="md-icon">local_library</i>
 </a>
-<a href="../index.html" title="endpoints">
-endpoints
+<a href="../index.html" title="endpoints4s">
+endpoints4s
 </a>
 </label>
 <div class="md-nav__source">
-<a href="https://github.com/julienrf/endpoints"
+<a href="https://github.com/endpoints4s/endpoints4s"
 title="Go to repository"
 class="md-source"
 data-md-source="github">
@@ -130,7 +130,7 @@ data-md-source="github">
 <i class="fa fa-github"></i>
 </div>
 <div class="md-source__repository">
-julienrf/endpoints
+endpoints4s/endpoints4s
 </div>
 </a>
 
@@ -164,6 +164,7 @@ julienrf/endpoints
   </ul></li>
   <li><a href="../comparison.html" class="page">Comparison with similar tools</a></li>
   <li><a href="../talks.html" class="page">Talks and Publications</a></li>
+  <li><a href="../release-and-compatibility-notes.html" class="page">Release and Compatibility Notes</a></li>
 </ul>
 <nav class="md-nav md-nav--secondary">
 </nav>
@@ -172,7 +173,7 @@ julienrf/endpoints
 <ul style="display: none">
 <li class="md-nav__item md-version" id="project.version">
 <label class="md-nav__link" for="__version">
-<i class="md-icon" title="Version">label_outline</i> 0.15.0
+<i class="md-icon" title="Version">label_outline</i> 1.0.0
 </label>
 </li>
 </ul>
@@ -184,28 +185,28 @@ julienrf/endpoints
 <div class="md-content__searchable">
 <h1><a href="#play-json" name="play-json" class="anchor"><span class="anchor-link"></span></a>Play JSON</h1>
 <p>Builds <a href="https://github.com/playframework/play-json">Play JSON</a> Reads and Writes out of JSON schema definitions.</p>
-<pre class="prettyprint"><code class="language-scala">&quot;org.julienrf&quot; %% &quot;endpoints-json-schema-playjson&quot; % &quot;0.15.0&quot;
+<pre class="prettyprint"><code class="language-scala">&quot;org.endpoints4s&quot; %% &quot;json-schema-playjson&quot; % &quot;1.0.0&quot;
 </code></pre>
-<p><a href="../api/endpoints/playjson/JsonSchemas.html">API documentation</a></p>
+<p><a href="../api/endpoints4s/playjson/JsonSchemas.html">API documentation</a></p>
 <p>The <code>JsonSchemas</code> interpreter fixes the <code>JsonSchema[A]</code> type to a type that provides both a <code>Reads[A]</code> and a <code>Writes[A]</code>.</p>
 <p>Given the following type definition:</p>
-<pre class="prettyprint"><a class="icon go-to-source" href="https://github.com/julienrf/endpoints/tree/v0.15.0/json-schema/json-schema/src/test/scala/endpoints/algebra/JsonSchemasDocs.scala#L18-L20" target="_blank" title="Go to snippet source"></a><code class="language-scala">sealed trait Shape
+<pre class="prettyprint"><a class="icon go-to-source" href="https://github.com/endpoints4s/endpoints4s/tree/v1.0.0/json-schema/json-schema/src/test/scala/endpoints4s/algebra/JsonSchemasDocs.scala#L20-L22" target="_blank" title="Go to snippet source"></a><code class="language-scala">sealed trait Shape
 case class Circle(radius: Double) extends Shape
 case class Rectangle(width: Double, height: Double) extends Shape</code></pre>
 <p>Assuming that there is an implicit <code>JsonSchema[Shape]</code> definition, we can encode a <code>Shape</code> into JSON and decode it using the usual Play JSON operations:</p>
-<pre class="prettyprint"><a class="icon go-to-source" href="https://github.com/julienrf/endpoints/tree/v0.15.0/json-schema/json-schema-playjson/src/test/scala/endpoints/playjson/JsonSchemasDocs.scala#L9-L12" target="_blank" title="Go to snippet source"></a><code class="language-scala">import JsonSchema._
+<pre class="prettyprint"><a class="icon go-to-source" href="https://github.com/endpoints4s/endpoints4s/tree/v1.0.0/json-schema/json-schema-playjson/src/test/scala/endpoints4s/playjson/JsonSchemasDocs.scala#L9-L12" target="_blank" title="Go to snippet source"></a><code class="language-scala">import JsonSchema._
 val shape: Shape = Circle(42)
 val shapeJson: JsValue = Json.toJson(shape)
 val maybeShape: JsResult[Shape] = Json.fromJson[Shape](shapeJson)</code></pre>
 </div>
 <div>
-<a href="https://github.com/julienrf/endpoints/tree/v0.15.0/documentation/manual/src/paradox/interpreters/play-json.md" title="Edit this page" class="md-source-file md-edit">
+<a href="https://github.com/endpoints4s/endpoints4s/tree/v1.0.0/documentation/manual/src/paradox/interpreters/play-json.md" title="Edit this page" class="md-source-file md-edit">
 Edit this page
 </a>
 </div>
 <div class="print-only">
 <span class="md-source-file md-version">
-0.15.0
+1.0.0
 </span>
 </div>
 </article>
@@ -253,7 +254,7 @@ and
 
 </div>
 <div class="md-footer-social">
-<a href="https://github.com/julienrf/endpoints" class="md-footer-social__link fa fa-github"></a>
+<a href="https://github.com/endpoints4s/endpoints4s" class="md-footer-social__link fa fa-github"></a>
 </div>
 
 </div>

@@ -20,7 +20,7 @@
 
 <meta name="description" content="manual">
 <link rel="shortcut icon" href="assets/images/favicon.png">
-<title>Algebras and interpreters · endpoints</title>
+<title>Algebras and interpreters · endpoints4s</title>
 <link rel="stylesheet" href="assets/stylesheets/application.451f80e5.css">
 <link rel="stylesheet" href="lib/material__tabs/dist/mdc.tabs.min.css">
 <link rel="stylesheet" href="lib/prettify/prettify.css">
@@ -44,7 +44,7 @@ code,kbd,pre{font-family:"Roboto Mono","Courier New",Courier,monospace}
 <nav class="md-header-nav md-grid">
 <div class="md-flex">
 <div class="md-flex__cell md-flex__cell--shrink">
-<a href="index.html" title="endpoints" class="md-header-nav__button md-logo">
+<a href="index.html" title="endpoints4s" class="md-header-nav__button md-logo">
 <i class="md-icon">local_library</i>
 </a>
 </div>
@@ -54,7 +54,7 @@ code,kbd,pre{font-family:"Roboto Mono","Courier New",Courier,monospace}
 <div class="md-flex__cell md-flex__cell--stretch">
 <div class="md-flex__ellipsis md-header-nav__title" data-md-component="title">
 <span class="md-header-nav__topic">
-endpoints
+endpoints4s
 </span>
 <span class="md-header-nav__topic">
 Algebras and interpreters
@@ -87,7 +87,7 @@ Type to start searching
 </div>
 <div class="md-flex__cell md-flex__cell--shrink">
 <div class="md-header-nav__source">
-<a href="https://github.com/julienrf/endpoints"
+<a href="https://github.com/endpoints4s/endpoints4s"
 title="Go to repository"
 class="md-source"
 data-md-source="github">
@@ -95,7 +95,7 @@ data-md-source="github">
 <i class="fa fa-github"></i>
 </div>
 <div class="md-source__repository">
-julienrf/endpoints
+endpoints4s/endpoints4s
 </div>
 </a>
 
@@ -113,16 +113,16 @@ julienrf/endpoints
 <div class="md-sidebar__inner">
 <nav class="md-nav md-nav--primary" data-md-level="0" style="visibility: hidden">
 <label class="md-nav__title md-nav__title--site" for="drawer">
-<a href="index.html" title="endpoints" class="md-nav__button md-logo">
+<a href="index.html" title="endpoints4s" class="md-nav__button md-logo">
 <span class="md-nav__button md-logo">
 <i class="md-icon">local_library</i>
 </a>
-<a href="index.html" title="endpoints">
-endpoints
+<a href="index.html" title="endpoints4s">
+endpoints4s
 </a>
 </label>
 <div class="md-nav__source">
-<a href="https://github.com/julienrf/endpoints"
+<a href="https://github.com/endpoints4s/endpoints4s"
 title="Go to repository"
 class="md-source"
 data-md-source="github">
@@ -130,7 +130,7 @@ data-md-source="github">
 <i class="fa fa-github"></i>
 </div>
 <div class="md-source__repository">
-julienrf/endpoints
+endpoints4s/endpoints4s
 </div>
 </a>
 
@@ -164,6 +164,7 @@ julienrf/endpoints
   </ul></li>
   <li><a href="comparison.html" class="page">Comparison with similar tools</a></li>
   <li><a href="talks.html" class="page">Talks and Publications</a></li>
+  <li><a href="release-and-compatibility-notes.html" class="page">Release and Compatibility Notes</a></li>
 </ul>
 <nav class="md-nav md-nav--secondary">
 <label class="md-nav__title" for="__toc">Table of contents</label>
@@ -171,6 +172,7 @@ julienrf/endpoints
   <li><a href="algebras-and-interpreters.html#algebras-and-interpreters" class="header">Algebras and interpreters</a>
   <ul>
     <li><a href="algebras-and-interpreters.html#naming-conventions" class="header">Naming conventions</a></li>
+    <li><a href="algebras-and-interpreters.html#matching-algebras-and-interpreters" class="header">Matching Algebras and Interpreters</a></li>
     <li><a href="algebras-and-interpreters.html#algebras" class="header">Algebras</a></li>
     <li><a href="algebras-and-interpreters.html#interpreters" class="header">Interpreters</a></li>
   </ul></li>
@@ -181,7 +183,7 @@ julienrf/endpoints
 <ul style="display: none">
 <li class="md-nav__item md-version" id="project.version">
 <label class="md-nav__link" for="__version">
-<i class="md-icon" title="Version">label_outline</i> 0.15.0
+<i class="md-icon" title="Version">label_outline</i> 1.0.0
 </label>
 </li>
 </ul>
@@ -197,6 +199,7 @@ julienrf/endpoints
   <li><a href="algebras-and-interpreters.html#algebras-and-interpreters" class="header">Algebras and interpreters</a>
   <ul>
     <li><a href="algebras-and-interpreters.html#naming-conventions" class="header">Naming conventions</a></li>
+    <li><a href="algebras-and-interpreters.html#matching-algebras-and-interpreters" class="header">Matching Algebras and Interpreters</a></li>
     <li><a href="algebras-and-interpreters.html#algebras" class="header">Algebras</a></li>
     <li><a href="algebras-and-interpreters.html#interpreters" class="header">Interpreters</a></li>
   </ul></li>
@@ -210,31 +213,48 @@ julienrf/endpoints
 <article class="md-content__inner md-typeset">
 <div class="md-content__searchable">
 <h1><a href="#algebras-and-interpreters" name="algebras-and-interpreters" class="anchor"><span class="anchor-link"></span></a>Algebras and interpreters</h1>
-<p>In <em>endpoints</em>, we call “algebra interfaces” (or just <strong>algebras</strong>) the traits that provide methods for constructing and combining descriptions of endpoints. You can find more details about the design of these algebras in the <a href="design.html">Design in a nutshell</a> page.</p>
+<p>In endpoints4s, we call “algebra interfaces” (or just <strong>algebras</strong>) the traits that provide methods for constructing and combining descriptions of endpoints. You can find more details about the design of these algebras in the <a href="design.html">Design in a nutshell</a> page.</p>
 <p>The concepts defined by algebras are given a concrete meaning by <strong>interpreters</strong>. In practice, we have three kinds of interpreters:</p>
 <ul>
-  <li>clients building requests (their URL, headers and entity) and decoding responses,</li>
-  <li>servers decoding requests and building responses,</li>
-  <li>documentation in a machine-readable format.</li>
+  <li><strong>clients</strong> building requests (their URL, headers and entity) and decoding responses,</li>
+  <li><strong>servers</strong> decoding requests and building responses,</li>
+  <li><strong>documentation</strong> in a machine-readable format.</li>
 </ul>
 <h2><a href="#naming-conventions" name="naming-conventions" class="anchor"><span class="anchor-link"></span></a>Naming conventions</h2>
 <ul>
-  <li>algebras are defined as traits in the <code>endpoints.algebra</code> package ;
+  <li>algebras are defined as traits in the <code>endpoints4s.algebra</code> package ;
     <ul>
-      <li>e.g. the <a href="api/endpoints/algebra/Urls.html"><code>endpoints.algebra.Urls</code></a> trait defines  an algebra for describing URLs.</li>
+      <li>e.g. the <a href="api/endpoints4s/algebra/Urls.html"><code>endpoints4s.algebra.Urls</code></a> trait defines  an algebra for describing URLs.</li>
     </ul>
   </li>
   <li>algebras’ dependencies can be found in their super types ;</li>
-  <li>interpreters are traits that have the same name of the corresponding  algebra (they can also be found by looking at the “known  subclasses” of an algebra, in the Scaladoc) ;
+  <li>interpreters are traits that have the same name as the algebra they  implement (they can be found by looking at the “known subclasses”  of an algebra, in the Scaladoc) ;
     <ul>
-      <li>e.g. the <a href="api/endpoints/play/client/Urls.html"><code>endpoints.play.client.Urls</code></a> trait  defines a Play-based interpreter for the <code>Urls</code> algebra.</li>
+      <li>e.g. the <a href="api/endpoints4s/play/client/Urls.html"><code>endpoints4s.play.client.Urls</code></a> trait  defines a Play-based interpreter for the <code>Urls</code> algebra.</li>
     </ul>
   </li>
   <li>compatible interpreters are in the same package ;</li>
-  <li>e.g. the <a href="api/endpoints/play/client/index.html"><code>endpoints.play.client</code></a> package provides interpreters that are all based on <a href="https://github.com/playframework/play-ws">Play WS</a> under the hood.</li>
+  <li>e.g. the <a href="api/endpoints4s/play/client/index.html"><code>endpoints4s.play.client</code></a> package provides interpreters that are all based on <a href="https://github.com/playframework/play-ws">Play WS</a> under the hood.</li>
 </ul>
+<h2><a href="#matching-algebras-and-interpreters" name="matching-algebras-and-interpreters" class="anchor"><span class="anchor-link"></span></a>Matching Algebras and Interpreters</h2>
+<p>To define endpoint descriptions you need to select which algebras you need. For instance:</p>
+<pre class="prettyprint"><code class="language-scala">import endpoints4s.algebra
+
+trait MyCustomAlgebra extends algebra.Endpoints
+  with algebra.JsonEntitiesFromSchemas
+  with algebra.BasicAuthentication
+</code></pre>
+<p>Then, to interpret the endpoint descriptions you need to build an interpreter that matches this algebra. By following the aforementioned naming conventions, you should be looking for all the traits that have the same names as your algebra modules and that are in the package of the interpreter you want to use. For instance, to build an Akka-HTTP server:</p>
+<pre class="prettyprint"><code class="language-scala">import endpoints4s.akkahttp.server
+
+trait MyAkkaHttpServer extends MyCustomAlgebra
+  with server.Endpoints
+  with server.JsonEntitiesFromSchemas
+  with server.BasicAuthentication
+</code></pre><div class="callout warning "><div class="callout-title">Warning</div>
+<p>If you try to mix an interpreter module that doesn’t match your algebra the compiler will raise “conflicting inherited members” errors.</p></div>
 <h2><a href="#algebras" name="algebras" class="anchor"><span class="anchor-link"></span></a>Algebras</h2>
-<p>Algebras form a <strong>hierarchy</strong>: it is possible to extend an algebra with additional vocabulary, or to mix several algebras together to merge their vocabulary. This hierarchy can be seen in the <a href="api/endpoints/algebra/index.html#content-diagram-container">diagram</a> generated by the API documentation.</p>
+<p>Algebras form a <strong>hierarchy</strong>: it is possible to extend an algebra with additional vocabulary, or to mix several algebras together to merge their vocabulary. This hierarchy can be seen in the <a href="api/endpoints4s/algebra/index.html#inheritance-diagram-container">diagram</a> generated by the API documentation.</p>
 <p>The following table lists the available algebras and points to their documentation. You should start by reading the documentation of the <code>Endpoints</code> algebra, and the documentation of the <code>JsonEntities</code> and <code>JsonSchemas</code> algebras if you want to work with JSON.</p>
 <table>
   <thead>
@@ -321,13 +341,13 @@ julienrf/endpoints
 <p>You can have different stacks on the client-side and the server-side. For instance, you can have a server backed by Play framework, a client backed by Akka HTTP, and another client backed by Scala.js (for web browsers).</p></div>
 </div>
 <div>
-<a href="https://github.com/julienrf/endpoints/tree/v0.15.0/documentation/manual/src/paradox/algebras-and-interpreters.md" title="Edit this page" class="md-source-file md-edit">
+<a href="https://github.com/endpoints4s/endpoints4s/tree/v1.0.0/documentation/manual/src/paradox/algebras-and-interpreters.md" title="Edit this page" class="md-source-file md-edit">
 Edit this page
 </a>
 </div>
 <div class="print-only">
 <span class="md-source-file md-version">
-0.15.0
+1.0.0
 </span>
 </div>
 </article>
@@ -375,7 +395,7 @@ and
 
 </div>
 <div class="md-footer-social">
-<a href="https://github.com/julienrf/endpoints" class="md-footer-social__link fa fa-github"></a>
+<a href="https://github.com/endpoints4s/endpoints4s" class="md-footer-social__link fa fa-github"></a>
 </div>
 
 </div>

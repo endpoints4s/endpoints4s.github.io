@@ -20,7 +20,7 @@
 
 <meta name="description" content="manual">
 <link rel="shortcut icon" href="../assets/images/favicon.png">
-<title>Chunked Entities · endpoints</title>
+<title>Chunked Entities · endpoints4s</title>
 <link rel="stylesheet" href="../assets/stylesheets/application.451f80e5.css">
 <link rel="stylesheet" href="../lib/material__tabs/dist/mdc.tabs.min.css">
 <link rel="stylesheet" href="../lib/prettify/prettify.css">
@@ -44,7 +44,7 @@ code,kbd,pre{font-family:"Roboto Mono","Courier New",Courier,monospace}
 <nav class="md-header-nav md-grid">
 <div class="md-flex">
 <div class="md-flex__cell md-flex__cell--shrink">
-<a href="../index.html" title="endpoints" class="md-header-nav__button md-logo">
+<a href="../index.html" title="endpoints4s" class="md-header-nav__button md-logo">
 <i class="md-icon">local_library</i>
 </a>
 </div>
@@ -54,7 +54,7 @@ code,kbd,pre{font-family:"Roboto Mono","Courier New",Courier,monospace}
 <div class="md-flex__cell md-flex__cell--stretch">
 <div class="md-flex__ellipsis md-header-nav__title" data-md-component="title">
 <span class="md-header-nav__topic">
-endpoints
+endpoints4s
 </span>
 <span class="md-header-nav__topic">
 Chunked Entities
@@ -87,7 +87,7 @@ Type to start searching
 </div>
 <div class="md-flex__cell md-flex__cell--shrink">
 <div class="md-header-nav__source">
-<a href="https://github.com/julienrf/endpoints"
+<a href="https://github.com/endpoints4s/endpoints4s"
 title="Go to repository"
 class="md-source"
 data-md-source="github">
@@ -95,7 +95,7 @@ data-md-source="github">
 <i class="fa fa-github"></i>
 </div>
 <div class="md-source__repository">
-julienrf/endpoints
+endpoints4s/endpoints4s
 </div>
 </a>
 
@@ -113,16 +113,16 @@ julienrf/endpoints
 <div class="md-sidebar__inner">
 <nav class="md-nav md-nav--primary" data-md-level="0" style="visibility: hidden">
 <label class="md-nav__title md-nav__title--site" for="drawer">
-<a href="../index.html" title="endpoints" class="md-nav__button md-logo">
+<a href="../index.html" title="endpoints4s" class="md-nav__button md-logo">
 <span class="md-nav__button md-logo">
 <i class="md-icon">local_library</i>
 </a>
-<a href="../index.html" title="endpoints">
-endpoints
+<a href="../index.html" title="endpoints4s">
+endpoints4s
 </a>
 </label>
 <div class="md-nav__source">
-<a href="https://github.com/julienrf/endpoints"
+<a href="https://github.com/endpoints4s/endpoints4s"
 title="Go to repository"
 class="md-source"
 data-md-source="github">
@@ -130,7 +130,7 @@ data-md-source="github">
 <i class="fa fa-github"></i>
 </div>
 <div class="md-source__repository">
-julienrf/endpoints
+endpoints4s/endpoints4s
 </div>
 </a>
 
@@ -164,6 +164,7 @@ julienrf/endpoints
   </ul></li>
   <li><a href="../comparison.html" class="page">Comparison with similar tools</a></li>
   <li><a href="../talks.html" class="page">Talks and Publications</a></li>
+  <li><a href="../release-and-compatibility-notes.html" class="page">Release and Compatibility Notes</a></li>
 </ul>
 <nav class="md-nav md-nav--secondary">
 <label class="md-nav__title" for="__toc">Table of contents</label>
@@ -181,7 +182,7 @@ julienrf/endpoints
 <ul style="display: none">
 <li class="md-nav__item md-version" id="project.version">
 <label class="md-nav__link" for="__version">
-<i class="md-icon" title="Version">label_outline</i> 0.15.0
+<i class="md-icon" title="Version">label_outline</i> 1.0.0
 </label>
 </li>
 </ul>
@@ -212,32 +213,32 @@ julienrf/endpoints
 <h1><a href="#chunked-entities" name="chunked-entities" class="anchor"><span class="anchor-link"></span></a>Chunked Entities</h1>
 <h2><a href="#chunkedentities" name="chunkedentities" class="anchor"><span class="anchor-link"></span></a><code>ChunkedEntities</code></h2>
 <p>This algebra provides vocabulary to describe endpoints whose requests or responses are streamed using the “chunked transfer-encoding” supported by HTTP1.1.</p>
-<pre class="prettyprint"><code class="language-scala">&quot;org.julienrf&quot; %% &quot;endpoints-algebra&quot; % &quot;0.15.0&quot;
+<pre class="prettyprint"><code class="language-scala">&quot;org.endpoints4s&quot; %% &quot;algebra&quot; % &quot;1.0.0&quot;
 </code></pre>
-<p><a href="../api/endpoints/algebra/ChunkedEntities.html">API documentation</a></p>
+<p><a href="../api/endpoints4s/algebra/ChunkedEntities.html">API documentation</a></p>
 <p>The <code>ChunkedEntities</code> module enriches the <code>Endpoints</code> algebra with operations for defining request and responses entities carrying stream of values.</p>
 <p>For instance, you can define an endpoint streaming a binary file as follows:</p>
-<pre class="prettyprint"><a class="icon go-to-source" href="https://github.com/julienrf/endpoints/tree/v0.15.0/algebras/algebra/src/test/scala/endpoints/algebra/ChunkedEntitiesDocs.scala#L6-L7" target="_blank" title="Go to snippet source"></a><code class="language-scala">val logo: Endpoint[Unit, Chunks[Array[Byte]]] =
+<pre class="prettyprint"><a class="icon go-to-source" href="https://github.com/endpoints4s/endpoints4s/tree/v1.0.0/algebras/algebra/src/test/scala/endpoints4s/algebra/ChunkedEntitiesDocs.scala#L6-L7" target="_blank" title="Go to snippet source"></a><code class="language-scala">val logo: Endpoint[Unit, Chunks[Array[Byte]]] =
   endpoint(get(path / &quot;logo.png&quot;), ok(bytesChunksResponse))</code></pre>
 <p>The return type, <code>Endpoint[Unit, Chunks[Array[Byte]]]</code>, represents an endpoint whose request takes no parameter (<code>Unit</code>) and whose response produces a stream of <code>Array[Byte]</code> chunks.</p>
 <p>Responses are streamed using the <a href="https://en.wikipedia.org/wiki/Chunked_transfer_encoding">chunked transfer-encoding</a>, which is supported by most HTTP 1.1 clients and servers.</p>
 <h2><a href="#chunkedjsonentities" name="chunkedjsonentities" class="anchor"><span class="anchor-link"></span></a><code>ChunkedJsonEntities</code></h2>
-<pre class="prettyprint"><code class="language-scala">&quot;org.julienrf&quot; %% &quot;endpoints-algebra&quot; % &quot;0.15.0&quot;
+<pre class="prettyprint"><code class="language-scala">&quot;org.endpoints4s&quot; %% &quot;algebra&quot; % &quot;1.0.0&quot;
 </code></pre>
-<p><a href="../api/endpoints/algebra/ChunkedJsonEntities.html">API documentation</a></p>
+<p><a href="../api/endpoints4s/algebra/ChunkedJsonEntities.html">API documentation</a></p>
 <p>Clients and servers have to agree on the serialization format used by response chunks and WebSocket messages. The <code>ChunkedJsonEntities</code> module provides a <code>jsonChunksRequest</code> constructor and a <code>jsonChunksResponse</code> constructor for defining request entities and response entities carrying streams of values that are serialized into JSON:</p>
-<pre class="prettyprint"><a class="icon go-to-source" href="https://github.com/julienrf/endpoints/tree/v0.15.0/algebras/algebra/src/test/scala/endpoints/algebra/ChunkedEntitiesDocs.scala#L13-L20" target="_blank" title="Go to snippet source"></a><code class="language-scala">trait JsonStreamingExample
-    extends endpoints.algebra.Endpoints
-    with endpoints.algebra.ChunkedJsonEntities
-    with endpoints.algebra.JsonEntitiesFromSchemas {
+<pre class="prettyprint"><a class="icon go-to-source" href="https://github.com/endpoints4s/endpoints4s/tree/v1.0.0/algebras/algebra/src/test/scala/endpoints4s/algebra/ChunkedEntitiesDocs.scala#L13-L20" target="_blank" title="Go to snippet source"></a><code class="language-scala">trait JsonStreamingExample
+    extends endpoints4s.algebra.Endpoints
+    with endpoints4s.algebra.ChunkedJsonEntities
+    with endpoints4s.algebra.JsonEntitiesFromSchemas {
 
   val ticks = endpoint(get(path / &quot;ticks&quot;), ok(jsonChunksResponse[Unit]))
 
 }</code></pre>
 <p>This example uses the <code>JsonEntitiesFromSchemas</code> algebra to derive the JSON serialization format from a JSON schema, which can also be reused by the OpenAPI interpreter.</p>
 <p>Eventually, mix a <code>JsonEntitiesFromSchemas</code> interpreter of your choice to turn the JSON schemas into proper JSON codecs. For instance, for Akka-Http:</p>
-<pre class="prettyprint"><a class="icon go-to-source" href="https://github.com/julienrf/endpoints/tree/v0.15.0/akka-http/server/src/test/scala/endpoints/akkahttp/server/ChunkedEntitiesDocs.scala#L26-L38" target="_blank" title="Go to snippet source"></a><code class="language-scala">import akka.stream.scaladsl.Source
-import endpoints.akkahttp.server
+<pre class="prettyprint"><a class="icon go-to-source" href="https://github.com/endpoints4s/endpoints4s/tree/v1.0.0/akka-http/server/src/test/scala/endpoints4s/akkahttp/server/ChunkedEntitiesDocs.scala#L24-L36" target="_blank" title="Go to snippet source"></a><code class="language-scala">import akka.stream.scaladsl.Source
+import endpoints4s.akkahttp.server
 
 object JsonStreamingExampleServer
     extends JsonStreamingExample
@@ -251,7 +252,7 @@ object JsonStreamingExampleServer
 }</code></pre>
 <h2><a href="#custom-serialization-format" name="custom-serialization-format" class="anchor"><span class="anchor-link"></span></a>Custom Serialization Format</h2>
 <p>Support for other serialization formats can be added by defining an operation returning a <code>Chunks[A]</code> value. For instance, the <a href="https://developers.google.com/protocol-buffers">Protocol Buffers</a> format would be supported as follows (using <a href="https://julien-lafont.github.io/protoless/">protoless</a>):</p>
-<pre class="prettyprint"><code class="language-scala">import endpoints.algebra
+<pre class="prettyprint"><code class="language-scala">import endpoints4s.algebra
 import io.protoless.messages.{Decoder, Encoder}
 
 trait ProtobufChunkedEntities extends algebra.ChunkedEntities {
@@ -262,13 +263,13 @@ trait ProtobufChunkedEntities extends algebra.ChunkedEntities {
 <p>And then, the <code>protobufChunksRequest</code> operation would have to be implemented on each interpreter.</p>
 </div>
 <div>
-<a href="https://github.com/julienrf/endpoints/tree/v0.15.0/documentation/manual/src/paradox/algebras/chunked-entities.md" title="Edit this page" class="md-source-file md-edit">
+<a href="https://github.com/endpoints4s/endpoints4s/tree/v1.0.0/documentation/manual/src/paradox/algebras/chunked-entities.md" title="Edit this page" class="md-source-file md-edit">
 Edit this page
 </a>
 </div>
 <div class="print-only">
 <span class="md-source-file md-version">
-0.15.0
+1.0.0
 </span>
 </div>
 </article>
@@ -316,7 +317,7 @@ and
 
 </div>
 <div class="md-footer-social">
-<a href="https://github.com/julienrf/endpoints" class="md-footer-social__link fa fa-github"></a>
+<a href="https://github.com/endpoints4s/endpoints4s" class="md-footer-social__link fa fa-github"></a>
 </div>
 
 </div>

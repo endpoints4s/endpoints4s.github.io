@@ -20,7 +20,7 @@
 
 <meta name="description" content="manual">
 <link rel="shortcut icon" href="assets/images/favicon.png">
-<title>Design in a nutshell · endpoints</title>
+<title>Design in a nutshell · endpoints4s</title>
 <link rel="stylesheet" href="assets/stylesheets/application.451f80e5.css">
 <link rel="stylesheet" href="lib/material__tabs/dist/mdc.tabs.min.css">
 <link rel="stylesheet" href="lib/prettify/prettify.css">
@@ -44,7 +44,7 @@ code,kbd,pre{font-family:"Roboto Mono","Courier New",Courier,monospace}
 <nav class="md-header-nav md-grid">
 <div class="md-flex">
 <div class="md-flex__cell md-flex__cell--shrink">
-<a href="index.html" title="endpoints" class="md-header-nav__button md-logo">
+<a href="index.html" title="endpoints4s" class="md-header-nav__button md-logo">
 <i class="md-icon">local_library</i>
 </a>
 </div>
@@ -54,7 +54,7 @@ code,kbd,pre{font-family:"Roboto Mono","Courier New",Courier,monospace}
 <div class="md-flex__cell md-flex__cell--stretch">
 <div class="md-flex__ellipsis md-header-nav__title" data-md-component="title">
 <span class="md-header-nav__topic">
-endpoints
+endpoints4s
 </span>
 <span class="md-header-nav__topic">
 Design in a nutshell
@@ -87,7 +87,7 @@ Type to start searching
 </div>
 <div class="md-flex__cell md-flex__cell--shrink">
 <div class="md-header-nav__source">
-<a href="https://github.com/julienrf/endpoints"
+<a href="https://github.com/endpoints4s/endpoints4s"
 title="Go to repository"
 class="md-source"
 data-md-source="github">
@@ -95,7 +95,7 @@ data-md-source="github">
 <i class="fa fa-github"></i>
 </div>
 <div class="md-source__repository">
-julienrf/endpoints
+endpoints4s/endpoints4s
 </div>
 </a>
 
@@ -113,16 +113,16 @@ julienrf/endpoints
 <div class="md-sidebar__inner">
 <nav class="md-nav md-nav--primary" data-md-level="0" style="visibility: hidden">
 <label class="md-nav__title md-nav__title--site" for="drawer">
-<a href="index.html" title="endpoints" class="md-nav__button md-logo">
+<a href="index.html" title="endpoints4s" class="md-nav__button md-logo">
 <span class="md-nav__button md-logo">
 <i class="md-icon">local_library</i>
 </a>
-<a href="index.html" title="endpoints">
-endpoints
+<a href="index.html" title="endpoints4s">
+endpoints4s
 </a>
 </label>
 <div class="md-nav__source">
-<a href="https://github.com/julienrf/endpoints"
+<a href="https://github.com/endpoints4s/endpoints4s"
 title="Go to repository"
 class="md-source"
 data-md-source="github">
@@ -130,7 +130,7 @@ data-md-source="github">
 <i class="fa fa-github"></i>
 </div>
 <div class="md-source__repository">
-julienrf/endpoints
+endpoints4s/endpoints4s
 </div>
 </a>
 
@@ -164,6 +164,7 @@ julienrf/endpoints
   </ul></li>
   <li><a href="comparison.html" class="page">Comparison with similar tools</a></li>
   <li><a href="talks.html" class="page">Talks and Publications</a></li>
+  <li><a href="release-and-compatibility-notes.html" class="page">Release and Compatibility Notes</a></li>
 </ul>
 <nav class="md-nav md-nav--secondary">
 <label class="md-nav__title" for="__toc">Table of contents</label>
@@ -181,7 +182,7 @@ julienrf/endpoints
 <ul style="display: none">
 <li class="md-nav__item md-version" id="project.version">
 <label class="md-nav__link" for="__version">
-<i class="md-icon" title="Version">label_outline</i> 0.15.0
+<i class="md-icon" title="Version">label_outline</i> 1.0.0
 </label>
 </li>
 </ul>
@@ -213,7 +214,7 @@ julienrf/endpoints
 <p>You have seen in the <a href="quick-start.html">quick start</a> page that using the <em>endpoints</em> library consists in first defining abstract <strong>descriptions</strong> of HTTP endpoints, and then producing clients, servers, or documentation, by <strong>interpreting</strong> these descriptions. This page takes a step back to explain the underlying architecture of the library, and then provides some guidelines to embrace this design.</p>
 <h2><a href="#descriptions-and-interpretations" name="descriptions-and-interpretations" class="anchor"><span class="anchor-link"></span></a>Descriptions and Interpretations</h2>
 <p>Here is an example of endpoint description:</p>
-<pre class="prettyprint"><a class="icon go-to-source" href="https://github.com/julienrf/endpoints/tree/v0.15.0/documentation/examples/quickstart/endpoints/src/main/scala/quickstart/CounterEndpoints.scala#L5-L50" target="_blank" title="Go to snippet source"></a><code class="language-scala">import endpoints.{algebra, generic}
+<pre class="prettyprint"><a class="icon go-to-source" href="https://github.com/endpoints4s/endpoints4s/tree/v1.0.0/documentation/examples/quickstart/endpoints/src/main/scala/quickstart/CounterEndpoints.scala#L5-L50" target="_blank" title="Go to snippet source"></a><code class="language-scala">import endpoints4s.{algebra, generic}
 
 trait CounterEndpoints
     extends algebra.Endpoints
@@ -224,9 +225,9 @@ trait CounterEndpoints
     endpoint(get(path / &quot;current-value&quot;), ok(jsonResponse[Counter]))
 
 }</code></pre>
-<p>Endpoint descriptions are defined in terms of operations (e.g., <code>endpoint</code>, <code>get</code>, <code>path</code>, <code>ok</code>, etc.) provided by traits living in the <a href="api/endpoints/algebra/index.html"><code>endpoints.algebra</code> package</a>. These operations are all <strong>abstract</strong>. Furthermore, their return <strong>types</strong> are also abstract. Their purpose is only to define the <strong>rules</strong> for constructing and combining parts of HTTP endpoint descriptions. This is why they are called “algebra interfaces”, or just <strong>algebras</strong>.</p>
-<p>For instance, consider the following truncated version of the <a href="api/endpoints/algebra/Endpoints.html"><code>Endpoints</code> algebra</a>:</p>
-<pre class="prettyprint"><code class="language-scala">package endpoints.algebra
+<p>Endpoint descriptions are defined in terms of operations (e.g., <code>endpoint</code>, <code>get</code>, <code>path</code>, <code>ok</code>, etc.) provided by traits living in the <a href="api/endpoints4s/algebra/index.html"><code>endpoints4s.algebra</code> package</a>. These operations are all <strong>abstract</strong>. Furthermore, their return <strong>types</strong> are also abstract. Their purpose is only to define the <strong>rules</strong> for constructing and combining parts of HTTP endpoint descriptions. This is why they are called “algebra interfaces”, or just <strong>algebras</strong>.</p>
+<p>For instance, consider the following truncated version of the <a href="api/endpoints4s/algebra/Endpoints.html"><code>Endpoints</code> algebra</a>:</p>
+<pre class="prettyprint"><code class="language-scala">package endpoints4s.algebra
 
 trait Endpoints {
   /** A request that uses the method GET and the given URL */
@@ -242,22 +243,22 @@ trait Endpoints {
 <p>Since the <code>Request[A]</code> type is abstract, the <em>only</em> way to construct a value of that type is by calling a method that returns a <code>Request[A]</code>, such as the method <code>get</code>, in the above code. For this reason, we say that the method <code>get</code> is a <strong>constructor</strong> for <code>Request[A]</code>.</p></div>
 <p>The <code>Request[A]</code> type models an HTTP request that <em>carries</em> an information of type <code>A</code>. From a client point of view, this <code>A</code> is what is <strong>needed</strong> to build a <code>Request[A]</code>. Conversely, from a server point of view, this <code>A</code> is what is <strong>provided</strong> by an incoming a <code>Request[A]</code>.</p>
 <p>You have seen in the “quick start” page that <strong>interpreters</strong> give semantics to the algebras. They do so by fixing their type members and implementing their methods accordingly. For instance, here is the semantics given to <code>Request[A]</code> by the Scala.js client interpreter:</p>
-<pre class="prettyprint"><code class="language-scala">package endpoints.xhr
+<pre class="prettyprint"><code class="language-scala">package endpoints4s.xhr
 
-trait Endpoints extends endpoints.algebra.Endpoints {
+trait Endpoints extends endpoints4s.algebra.Endpoints {
   type Request[A] = js.Function1[A, XMLHttpRequest]
 }
 </code></pre>
 <p>As previously said, from a client point of view we want to send requests and get responses. So, <code>Request[A]</code> has the semantics of a function that builds an <code>XMLHttpRequest</code> out of an <code>A</code> value.</p>
 <p>Here is the semantics given by the Play-based server interpreter:</p>
-<pre class="prettyprint"><code class="language-scala">package endpoints.play.server
+<pre class="prettyprint"><code class="language-scala">package endpoints4s.play.server
 
-trait Endpoints extends endpoints.algebra.Endpoints {
+trait Endpoints extends endpoints4s.algebra.Endpoints {
   type Request[A] = RequestHeader =&gt; Option[BodyParser[A]]
 }
 </code></pre>
-<p>The aim of the <code>endpoints.play.server.Endpoints</code> trait is to provide a Play router for a given set of HTTP endpoints. So, a <code>Request[A]</code> is a function that checks if an incoming request matches this endpoint, and in such a case it returns a <code>BodyParser[A]</code> that decodes a value of type <code>A</code> from the request.</p>
-<p>As you can see, each interpreter brings its own <strong>concrete semantic type</strong> for <code>Request[A]</code>. Client interpreters typically fix the <code>Request[A]</code> type to a function that <em>takes</em> an <code>A</code> as parameter. Conversely, server interpreters typically fix the <code>Request[A]</code> type to a function that <em>returns</em> an <code>A</code>. Can you guess what documentation interpreters do with this type parameter <code>A</code>? You can see the answer <a href="api/endpoints/openapi/Requests.html#Request[A]=Requests.this.DocumentedRequest">here</a>. It is discarded because this type <code>A</code> models the information that is carried by an actual request, at run-time, but the documentation is static (so, there is no <code>A</code> value to deal with).</p><div class="callout note "><div class="callout-title">Note</div>
+<p>The aim of the <code>endpoints4s.play.server.Endpoints</code> trait is to provide a Play router for a given set of HTTP endpoints. So, a <code>Request[A]</code> is a function that checks if an incoming request matches this endpoint, and in such a case it returns a <code>BodyParser[A]</code> that decodes a value of type <code>A</code> from the request.</p>
+<p>As you can see, each interpreter brings its own <strong>concrete semantic type</strong> for <code>Request[A]</code>. Client interpreters typically fix the <code>Request[A]</code> type to a function that <em>takes</em> an <code>A</code> as parameter. Conversely, server interpreters typically fix the <code>Request[A]</code> type to a function that <em>returns</em> an <code>A</code>. Can you guess what documentation interpreters do with this type parameter <code>A</code>? You can see the answer <a href="api/endpoints4s/openapi/Requests.html#Request[A]=Requests.this.DocumentedRequest">here</a>. It is discarded because this type <code>A</code> models the information that is carried by an actual request, at run-time, but the documentation is static (so, there is no <code>A</code> value to deal with).</p><div class="callout note "><div class="callout-title">Note</div>
 <p>This technique has been described in details by Bruno C. d. S. Oliveira <em>et al.</em> [1]. Note that we use a variant discovered by Christian Hofer <em>et al.</em> [2], which uses type members rather than type parameters.</p></div>
 <h3><a href="#summary" name="summary" class="anchor"><span class="anchor-link"></span></a>Summary</h3>
 <p><strong>Algebras</strong> are traits that provide abstract type members and methods defining how to <strong>construct</strong> and <strong>combine</strong> endpoint descriptions.</p>
@@ -283,13 +284,13 @@ trait Endpoints extends endpoints.algebra.Endpoints {
 </ul>
 </div>
 <div>
-<a href="https://github.com/julienrf/endpoints/tree/v0.15.0/documentation/manual/src/paradox/design.md" title="Edit this page" class="md-source-file md-edit">
+<a href="https://github.com/endpoints4s/endpoints4s/tree/v1.0.0/documentation/manual/src/paradox/design.md" title="Edit this page" class="md-source-file md-edit">
 Edit this page
 </a>
 </div>
 <div class="print-only">
 <span class="md-source-file md-version">
-0.15.0
+1.0.0
 </span>
 </div>
 </article>
@@ -337,7 +338,7 @@ and
 
 </div>
 <div class="md-footer-social">
-<a href="https://github.com/julienrf/endpoints" class="md-footer-social__link fa fa-github"></a>
+<a href="https://github.com/endpoints4s/endpoints4s" class="md-footer-social__link fa fa-github"></a>
 </div>
 
 </div>

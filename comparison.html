@@ -20,7 +20,7 @@
 
 <meta name="description" content="manual">
 <link rel="shortcut icon" href="assets/images/favicon.png">
-<title>Comparison with similar tools · endpoints</title>
+<title>Comparison with similar tools · endpoints4s</title>
 <link rel="stylesheet" href="assets/stylesheets/application.451f80e5.css">
 <link rel="stylesheet" href="lib/material__tabs/dist/mdc.tabs.min.css">
 <link rel="stylesheet" href="lib/prettify/prettify.css">
@@ -44,7 +44,7 @@ code,kbd,pre{font-family:"Roboto Mono","Courier New",Courier,monospace}
 <nav class="md-header-nav md-grid">
 <div class="md-flex">
 <div class="md-flex__cell md-flex__cell--shrink">
-<a href="index.html" title="endpoints" class="md-header-nav__button md-logo">
+<a href="index.html" title="endpoints4s" class="md-header-nav__button md-logo">
 <i class="md-icon">local_library</i>
 </a>
 </div>
@@ -54,7 +54,7 @@ code,kbd,pre{font-family:"Roboto Mono","Courier New",Courier,monospace}
 <div class="md-flex__cell md-flex__cell--stretch">
 <div class="md-flex__ellipsis md-header-nav__title" data-md-component="title">
 <span class="md-header-nav__topic">
-endpoints
+endpoints4s
 </span>
 <span class="md-header-nav__topic">
 Comparison with similar tools
@@ -87,7 +87,7 @@ Type to start searching
 </div>
 <div class="md-flex__cell md-flex__cell--shrink">
 <div class="md-header-nav__source">
-<a href="https://github.com/julienrf/endpoints"
+<a href="https://github.com/endpoints4s/endpoints4s"
 title="Go to repository"
 class="md-source"
 data-md-source="github">
@@ -95,7 +95,7 @@ data-md-source="github">
 <i class="fa fa-github"></i>
 </div>
 <div class="md-source__repository">
-julienrf/endpoints
+endpoints4s/endpoints4s
 </div>
 </a>
 
@@ -113,16 +113,16 @@ julienrf/endpoints
 <div class="md-sidebar__inner">
 <nav class="md-nav md-nav--primary" data-md-level="0" style="visibility: hidden">
 <label class="md-nav__title md-nav__title--site" for="drawer">
-<a href="index.html" title="endpoints" class="md-nav__button md-logo">
+<a href="index.html" title="endpoints4s" class="md-nav__button md-logo">
 <span class="md-nav__button md-logo">
 <i class="md-icon">local_library</i>
 </a>
-<a href="index.html" title="endpoints">
-endpoints
+<a href="index.html" title="endpoints4s">
+endpoints4s
 </a>
 </label>
 <div class="md-nav__source">
-<a href="https://github.com/julienrf/endpoints"
+<a href="https://github.com/endpoints4s/endpoints4s"
 title="Go to repository"
 class="md-source"
 data-md-source="github">
@@ -130,7 +130,7 @@ data-md-source="github">
 <i class="fa fa-github"></i>
 </div>
 <div class="md-source__repository">
-julienrf/endpoints
+endpoints4s/endpoints4s
 </div>
 </a>
 
@@ -164,6 +164,7 @@ julienrf/endpoints
   </ul></li>
   <li><a href="comparison.html" class="active page">Comparison with similar tools</a></li>
   <li><a href="talks.html" class="page">Talks and Publications</a></li>
+  <li><a href="release-and-compatibility-notes.html" class="page">Release and Compatibility Notes</a></li>
 </ul>
 <nav class="md-nav md-nav--secondary">
 <label class="md-nav__title" for="__toc">Table of contents</label>
@@ -182,7 +183,7 @@ julienrf/endpoints
 <ul style="display: none">
 <li class="md-nav__item md-version" id="project.version">
 <label class="md-nav__link" for="__version">
-<i class="md-icon" title="Version">label_outline</i> 0.15.0
+<i class="md-icon" title="Version">label_outline</i> 1.0.0
 </label>
 </li>
 </ul>
@@ -212,34 +213,34 @@ julienrf/endpoints
 <article class="md-content__inner md-typeset">
 <div class="md-content__searchable">
 <h1><a href="#comparison-with-similar-tools" name="comparison-with-similar-tools" class="anchor"><span class="anchor-link"></span></a>Comparison with similar tools</h1>
-<p>In this page, we compare <em>endpoints</em> with alternative tools that solve the same problem. We highlights their differences and explain the motivation behind our design decisions.</p>
+<p>In this page, we compare endpoints4s with alternative tools that solve the same problem. We highlights their differences and explain the motivation behind our design decisions.</p>
 <h2><a href="#autowire-remotely-lagom-mu" name="autowire-remotely-lagom-mu" class="anchor"><span class="anchor-link"></span></a>Autowire / Remotely / Lagom / Mu</h2>
 <p><a href="https://github.com/lihaoyi/autowire">Autowire</a>, and <a href="http://verizon.github.io/remotely">Remotely</a>, and <a href="https://github.com/higherkindness/mu">Mu</a> are Scala libraries automating remote procedure calls between a server and a client. <a href="https://www.lagomframework.com/">Lagom</a> is a framework for implementing microservices.</p>
-<p>The main difference with <em>endpoints</em> is that these tools are based on macros synthesizing the client according to the interface (defined as a Scala trait) of the server. By contrast, <em>endpoints</em> uses no macros.</p>
+<p>The main difference with endpoints4s is that these tools are based on macros synthesizing the client according to the interface (defined as a Scala trait) of the server. By contrast, endpoints4s uses no macros.</p>
 <p>We chose not to rely on macros because we find that they make it harder to reason about the code (since they synthesize code that is not seen by the developer), they may not be well supported by IDEs, and they seem to require a significant effort to support all edge cases (several issues have been reported about macro expansion: <a href="https://goo.gl/Spco7u">https://goo.gl/Spco7u</a>, <a href="https://goo.gl/F2E5Ev">https://goo.gl/F2E5Ev</a> and <a href="https://goo.gl/LCmVr8">https://goo.gl/LCmVr8</a>).</p>
-<p>A more fundamental difference is that in Autowire and Remotely, the underlying HTTP communication is viewed as an implementation detail, and all remote calls are multiplexed through a single HTTP endpoint. In contrast, the goal of <em>endpoints</em> is to embrace the features of the HTTP protocol (content negotiation, authorization, semantic verbs and status codes, etc.), so, in general, one HTTP endpoint is used for one remote call (though the library also supports multiplexing in case users don’t care about the underlying HTTP protocol).</p>
+<p>A more fundamental difference is that in Autowire and Remotely, the underlying HTTP communication is viewed as an implementation detail, and all remote calls are multiplexed through a single HTTP endpoint. In contrast, the goal of endpoints4s is to embrace the features of the HTTP protocol (content negotiation, authorization, semantic verbs and status codes, etc.), so, in general, one HTTP endpoint is used for one remote call (though the library also supports multiplexing in case users don’t care about the underlying HTTP protocol).</p>
 <p>Last but not least, Autowire, Remotely, Mu, and Lagom can not generate documentation of the communication protocol.</p>
 <h2><a href="#swagger-thrift-grpc" name="swagger-thrift-grpc" class="anchor"><span class="anchor-link"></span></a>Swagger / Thrift / gRPC</h2>
-<p>Solutions such as Swagger, Thrift, and gRPC generate the client and server code based on a protocol description written in a custom language, whereas in <em>endpoints</em> descriptions are written in plain Scala and producing a client or a server doesn’t require generating code.</p>
-<p>These custom languages have the benefit of being very clear about their domain, but they generally lack of means of abstraction (no way to factor out similar parts of endpoint descriptions) or means of computing (no expression evaluation, no control structures, etc.). With <em>endpoints</em>, developers can easily write a function returning an endpoint description according to some specific logic and given some parameters.</p>
-<p>Tools based on code generators have the benefit that they can be integrated with virtually any stack (Scala, Rust, etc.). However, we find that they also have some drawbacks. First, they require users to set up an additional step in their build, ensuring that the code is generated before compiling the modules that use it, and that each time the source files are modified the code is re-generated. Our experience with code generators also showed that sometimes the generated code does not compile. In such a case, it may be difficult to identify the origin of the problem because the error is reported on the generated code, not on the code written by the developer. Furthermore, sometimes the generated code is not convenient to use as it stands, and developers maintain another layer of abstraction on top of it. By not relying on code generation, <em>endpoints</em> eliminates these potential problems.</p>
+<p>Solutions such as Swagger, Thrift, and gRPC generate the client and server code based on a protocol description written in a custom language, whereas in endpoints4s descriptions are written in plain Scala and producing a client or a server doesn’t require generating code.</p>
+<p>These custom languages have the benefit of being very clear about their domain, but they generally lack of means of abstraction (no way to factor out similar parts of endpoint descriptions) or means of computing (no expression evaluation, no control structures, etc.). With endpoints4s, developers can easily write a function returning an endpoint description according to some specific logic and given some parameters.</p>
+<p>Tools based on code generators have the benefit that they can be integrated with virtually any stack (Scala, Rust, etc.). However, we find that they also have some drawbacks. First, they require users to set up an additional step in their build, ensuring that the code is generated before compiling the modules that use it, and that each time the source files are modified the code is re-generated. Our experience with code generators also showed that sometimes the generated code does not compile. In such a case, it may be difficult to identify the origin of the problem because the error is reported on the generated code, not on the code written by the developer. Furthermore, sometimes the generated code is not convenient to use as it stands, and developers maintain another layer of abstraction on top of it. By not relying on code generation, endpoints4s eliminates these potential problems.</p>
 <p>You can find a more elaborated article about the limitations of approaches based on code generation in <a href="http://julien.richard-foy.fr/blog/2016/01/24/my-problem-with-code-generation/">this blog post</a>.</p>
 <h2><a href="#rho-fintrospect-tapir" name="rho-fintrospect-tapir" class="anchor"><span class="anchor-link"></span></a>Rho / Fintrospect / tapir</h2>
-<p><a href="http://fintrospect.io/">Fintrospect</a>, <a href="https://github.com/http4s/rho">Rho</a>, and <a href="https://github.com/softwaremill/tapir">tapir</a> projects are comparable alternatives to <em>endpoints</em>. Their features and usage are similar: users describe their communication protocol in plain Scala and the library produces clients (Fintrospect and tapir only), servers and documentation.</p>
-<p>A key difference is that in these projects the endpoints description language is defined as a sealed AST: users can not extend descriptions with application-specific concerns and interpreters can not be partial. We can illustrate that point with Web Sockets, a feature that is not be supported by all clients and servers. For instance, Play-WS does not support Web Sockets. This means that a Web Socket endpoint description can not be interpreted by a Play-WS based client. There are two ways to inform the user about such an incompatibility: either by showing a compilation error, or by throwing a runtime exception. In <em>endpoints</em>, interpreters can partially support the description language, resulting in a compilation error if one tries to apply an interpreter that is not powerful enough to interpret a given endpoint description. By contrast, if the description language is a sealed AST then all interpreters have to be total, otherwise a <code>MatchError</code> will be thrown at runtime.</p>
+<p><a href="http://fintrospect.io/">Fintrospect</a>, <a href="https://github.com/http4s/rho">Rho</a>, and <a href="https://github.com/softwaremill/tapir">tapir</a> projects are comparable alternatives to endpoints4s. Their features and usage are similar: users describe their communication protocol in plain Scala and the library produces clients (Fintrospect and tapir only), servers and documentation.</p>
+<p>A key difference is that in these projects the endpoints description language is defined as a sealed AST: users can not extend descriptions with application-specific concerns and interpreters can not be partial. We can illustrate that point with Web Sockets, a feature that is not be supported by all clients and servers. For instance, Play-WS does not support Web Sockets. This means that a Web Socket endpoint description can not be interpreted by a Play-WS based client. There are two ways to inform the user about such an incompatibility: either by showing a compilation error, or by throwing a runtime exception. In endpoints4s, interpreters can partially support the description language, resulting in a compilation error if one tries to apply an interpreter that is not powerful enough to interpret a given endpoint description. By contrast, if the description language is a sealed AST then all interpreters have to be total, otherwise a <code>MatchError</code> will be thrown at runtime.</p>
 <p>That being said, a drawback of having an extensible description language is that users have to “build” their language by combining different modules together (eg, <code>Endpoints with JsonEntitiesFromSchemas</code>), and then build matching interpreters. These steps are not needed with projects where the description language is based on a sealed AST.</p>
 <h2><a href="#servant-typedapi-typed-schema" name="servant-typedapi-typed-schema" class="anchor"><span class="anchor-link"></span></a>Servant / typedapi / typed-schema</h2>
-<p><a href="https://haskell-servant.github.io/">Servant</a> is a Haskell library that uses generic programming to derive client, server and documentation from endpoint descriptions. <a href="https://github.com/pheymann/typedapi">typedapi</a> and <a href="https://github.com/TinkoffCreditSystems/typed-schema">typed-schema</a> are similar projects written in Scala. In these projects, both descriptions and interpreters are extensible. The difference with <em>endpoints</em> is that descriptions are <strong>types</strong>, whereas in <em>endpoints</em> they are <strong>values</strong>.</p>
-<p>Using types as descriptions has some benefits: they can directly be used to type instances of data (in contrast, in <em>endpoints</em> descriptions of data types have to mirror a corresponding type definition). On the other hand, we believe that abstracting and combining types using type-level computations is, in general, less convenient for users.</p>
+<p><a href="https://haskell-servant.github.io/">Servant</a> is a Haskell library that uses generic programming to derive client, server and documentation from endpoint descriptions. <a href="https://github.com/pheymann/typedapi">typedapi</a> and <a href="https://github.com/TinkoffCreditSystems/typed-schema">typed-schema</a> are similar projects written in Scala. In these projects, both descriptions and interpreters are extensible. The difference with endpoints4s is that descriptions are <strong>types</strong>, whereas in endpoints4s they are <strong>values</strong>.</p>
+<p>Using types as descriptions has some benefits: they can directly be used to type instances of data (in contrast, in endpoints4s descriptions of data types have to mirror a corresponding type definition). On the other hand, we believe that abstracting and combining types using type-level computations is, in general, less convenient for users.</p>
 </div>
 <div>
-<a href="https://github.com/julienrf/endpoints/tree/v0.15.0/documentation/manual/src/paradox/comparison.md" title="Edit this page" class="md-source-file md-edit">
+<a href="https://github.com/endpoints4s/endpoints4s/tree/v1.0.0/documentation/manual/src/paradox/comparison.md" title="Edit this page" class="md-source-file md-edit">
 Edit this page
 </a>
 </div>
 <div class="print-only">
 <span class="md-source-file md-version">
-0.15.0
+1.0.0
 </span>
 </div>
 </article>
@@ -287,7 +288,7 @@ and
 
 </div>
 <div class="md-footer-social">
-<a href="https://github.com/julienrf/endpoints" class="md-footer-social__link fa fa-github"></a>
+<a href="https://github.com/endpoints4s/endpoints4s" class="md-footer-social__link fa fa-github"></a>
 </div>
 
 </div>

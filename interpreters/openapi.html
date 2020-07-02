@@ -20,7 +20,7 @@
 
 <meta name="description" content="manual">
 <link rel="shortcut icon" href="../assets/images/favicon.png">
-<title>OpenAPI · endpoints</title>
+<title>OpenAPI · endpoints4s</title>
 <link rel="stylesheet" href="../assets/stylesheets/application.451f80e5.css">
 <link rel="stylesheet" href="../lib/material__tabs/dist/mdc.tabs.min.css">
 <link rel="stylesheet" href="../lib/prettify/prettify.css">
@@ -44,7 +44,7 @@ code,kbd,pre{font-family:"Roboto Mono","Courier New",Courier,monospace}
 <nav class="md-header-nav md-grid">
 <div class="md-flex">
 <div class="md-flex__cell md-flex__cell--shrink">
-<a href="../index.html" title="endpoints" class="md-header-nav__button md-logo">
+<a href="../index.html" title="endpoints4s" class="md-header-nav__button md-logo">
 <i class="md-icon">local_library</i>
 </a>
 </div>
@@ -54,7 +54,7 @@ code,kbd,pre{font-family:"Roboto Mono","Courier New",Courier,monospace}
 <div class="md-flex__cell md-flex__cell--stretch">
 <div class="md-flex__ellipsis md-header-nav__title" data-md-component="title">
 <span class="md-header-nav__topic">
-endpoints
+endpoints4s
 </span>
 <span class="md-header-nav__topic">
 OpenAPI
@@ -87,7 +87,7 @@ Type to start searching
 </div>
 <div class="md-flex__cell md-flex__cell--shrink">
 <div class="md-header-nav__source">
-<a href="https://github.com/julienrf/endpoints"
+<a href="https://github.com/endpoints4s/endpoints4s"
 title="Go to repository"
 class="md-source"
 data-md-source="github">
@@ -95,7 +95,7 @@ data-md-source="github">
 <i class="fa fa-github"></i>
 </div>
 <div class="md-source__repository">
-julienrf/endpoints
+endpoints4s/endpoints4s
 </div>
 </a>
 
@@ -113,16 +113,16 @@ julienrf/endpoints
 <div class="md-sidebar__inner">
 <nav class="md-nav md-nav--primary" data-md-level="0" style="visibility: hidden">
 <label class="md-nav__title md-nav__title--site" for="drawer">
-<a href="../index.html" title="endpoints" class="md-nav__button md-logo">
+<a href="../index.html" title="endpoints4s" class="md-nav__button md-logo">
 <span class="md-nav__button md-logo">
 <i class="md-icon">local_library</i>
 </a>
-<a href="../index.html" title="endpoints">
-endpoints
+<a href="../index.html" title="endpoints4s">
+endpoints4s
 </a>
 </label>
 <div class="md-nav__source">
-<a href="https://github.com/julienrf/endpoints"
+<a href="https://github.com/endpoints4s/endpoints4s"
 title="Go to repository"
 class="md-source"
 data-md-source="github">
@@ -130,7 +130,7 @@ data-md-source="github">
 <i class="fa fa-github"></i>
 </div>
 <div class="md-source__repository">
-julienrf/endpoints
+endpoints4s/endpoints4s
 </div>
 </a>
 
@@ -164,6 +164,7 @@ julienrf/endpoints
   </ul></li>
   <li><a href="../comparison.html" class="page">Comparison with similar tools</a></li>
   <li><a href="../talks.html" class="page">Talks and Publications</a></li>
+  <li><a href="../release-and-compatibility-notes.html" class="page">Release and Compatibility Notes</a></li>
 </ul>
 <nav class="md-nav md-nav--secondary">
 <label class="md-nav__title" for="__toc">Table of contents</label>
@@ -180,7 +181,7 @@ julienrf/endpoints
 <ul style="display: none">
 <li class="md-nav__item md-version" id="project.version">
 <label class="md-nav__link" for="__version">
-<i class="md-icon" title="Version">label_outline</i> 0.15.0
+<i class="md-icon" title="Version">label_outline</i> 1.0.0
 </label>
 </li>
 </ul>
@@ -208,14 +209,14 @@ julienrf/endpoints
 <article class="md-content__inner md-typeset">
 <div class="md-content__searchable">
 <h1><a href="#openapi" name="openapi" class="anchor"><span class="anchor-link"></span></a>OpenAPI</h1>
-<pre class="prettyprint"><code class="language-scala">&quot;org.julienrf&quot; %% &quot;endpoints-openapi&quot; % &quot;0.15.0&quot;
+<pre class="prettyprint"><code class="language-scala">&quot;org.endpoints4s&quot; %% &quot;openapi&quot; % &quot;1.0.0&quot;
 </code></pre>
-<p><a href="../api/endpoints/openapi/index.html">API documentation</a></p>
+<p><a href="../api/endpoints4s/openapi/index.html">API documentation</a></p>
 <p>This family of interpreters produces static documentation for endpoint definitions, in the form of an <a href="https://www.openapis.org/">OpenAPI document</a>.</p>
 <h2><a href="#endpoints" name="endpoints" class="anchor"><span class="anchor-link"></span></a>Endpoints</h2>
 <p>The <code>Endpoints</code> interpreter provides an <code>openApi</code> method that takes as parameter a sequence of endpoints for which to generate an OpenAPI document.</p>
 <p>Given the following endpoint definition:</p>
-<pre class="prettyprint"><a class="icon go-to-source" href="https://github.com/julienrf/endpoints/tree/v0.15.0/algebras/algebra/src/test/scala/endpoints/algebra/EndpointsDocs.scala#L104-L114" target="_blank" title="Go to snippet source"></a><code class="language-scala">import endpoints.algebra
+<pre class="prettyprint"><a class="icon go-to-source" href="https://github.com/endpoints4s/endpoints4s/tree/v1.0.0/algebras/algebra/src/test/scala/endpoints4s/algebra/EndpointsDocs.scala#L106-L116" target="_blank" title="Go to snippet source"></a><code class="language-scala">import endpoints4s.algebra
 
 trait DocumentedEndpoints extends algebra.Endpoints {
 
@@ -227,8 +228,8 @@ trait DocumentedEndpoints extends algebra.Endpoints {
 
 }</code></pre>
 <p>It can be documented as follows:</p>
-<pre class="prettyprint"><a class="icon go-to-source" href="https://github.com/julienrf/endpoints/tree/v0.15.0/openapi/openapi/src/test/scala/endpoints/openapi/EndpointsDocs.scala#L6-L21" target="_blank" title="Go to snippet source"></a><code class="language-scala">import endpoints.openapi
-import endpoints.openapi.model.{Info, OpenApi}
+<pre class="prettyprint"><a class="icon go-to-source" href="https://github.com/endpoints4s/endpoints4s/tree/v1.0.0/openapi/openapi/src/test/scala/endpoints4s/openapi/EndpointsDocs.scala#L6-L21" target="_blank" title="Go to snippet source"></a><code class="language-scala">import endpoints4s.openapi
+import endpoints4s.openapi.model.{Info, OpenApi}
 
 object EndpointsDocs extends DocumentedEndpoints with openapi.Endpoints {
 
@@ -238,11 +239,11 @@ object EndpointsDocs extends DocumentedEndpoints with openapi.Endpoints {
     )
 
 }</code></pre>
-<p>The value returned by the <code>openApi</code> method has type <code>endpoints.openapi.models.OpenApi</code>, which is an abstract model for OpenAPI documents. You can encode it into JSON by using the <code>OpenApi.stringEncoder</code> encoder. </p>
-<pre class="prettyprint"><a class="icon go-to-source" href="https://github.com/julienrf/endpoints/tree/v0.15.0/openapi/openapi/src/test/scala/endpoints/openapi/EndpointsDocs.scala#L18" target="_blank" title="Go to snippet source"></a><code class="language-scala">val apiJson: String = OpenApi.stringEncoder.encode(api)</code></pre>
+<p>The value returned by the <code>openApi</code> method has type <code>endpoints4s.openapi.models.OpenApi</code>, which is an abstract model for OpenAPI documents. You can encode it into JSON by using the <code>OpenApi.stringEncoder</code> encoder. </p>
+<pre class="prettyprint"><a class="icon go-to-source" href="https://github.com/endpoints4s/endpoints4s/tree/v1.0.0/openapi/openapi/src/test/scala/endpoints4s/openapi/EndpointsDocs.scala#L18" target="_blank" title="Go to snippet source"></a><code class="language-scala">val apiJson: String = OpenApi.stringEncoder.encode(api)</code></pre>
 <p>In case the endpoint that serves the documentation is itself defined using <em>endpoints</em>, you can use the <code>JsonEntitiesFromEncoderAndDecoder</code> interpreter to define an endpoint returning the <code>OpenApi</code> document as a JSON entity. Here is an example using Akka HTTP:</p>
-<pre class="prettyprint"><a class="icon go-to-source" href="https://github.com/julienrf/endpoints/tree/v0.15.0/documentation/examples/quickstart/server/src/main/scala/quickstart/Main.scala#L16-L27" target="_blank" title="Go to snippet source"></a><code class="language-scala">import endpoints.openapi.model.OpenApi
-import endpoints.akkahttp.server
+<pre class="prettyprint"><a class="icon go-to-source" href="https://github.com/endpoints4s/endpoints4s/tree/v1.0.0/documentation/examples/quickstart/server/src/main/scala/quickstart/Main.scala#L16-L27" target="_blank" title="Go to snippet source"></a><code class="language-scala">import endpoints4s.openapi.model.OpenApi
+import endpoints4s.akkahttp.server
 
 object DocumentationServer
     extends server.Endpoints
@@ -294,13 +295,13 @@ object DocumentationServer
 <p>To properly document the underlying JSON schema of your <a href="../algebras/json-entities.html">JSON entities</a>, you have to define these schemas by using the <a href="../algebras/json-entities.html#jsonentitiesfromschemas">JsonEntitiesFromSchemas</a> algebra (and its corresponding interpreter).</p>
 </div>
 <div>
-<a href="https://github.com/julienrf/endpoints/tree/v0.15.0/documentation/manual/src/paradox/interpreters/openapi.md" title="Edit this page" class="md-source-file md-edit">
+<a href="https://github.com/endpoints4s/endpoints4s/tree/v1.0.0/documentation/manual/src/paradox/interpreters/openapi.md" title="Edit this page" class="md-source-file md-edit">
 Edit this page
 </a>
 </div>
 <div class="print-only">
 <span class="md-source-file md-version">
-0.15.0
+1.0.0
 </span>
 </div>
 </article>
@@ -348,7 +349,7 @@ and
 
 </div>
 <div class="md-footer-social">
-<a href="https://github.com/julienrf/endpoints" class="md-footer-social__link fa fa-github"></a>
+<a href="https://github.com/endpoints4s/endpoints4s" class="md-footer-social__link fa fa-github"></a>
 </div>
 
 </div>
