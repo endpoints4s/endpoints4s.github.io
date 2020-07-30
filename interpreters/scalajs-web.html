@@ -173,7 +173,7 @@ endpoints4s/endpoints4s
 <ul style="display: none">
 <li class="md-nav__item md-version" id="project.version">
 <label class="md-nav__link" for="__version">
-<i class="md-icon" title="Version">label_outline</i> 1.0.0
+<i class="md-icon" title="Version">label_outline</i> 1.1.0
 </label>
 </li>
 </ul>
@@ -185,29 +185,26 @@ endpoints4s/endpoints4s
 <div class="md-content__searchable">
 <h1><a href="#scala-js-web-client" name="scala-js-web-client" class="anchor"><span class="anchor-link"></span></a>Scala.js web client</h1>
 <p>Web client using <code>XMLHttpRequest</code>.</p>
-<pre class="prettyprint"><code class="language-scala">&quot;org.endpoints4s&quot; %%% &quot;xhr-client&quot; % &quot;1.0.0&quot;
-</code></pre>
+<p><a href="https://index.scala-lang.org/endpoints4s/endpoints4s/xhr-client" title="Artifact xhr-client"><img src="https://img.shields.io/maven-central/v/org.endpoints4s/xhr-client_sjs1_2.13?label=xhr-client&style=for-the-badge" title="Artifact coordinates" /></a></p>
 <p><a href="../api/endpoints4s/xhr/index.html">API documentation</a></p>
 <p>The <code>Endpoints</code> interpreter fixes the type <code>Endpoint[A, B]</code> to a function from <code>A</code> to <code>Result[B]</code>, where <code>Result</code> is abstract and is intended to be defined by more specialized interpreters.</p>
 <p>An example of such an interpreter is <code>endpoints4s.xhr.client.future.Endpoints</code>, which fixes the <code>Result[A]</code> type to <code>scala.concurrent.Future[A]</code>.</p>
 <p>This means that, given the following endpoint definition:</p>
-<pre class="prettyprint"><a class="icon go-to-source" href="https://github.com/endpoints4s/endpoints4s/tree/v1.0.0/algebras/algebra/src/test/scala/endpoints4s/algebra/EndpointsDocs.scala#L85-L86" target="_blank" title="Go to snippet source"></a><code class="language-scala">val someResource: Endpoint[Int, String] =
+<pre class="prettyprint"><a class="icon go-to-source" href="https://github.com/endpoints4s/endpoints4s/tree/master/algebras/algebra/src/test/scala/endpoints4s/algebra/EndpointsDocs.scala#L85-L86" target="_blank" title="Go to snippet source"></a><code class="language-scala">val someResource: Endpoint[Int, String] =
   endpoint(get(path / &quot;some-resource&quot; / segment[Int]()), ok(textResponse))</code></pre>
 <p>It can be invoked as follows:</p>
-<pre class="prettyprint"><a class="icon go-to-source" href="https://github.com/endpoints4s/endpoints4s/tree/v1.0.0/xhr/client/src/test/scala/endpoints4s/xhr/future/EndpointsDocs.scala#L10" target="_blank" title="Go to snippet source"></a><code class="language-scala">val eventuallyString: Future[String] = someResource(42)</code></pre>
+<pre class="prettyprint"><a class="icon go-to-source" href="https://github.com/endpoints4s/endpoints4s/tree/master/xhr/client/src/test/scala/endpoints4s/xhr/future/EndpointsDocs.scala#L10" target="_blank" title="Go to snippet source"></a><code class="language-scala">val eventuallyString: Future[String] = someResource(42)</code></pre>
 <p>Another example is <code>endpoints4s.xhr.client.faithful.Endpoints</code>, which fixes the <code>Result[A]</code> type to <code>faithful.Future[A]</code>. This interpreter requires an additional dependency (which, in turn, depends on the <a href="https://github.com/julienrf/faithful">faithful</a> library):</p>
-<pre class="prettyprint"><code class="language-scala">// Provides endpoints4s.xhr.client.faithful.Endpoints
-&quot;org.endpoints4s&quot; %%% &quot;xhr-client-faithful&quot; % &quot;1.0.0&quot;
-</code></pre>
+<p><a href="https://index.scala-lang.org/endpoints4s/endpoints4s/xhr-client-faithful" title="Artifact xhr-client-faithful"><img src="https://img.shields.io/maven-central/v/org.endpoints4s/xhr-client-faithful_sjs1_2.13?label=xhr-client-faithful&style=for-the-badge" title="Artifact coordinates" /></a></p>
 </div>
 <div>
-<a href="https://github.com/endpoints4s/endpoints4s/tree/v1.0.0/documentation/manual/src/paradox/interpreters/scalajs-web.md" title="Edit this page" class="md-source-file md-edit">
+<a href="https://github.com/endpoints4s/endpoints4s/tree/master/documentation/manual/src/paradox/interpreters/scalajs-web.md" title="Edit this page" class="md-source-file md-edit">
 Edit this page
 </a>
 </div>
 <div class="print-only">
 <span class="md-source-file md-version">
-1.0.0
+1.1.0
 </span>
 </div>
 </article>

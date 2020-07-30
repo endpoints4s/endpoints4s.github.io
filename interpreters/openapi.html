@@ -181,7 +181,7 @@ endpoints4s/endpoints4s
 <ul style="display: none">
 <li class="md-nav__item md-version" id="project.version">
 <label class="md-nav__link" for="__version">
-<i class="md-icon" title="Version">label_outline</i> 1.0.0
+<i class="md-icon" title="Version">label_outline</i> 1.1.0
 </label>
 </li>
 </ul>
@@ -209,14 +209,13 @@ endpoints4s/endpoints4s
 <article class="md-content__inner md-typeset">
 <div class="md-content__searchable">
 <h1><a href="#openapi" name="openapi" class="anchor"><span class="anchor-link"></span></a>OpenAPI</h1>
-<pre class="prettyprint"><code class="language-scala">&quot;org.endpoints4s&quot; %% &quot;openapi&quot; % &quot;1.0.0&quot;
-</code></pre>
+<p><a href="https://index.scala-lang.org/endpoints4s/endpoints4s/openapi" title="Artifact openapi"><img src="https://img.shields.io/maven-central/v/org.endpoints4s/openapi_2.13?label=openapi&style=for-the-badge" title="Artifact coordinates" /></a></p>
 <p><a href="../api/endpoints4s/openapi/index.html">API documentation</a></p>
 <p>This family of interpreters produces static documentation for endpoint definitions, in the form of an <a href="https://www.openapis.org/">OpenAPI document</a>.</p>
 <h2><a href="#endpoints" name="endpoints" class="anchor"><span class="anchor-link"></span></a>Endpoints</h2>
 <p>The <code>Endpoints</code> interpreter provides an <code>openApi</code> method that takes as parameter a sequence of endpoints for which to generate an OpenAPI document.</p>
 <p>Given the following endpoint definition:</p>
-<pre class="prettyprint"><a class="icon go-to-source" href="https://github.com/endpoints4s/endpoints4s/tree/v1.0.0/algebras/algebra/src/test/scala/endpoints4s/algebra/EndpointsDocs.scala#L106-L116" target="_blank" title="Go to snippet source"></a><code class="language-scala">import endpoints4s.algebra
+<pre class="prettyprint"><a class="icon go-to-source" href="https://github.com/endpoints4s/endpoints4s/tree/master/algebras/algebra/src/test/scala/endpoints4s/algebra/EndpointsDocs.scala#L106-L116" target="_blank" title="Go to snippet source"></a><code class="language-scala">import endpoints4s.algebra
 
 trait DocumentedEndpoints extends algebra.Endpoints {
 
@@ -228,7 +227,7 @@ trait DocumentedEndpoints extends algebra.Endpoints {
 
 }</code></pre>
 <p>It can be documented as follows:</p>
-<pre class="prettyprint"><a class="icon go-to-source" href="https://github.com/endpoints4s/endpoints4s/tree/v1.0.0/openapi/openapi/src/test/scala/endpoints4s/openapi/EndpointsDocs.scala#L6-L21" target="_blank" title="Go to snippet source"></a><code class="language-scala">import endpoints4s.openapi
+<pre class="prettyprint"><a class="icon go-to-source" href="https://github.com/endpoints4s/endpoints4s/tree/master/openapi/openapi/src/test/scala/endpoints4s/openapi/EndpointsDocs.scala#L6-L21" target="_blank" title="Go to snippet source"></a><code class="language-scala">import endpoints4s.openapi
 import endpoints4s.openapi.model.{Info, OpenApi}
 
 object EndpointsDocs extends DocumentedEndpoints with openapi.Endpoints {
@@ -240,9 +239,9 @@ object EndpointsDocs extends DocumentedEndpoints with openapi.Endpoints {
 
 }</code></pre>
 <p>The value returned by the <code>openApi</code> method has type <code>endpoints4s.openapi.models.OpenApi</code>, which is an abstract model for OpenAPI documents. You can encode it into JSON by using the <code>OpenApi.stringEncoder</code> encoder. </p>
-<pre class="prettyprint"><a class="icon go-to-source" href="https://github.com/endpoints4s/endpoints4s/tree/v1.0.0/openapi/openapi/src/test/scala/endpoints4s/openapi/EndpointsDocs.scala#L18" target="_blank" title="Go to snippet source"></a><code class="language-scala">val apiJson: String = OpenApi.stringEncoder.encode(api)</code></pre>
+<pre class="prettyprint"><a class="icon go-to-source" href="https://github.com/endpoints4s/endpoints4s/tree/master/openapi/openapi/src/test/scala/endpoints4s/openapi/EndpointsDocs.scala#L18" target="_blank" title="Go to snippet source"></a><code class="language-scala">val apiJson: String = OpenApi.stringEncoder.encode(api)</code></pre>
 <p>In case the endpoint that serves the documentation is itself defined using <em>endpoints</em>, you can use the <code>JsonEntitiesFromEncoderAndDecoder</code> interpreter to define an endpoint returning the <code>OpenApi</code> document as a JSON entity. Here is an example using Akka HTTP:</p>
-<pre class="prettyprint"><a class="icon go-to-source" href="https://github.com/endpoints4s/endpoints4s/tree/v1.0.0/documentation/examples/quickstart/server/src/main/scala/quickstart/Main.scala#L16-L27" target="_blank" title="Go to snippet source"></a><code class="language-scala">import endpoints4s.openapi.model.OpenApi
+<pre class="prettyprint"><a class="icon go-to-source" href="https://github.com/endpoints4s/endpoints4s/tree/master/documentation/examples/quickstart/server/src/main/scala/quickstart/Main.scala#L16-L27" target="_blank" title="Go to snippet source"></a><code class="language-scala">import endpoints4s.openapi.model.OpenApi
 import endpoints4s.akkahttp.server
 
 object DocumentationServer
@@ -295,13 +294,13 @@ object DocumentationServer
 <p>To properly document the underlying JSON schema of your <a href="../algebras/json-entities.html">JSON entities</a>, you have to define these schemas by using the <a href="../algebras/json-entities.html#jsonentitiesfromschemas">JsonEntitiesFromSchemas</a> algebra (and its corresponding interpreter).</p>
 </div>
 <div>
-<a href="https://github.com/endpoints4s/endpoints4s/tree/v1.0.0/documentation/manual/src/paradox/interpreters/openapi.md" title="Edit this page" class="md-source-file md-edit">
+<a href="https://github.com/endpoints4s/endpoints4s/tree/master/documentation/manual/src/paradox/interpreters/openapi.md" title="Edit this page" class="md-source-file md-edit">
 Edit this page
 </a>
 </div>
 <div class="print-only">
 <span class="md-source-file md-version">
-1.0.0
+1.1.0
 </span>
 </div>
 </article>

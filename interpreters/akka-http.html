@@ -181,7 +181,7 @@ endpoints4s/endpoints4s
 <ul style="display: none">
 <li class="md-nav__item md-version" id="project.version">
 <label class="md-nav__link" for="__version">
-<i class="md-icon" title="Version">label_outline</i> 1.0.0
+<i class="md-icon" title="Version">label_outline</i> 1.1.0
 </label>
 </li>
 </ul>
@@ -211,50 +211,48 @@ endpoints4s/endpoints4s
 <h1><a href="#akka-http" name="akka-http" class="anchor"><span class="anchor-link"></span></a>Akka HTTP</h1>
 <p>Client and server backed by <a href="https://doc.akka.io/docs/akka-http/current/">Akka HTTP</a>.</p>
 <h2><a href="#client" name="client" class="anchor"><span class="anchor-link"></span></a>Client</h2>
-<pre class="prettyprint"><code class="language-scala">&quot;org.endpoints4s&quot; %% &quot;akka-http-client&quot; % &quot;1.0.0&quot;
-</code></pre>
+<p><a href="https://index.scala-lang.org/endpoints4s/endpoints4s/akka-http-client" title="Artifact akka-http-client"><img src="https://img.shields.io/maven-central/v/org.endpoints4s/akka-http-client_2.13?label=akka-http-client&style=for-the-badge" title="Artifact coordinates" /></a></p>
 <p><a href="../api/endpoints4s/akkahttp/client/index.html">API documentation</a></p>
 <h3><a href="#endpoints" name="endpoints" class="anchor"><span class="anchor-link"></span></a><code>Endpoints</code></h3>
 <p>The <code>Endpoints</code> interpreter fixes the <code>Endpoint[A, B]</code> type to a function from <code>A</code> to <code>Future[B]</code>:</p>
-<pre class="prettyprint"><a class="icon go-to-source" href="https://github.com/endpoints4s/endpoints4s/tree/v1.0.0/akka-http/client/src/main/scala/endpoints4s/akkahttp/client/Endpoints.scala#L281" target="_blank" title="Go to snippet source"></a><code class="language-scala">type Endpoint[A, B] = A =&gt; Future[B]</code></pre>
+<pre class="prettyprint"><a class="icon go-to-source" href="https://github.com/endpoints4s/endpoints4s/tree/master/akka-http/client/src/main/scala/endpoints4s/akkahttp/client/Endpoints.scala#L281" target="_blank" title="Go to snippet source"></a><code class="language-scala">type Endpoint[A, B] = A =&gt; Future[B]</code></pre>
 <p>This means that, given the following endpoint definition:</p>
-<pre class="prettyprint"><a class="icon go-to-source" href="https://github.com/endpoints4s/endpoints4s/tree/v1.0.0/algebras/algebra/src/test/scala/endpoints4s/algebra/EndpointsDocs.scala#L85-L86" target="_blank" title="Go to snippet source"></a><code class="language-scala">val someResource: Endpoint[Int, String] =
+<pre class="prettyprint"><a class="icon go-to-source" href="https://github.com/endpoints4s/endpoints4s/tree/master/algebras/algebra/src/test/scala/endpoints4s/algebra/EndpointsDocs.scala#L85-L86" target="_blank" title="Go to snippet source"></a><code class="language-scala">val someResource: Endpoint[Int, String] =
   endpoint(get(path / &quot;some-resource&quot; / segment[Int]()), ok(textResponse))</code></pre>
 <p>It can be invoked as follows:</p>
-<pre class="prettyprint"><a class="icon go-to-source" href="https://github.com/endpoints4s/endpoints4s/tree/v1.0.0/akka-http/client/src/test/scala/endpoints4s/akkahttp/client/EndpointsDocs.scala#L9" target="_blank" title="Go to snippet source"></a><code class="language-scala">val eventuallyString: Future[String] = someResource(42)</code></pre>
+<pre class="prettyprint"><a class="icon go-to-source" href="https://github.com/endpoints4s/endpoints4s/tree/master/akka-http/client/src/test/scala/endpoints4s/akkahttp/client/EndpointsDocs.scala#L9" target="_blank" title="Go to snippet source"></a><code class="language-scala">val eventuallyString: Future[String] = someResource(42)</code></pre>
 <h3><a href="#chunkedentities" name="chunkedentities" class="anchor"><span class="anchor-link"></span></a><code>ChunkedEntities</code></h3>
 <p>The <code>ChunkedEntities</code> interpreter fixes the <code>Chunks[A]</code> type to <code>akka.stream.scaladsl.Source[A, _]</code>:</p>
-<pre class="prettyprint"><a class="icon go-to-source" href="https://github.com/endpoints4s/endpoints4s/tree/v1.0.0/akka-http/client/src/main/scala/endpoints4s/akkahttp/client/ChunkedEntities.scala#L18" target="_blank" title="Go to snippet source"></a><code class="language-scala">type Chunks[A] = akka.stream.scaladsl.Source[A, _]</code></pre>
+<pre class="prettyprint"><a class="icon go-to-source" href="https://github.com/endpoints4s/endpoints4s/tree/master/akka-http/client/src/main/scala/endpoints4s/akkahttp/client/ChunkedEntities.scala#L18" target="_blank" title="Go to snippet source"></a><code class="language-scala">type Chunks[A] = akka.stream.scaladsl.Source[A, _]</code></pre>
 <p>This means that, given the following endpoint definition:</p>
-<pre class="prettyprint"><a class="icon go-to-source" href="https://github.com/endpoints4s/endpoints4s/tree/v1.0.0/algebras/algebra/src/test/scala/endpoints4s/algebra/ChunkedEntitiesDocs.scala#L6-L7" target="_blank" title="Go to snippet source"></a><code class="language-scala">val logo: Endpoint[Unit, Chunks[Array[Byte]]] =
+<pre class="prettyprint"><a class="icon go-to-source" href="https://github.com/endpoints4s/endpoints4s/tree/master/algebras/algebra/src/test/scala/endpoints4s/algebra/ChunkedEntitiesDocs.scala#L6-L7" target="_blank" title="Go to snippet source"></a><code class="language-scala">val logo: Endpoint[Unit, Chunks[Array[Byte]]] =
   endpoint(get(path / &quot;logo.png&quot;), ok(bytesChunksResponse))</code></pre>
 <p>It can be invoked as follows:</p>
-<pre class="prettyprint"><a class="icon go-to-source" href="https://github.com/endpoints4s/endpoints4s/tree/v1.0.0/akka-http/client/src/test/scala/endpoints4s/akkahttp/client/ChunkedEntitiesDocs.scala#L9-L14" target="_blank" title="Go to snippet source"></a><code class="language-scala">import akka.stream.scaladsl.Source
+<pre class="prettyprint"><a class="icon go-to-source" href="https://github.com/endpoints4s/endpoints4s/tree/master/akka-http/client/src/test/scala/endpoints4s/akkahttp/client/ChunkedEntitiesDocs.scala#L9-L14" target="_blank" title="Go to snippet source"></a><code class="language-scala">import akka.stream.scaladsl.Source
 
 val bytesSource: Source[Array[Byte], _] =
   Source.futureSource(logo(()))
 
 bytesSource.runForeach { bytes =&gt; println(s&quot;Received ${bytes.length} bytes&quot;) }</code></pre>
 <h2><a href="#server" name="server" class="anchor"><span class="anchor-link"></span></a>Server</h2>
-<pre class="prettyprint"><code class="language-scala">&quot;org.endpoints4s&quot; %% &quot;akka-http-server&quot; % &quot;1.0.0&quot;
-</code></pre>
+<p><a href="https://index.scala-lang.org/endpoints4s/endpoints4s/akka-http-server" title="Artifact akka-http-server"><img src="https://img.shields.io/maven-central/v/org.endpoints4s/akka-http-server_2.13?label=akka-http-server&style=for-the-badge" title="Artifact coordinates" /></a></p>
 <p><a href="../api/endpoints4s/akkahttp/server/index.html">API documentation</a></p>
 <h3><a href="#endpoints" name="endpoints" class="anchor"><span class="anchor-link"></span></a><code>Endpoints</code></h3>
 <p>The <code>Endpoints</code> interpreter fixes the <code>Endpoint[A, B]</code> type to something that, given an implementation function <code>A =&gt; B</code>, returns an <code>akka.http.scaladsl.server.Route</code> that can be integrated to your Akka HTTP application.</p>
 <p>For instance, given the following endpoint definition:</p>
-<pre class="prettyprint"><a class="icon go-to-source" href="https://github.com/endpoints4s/endpoints4s/tree/v1.0.0/algebras/algebra/src/test/scala/endpoints4s/algebra/EndpointsDocs.scala#L85-L86" target="_blank" title="Go to snippet source"></a><code class="language-scala">val someResource: Endpoint[Int, String] =
+<pre class="prettyprint"><a class="icon go-to-source" href="https://github.com/endpoints4s/endpoints4s/tree/master/algebras/algebra/src/test/scala/endpoints4s/algebra/EndpointsDocs.scala#L85-L86" target="_blank" title="Go to snippet source"></a><code class="language-scala">val someResource: Endpoint[Int, String] =
   endpoint(get(path / &quot;some-resource&quot; / segment[Int]()), ok(textResponse))</code></pre>
 <p>It can be implemented as follows:</p>
-<pre class="prettyprint"><a class="icon go-to-source" href="https://github.com/endpoints4s/endpoints4s/tree/v1.0.0/akka-http/server/src/test/scala/endpoints4s/akkahttp/server/EndpointsDocs.scala#L9-L10" target="_blank" title="Go to snippet source"></a><code class="language-scala">val route: Route =
+<pre class="prettyprint"><a class="icon go-to-source" href="https://github.com/endpoints4s/endpoints4s/tree/master/akka-http/server/src/test/scala/endpoints4s/akkahttp/server/EndpointsDocs.scala#L9-L10" target="_blank" title="Go to snippet source"></a><code class="language-scala">val route: Route =
   someResource.implementedBy(x =&gt; s&quot;Received $x&quot;)</code></pre>
 <p>Alternatively, there is also a method <code>implementedByAsync</code> that takes an implementing function returning a <code>Future[B]</code>.</p>
 <h3><a href="#chunkedentities" name="chunkedentities" class="anchor"><span class="anchor-link"></span></a><code>ChunkedEntities</code></h3>
 <p>The <code>ChunkedEntities</code> interpreter fixes the <code>Chunks[A]</code> type to <code>akka.stream.scaladsl.Source[A, _]</code>.</p>
 <p>For instance, given the following chunked endpoint definition:</p>
-<pre class="prettyprint"><a class="icon go-to-source" href="https://github.com/endpoints4s/endpoints4s/tree/v1.0.0/algebras/algebra/src/test/scala/endpoints4s/algebra/ChunkedEntitiesDocs.scala#L6-L7" target="_blank" title="Go to snippet source"></a><code class="language-scala">val logo: Endpoint[Unit, Chunks[Array[Byte]]] =
+<pre class="prettyprint"><a class="icon go-to-source" href="https://github.com/endpoints4s/endpoints4s/tree/master/algebras/algebra/src/test/scala/endpoints4s/algebra/ChunkedEntitiesDocs.scala#L6-L7" target="_blank" title="Go to snippet source"></a><code class="language-scala">val logo: Endpoint[Unit, Chunks[Array[Byte]]] =
   endpoint(get(path / &quot;logo.png&quot;), ok(bytesChunksResponse))</code></pre>
 <p>It can be implemented as follows:</p>
-<pre class="prettyprint"><a class="icon go-to-source" href="https://github.com/endpoints4s/endpoints4s/tree/v1.0.0/akka-http/server/src/test/scala/endpoints4s/akkahttp/server/ChunkedEntitiesDocs.scala#L10-L16" target="_blank" title="Go to snippet source"></a><code class="language-scala">import java.nio.file.Paths
+<pre class="prettyprint"><a class="icon go-to-source" href="https://github.com/endpoints4s/endpoints4s/tree/master/akka-http/server/src/test/scala/endpoints4s/akkahttp/server/ChunkedEntitiesDocs.scala#L10-L16" target="_blank" title="Go to snippet source"></a><code class="language-scala">import java.nio.file.Paths
 import akka.stream.scaladsl.FileIO
 
 val logoRoute: Route =
@@ -271,13 +269,13 @@ val logoRoute: Route =
 <p>If an exception is thrown during request decoding, or when running the business logic, or when encoding the response, endpoints4s returns an “Internal Server Error” (500) response reporting the error in a JSON array. You can change this behavior by overriding the <a href="../api/endpoints4s/akkahttp/server/Endpoints.html">handleServerError</a> method.</p>
 </div>
 <div>
-<a href="https://github.com/endpoints4s/endpoints4s/tree/v1.0.0/documentation/manual/src/paradox/interpreters/akka-http.md" title="Edit this page" class="md-source-file md-edit">
+<a href="https://github.com/endpoints4s/endpoints4s/tree/master/documentation/manual/src/paradox/interpreters/akka-http.md" title="Edit this page" class="md-source-file md-edit">
 Edit this page
 </a>
 </div>
 <div class="print-only">
 <span class="md-source-file md-version">
-1.0.0
+1.1.0
 </span>
 </div>
 </article>

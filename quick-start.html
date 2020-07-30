@@ -187,7 +187,7 @@ endpoints4s/endpoints4s
 <ul style="display: none">
 <li class="md-nav__item md-version" id="project.version">
 <label class="md-nav__link" for="__version">
-<i class="md-icon" title="Version">label_outline</i> 1.0.0
+<i class="md-icon" title="Version">label_outline</i> 1.1.0
 </label>
 </li>
 </ul>
@@ -237,9 +237,9 @@ endpoints4s/endpoints4s
 <pre class="prettyprint"><code class="language-scala">val shared =
   crossProject(JSPlatform, JVMPlatform).crossType(CrossType.Pure).settings(
     libraryDependencies ++= Seq(
-      &quot;org.endpoints4s&quot; %%% &quot;algebra&quot; % &quot;1.0.0&quot;,
+      &quot;org.endpoints4s&quot; %%% &quot;algebra&quot; % &quot;1.1.0&quot;,
       // optional, see explanation below
-      &quot;org.endpoints4s&quot; %%% &quot;json-schema-generic&quot; % &quot;1.0.0&quot;
+      &quot;org.endpoints4s&quot; %%% &quot;json-schema-generic&quot; % &quot;1.1.0&quot;
     )
   )
 
@@ -248,13 +248,13 @@ val sharedJVM = shared.jvm
 
 val client =
   project.enablePlugins(ScalaJSPlugin).settings(
-    libraryDependencies += &quot;org.endpoints4s&quot; %%% &quot;xhr-client&quot; % &quot;1.0.0&quot;
+    libraryDependencies += &quot;org.endpoints4s&quot; %%% &quot;xhr-client&quot; % &quot;1.1.0&quot;
   ).dependsOn(sharedJS)
 
 val server =
   project.settings(
     libraryDependencies ++= Seq(
-      &quot;org.endpoints4s&quot; %% &quot;akka-http-server&quot; % &quot;1.0.0&quot;,
+      &quot;org.endpoints4s&quot; %% &quot;akka-http-server&quot; % &quot;2.0.0&quot;,
       &quot;org.scala-stm&quot; %% &quot;scala-stm&quot; % &quot;0.8&quot;
     )
   ).dependsOn(sharedJVM)
@@ -264,7 +264,7 @@ val server =
 <p>Finally, the <code>server</code> project uses a server interpreter backed by <a href="interpreters/akka-http.html">Akka HTTP</a>. It also uses the scala-stm library for implementing the business logic.</p>
 <h2><a href="#description-of-the-http-endpoints" name="description-of-the-http-endpoints" class="anchor"><span class="anchor-link"></span></a>Description of the HTTP endpoints</h2>
 <p>In the <code>shared</code> project, define a <code>CounterEndpoints</code> trait describing two endpoints, one for getting a counter value and one for incrementing it:</p>
-<pre class="prettyprint"><a class="icon go-to-source" href="https://github.com/endpoints4s/endpoints4s/tree/v1.0.0/documentation/examples/quickstart/endpoints/src/main/scala/quickstart/CounterEndpoints.scala#L5-L54" target="_blank" title="Go to snippet source"></a><code class="language-scala">import endpoints4s.{algebra, generic}
+<pre class="prettyprint"><a class="icon go-to-source" href="https://github.com/endpoints4s/endpoints4s/tree/master/documentation/examples/quickstart/endpoints/src/main/scala/quickstart/CounterEndpoints.scala#L5-L54" target="_blank" title="Go to snippet source"></a><code class="language-scala">import endpoints4s.{algebra, generic}
 
 /**
   * Defines the HTTP endpoints description of a web service implementing a counter.
@@ -308,7 +308,7 @@ case class Increment(step: Int)</code></pre>
 <p>The <code>currentValue</code> and <code>increment</code> members define the endpoints for getting the counter current value or incrementing it, as their names suggest. The <code>counterSchema</code> and <code>incrementSchema</code> members define a JSON schema that will be used to serialize and deserialize the request and response entities.</p>
 <h2><a href="#client-implementation" name="client-implementation" class="anchor"><span class="anchor-link"></span></a>Client implementation</h2>
 <p>A client implementation of the endpoints can be obtained by mixing so-called “interpreters” to the <code>CounterEndpoints</code> trait defined above. In this example, you want to get a JavaScript (Scala.js) client that uses <code>XMLHttpRequest</code> under the hood. Defines the following <code>CounterClient</code> object in the <code>client</code> project:</p>
-<pre class="prettyprint"><a class="icon go-to-source" href="https://github.com/endpoints4s/endpoints4s/tree/v1.0.0/documentation/examples/quickstart/client/src/main/scala/quickstart/CounterClient.scala#L4-L14" target="_blank" title="Go to snippet source"></a><code class="language-scala">import endpoints4s.xhr
+<pre class="prettyprint"><a class="icon go-to-source" href="https://github.com/endpoints4s/endpoints4s/tree/master/documentation/examples/quickstart/client/src/main/scala/quickstart/CounterClient.scala#L4-L14" target="_blank" title="Go to snippet source"></a><code class="language-scala">import endpoints4s.xhr
 
 /**
   * Defines an HTTP client for the endpoints described in the `CounterEndpoints` trait.
@@ -320,7 +320,7 @@ object CounterClient
     with xhr.thenable.Endpoints
     with xhr.JsonEntitiesFromSchemas</code></pre>
 <p>And then, the <code>CounterClient</code> object can be used as follows:</p>
-<pre class="prettyprint"><a class="icon go-to-source" href="https://github.com/endpoints4s/endpoints4s/tree/v1.0.0/documentation/examples/quickstart/client/src/main/scala/quickstart/Usage.scala#L6-L12" target="_blank" title="Go to snippet source"></a><code class="language-scala">import scala.scalajs.js
+<pre class="prettyprint"><a class="icon go-to-source" href="https://github.com/endpoints4s/endpoints4s/tree/master/documentation/examples/quickstart/client/src/main/scala/quickstart/Usage.scala#L6-L12" target="_blank" title="Go to snippet source"></a><code class="language-scala">import scala.scalajs.js
 
 /**
   * Performs an XMLHttpRequest on the `currentValue` endpoint, and then
@@ -328,7 +328,7 @@ object CounterClient
   */
 val eventuallyCounter: js.Thenable[Counter] = CounterClient.currentValue(())</code></pre>
 <p>And also:</p>
-<pre class="prettyprint"><a class="icon go-to-source" href="https://github.com/endpoints4s/endpoints4s/tree/v1.0.0/documentation/examples/quickstart/client/src/main/scala/quickstart/Usage.scala#L16-L20" target="_blank" title="Go to snippet source"></a><code class="language-scala">/**
+<pre class="prettyprint"><a class="icon go-to-source" href="https://github.com/endpoints4s/endpoints4s/tree/master/documentation/examples/quickstart/client/src/main/scala/quickstart/Usage.scala#L16-L20" target="_blank" title="Go to snippet source"></a><code class="language-scala">/**
   * Serializes the `Increment` value into JSON and performs an XMLHttpRequest
   * on the `increment` endpoint.
   */
@@ -336,7 +336,7 @@ val eventuallyDone: js.Thenable[Unit] = CounterClient.increment(Increment(42))</
 <p>As you can see, invoking an endpoint consists of calling a function on the <code>CounterClient</code> object. endpoints4s then builds an HTTP request (according to the endpoint description), sends it to the server, and eventually decodes the HTTP response (according to the endpoint description).</p>
 <h2><a href="#server-implementation" name="server-implementation" class="anchor"><span class="anchor-link"></span></a>Server implementation</h2>
 <p>Similarly, a server implementation of the endpoints can be obtained by mixing the appropriate interpreters to the <code>CounterEndpoints</code> trait. In this example, you want to get a JVM server that uses Akka HTTP under the hood. Create the following <code>CounterServer</code> class in the <code>server</code> project:</p>
-<pre class="prettyprint"><a class="icon go-to-source" href="https://github.com/endpoints4s/endpoints4s/tree/v1.0.0/documentation/examples/quickstart/server/src/main/scala/quickstart/CounterServer.scala#L4-L35" target="_blank" title="Go to snippet source"></a><code class="language-scala">import akka.http.scaladsl.server.Directives._
+<pre class="prettyprint"><a class="icon go-to-source" href="https://github.com/endpoints4s/endpoints4s/tree/master/documentation/examples/quickstart/server/src/main/scala/quickstart/CounterServer.scala#L4-L35" target="_blank" title="Go to snippet source"></a><code class="language-scala">import akka.http.scaladsl.server.Directives._
 import akka.http.scaladsl.server.Route
 import endpoints4s.akkahttp.server
 
@@ -370,7 +370,7 @@ object CounterServer
 <p>The routes implementations provided by endpoints4s decode the incoming HTTP requests, call the corresponding logic (here, incrementing the counter or getting its current value), and build the HTTP responses.</p>
 <h2><a href="#documentation-generation" name="documentation-generation" class="anchor"><span class="anchor-link"></span></a>Documentation generation</h2>
 <p>You can also generate documentation for the endpoints, again by mixing the appropriate interpreters. Create the following <code>CounterDocumentation</code> object in the <code>server</code> project:</p>
-<pre class="prettyprint"><a class="icon go-to-source" href="https://github.com/endpoints4s/endpoints4s/tree/v1.0.0/documentation/examples/quickstart/server/src/main/scala/quickstart/CounterDocumentation.scala#L4-L20" target="_blank" title="Go to snippet source"></a><code class="language-scala">import endpoints4s.openapi
+<pre class="prettyprint"><a class="icon go-to-source" href="https://github.com/endpoints4s/endpoints4s/tree/master/documentation/examples/quickstart/server/src/main/scala/quickstart/CounterDocumentation.scala#L4-L20" target="_blank" title="Go to snippet source"></a><code class="language-scala">import endpoints4s.openapi
 import endpoints4s.openapi.model.{Info, OpenApi}
 
 /**
@@ -390,7 +390,7 @@ object CounterDocumentation
 <p>This code defines a <code>CounterDocumentation</code> object with an <code>api</code> member containing an OpenAPI object documenting the <code>currentValue</code> and <code>increment</code> endpoints.</p>
 <h2><a href="#running-the-application" name="running-the-application" class="anchor"><span class="anchor-link"></span></a>Running the application</h2>
 <p>Finally, to run your application you need to build a proper Akka HTTP server serving your routes. Define the following <code>Main</code> object:</p>
-<pre class="prettyprint"><a class="icon go-to-source" href="https://github.com/endpoints4s/endpoints4s/tree/v1.0.0/documentation/examples/quickstart/server/src/main/scala/quickstart/Main.scala#L4-L27" target="_blank" title="Go to snippet source"></a><code class="language-scala">import akka.actor.ActorSystem
+<pre class="prettyprint"><a class="icon go-to-source" href="https://github.com/endpoints4s/endpoints4s/tree/master/documentation/examples/quickstart/server/src/main/scala/quickstart/Main.scala#L4-L27" target="_blank" title="Go to snippet source"></a><code class="language-scala">import akka.actor.ActorSystem
 import akka.http.scaladsl.Http
 import akka.http.scaladsl.server.Directives._
 
@@ -532,13 +532,13 @@ object DocumentationServer
 <p>Learn about the <a href="design.html">design principles</a> of the <em>endpoints</em> library.</p>
 </div>
 <div>
-<a href="https://github.com/endpoints4s/endpoints4s/tree/v1.0.0/documentation/manual/src/paradox/quick-start.md" title="Edit this page" class="md-source-file md-edit">
+<a href="https://github.com/endpoints4s/endpoints4s/tree/master/documentation/manual/src/paradox/quick-start.md" title="Edit this page" class="md-source-file md-edit">
 Edit this page
 </a>
 </div>
 <div class="print-only">
 <span class="md-source-file md-version">
-1.0.0
+1.1.0
 </span>
 </div>
 </article>
