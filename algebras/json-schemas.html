@@ -163,7 +163,7 @@ endpoints4s/endpoints4s
     <li><a href="../guides/custom-authentication.html" class="page">Application-specific authentication</a></li>
   </ul></li>
   <li><a href="../comparison.html" class="page">Comparison with similar tools</a></li>
-  <li><a href="../talks.html" class="page">Talks and Publications</a></li>
+  <li><a href="../talks.html" class="page">Talks and Articles</a></li>
   <li><a href="../release-and-compatibility-notes.html" class="page">Release and Compatibility Notes</a></li>
 </ul>
 <nav class="md-nav md-nav--secondary">
@@ -182,7 +182,7 @@ endpoints4s/endpoints4s
 <ul style="display: none">
 <li class="md-nav__item md-version" id="project.version">
 <label class="md-nav__link" for="__version">
-<i class="md-icon" title="Version">label_outline</i> 1.1.0
+<i class="md-icon" title="Version">label_outline</i> 1.2.0
 </label>
 </li>
 </ul>
@@ -247,14 +247,14 @@ case class Rectangle(width: Double, height: Double) extends Shape</code></pre>
   case r: Rectangle =&gt; Right(r)
 }</code></pre>
 <p>(We have omitted the definition of <code>circleSchema</code> for the sake of conciseness)</p>
-<p>First, all the alternative record schemas (in this example, <code>circeSchema</code> and <code>rectangleSchema</code>) must be <code>tagged</code> with a unique name. Then, the <code>orElse</code> operation combines the alternative schemas into a single schema that accepts one of them.</p>
+<p>First, all the alternative record schemas (in this example, <code>circleSchema</code> and <code>rectangleSchema</code>) must be <code>tagged</code> with a unique name. Then, the <code>orElse</code> operation combines the alternative schemas into a single schema that accepts one of them.</p>
 <p>The result of the <code>tagged</code> operation is a <code>Tagged[A]</code> schema. This subtype of <code>JsonSchema[A]</code> models a schema that accepts one of several alternative schemas. It provides the <code>orElse</code> operation and adds a discriminator field to the schema.</p>
 <p>The <code>orElse</code> operation turns the <code>Tagged[Circle]</code> and <code>Tagged[Rectangle]</code> values into a <code>Tagged[Either[Circle, Rectangle]]</code>, which is then, in this example, transformed into a <code>Tagged[Shape]</code> by using <code>xmap</code>.</p>
 <p>By default, the discriminator field used to distinguish between tagged alternatives is named <code>type</code>, but you can use another field name either by overriding the <code>defaultDiscriminatorName</code> method of the algebra, or by calling the <code>withDiscriminator</code> operation and specifying the field name to use.</p>
 <p>Instead of using <code>orElse</code> you can also make use of the <code>orElseMerge</code> operation. This is similar to <code>orElse</code>, but requires alternatives to share a parent. In the above example, this requirement is met since both <code>Circle</code> and <code>Rectangle</code> extend <code>Shape</code>. The <code>orElseMerge</code> operation turns the <code>Tagged[Circle]</code> and <code>Tagged[Rectangle]</code> values into a <code>Tagged[Shape]</code> without any mapping. Note, however, that <code>orElseMerge</code> uses <code>ClassTag</code> under the hood, and thus requires both alternatives to have distinct types after erasure. Our example is valid because <code>Rectangle</code> and <code>Shape</code> are distinct classes, but consider a type <code>Resource[A]</code>: then the types <code>Resource[Rectangle]</code> and <code>Resource[Circle]</code> have the same erased type (<code>Resource[_]</code>), making them indistinguishable by the <code>orElseMerge</code> operation. See also the documentation of <a href="https://www.scala-lang.org/api/current/scala/Any.html#isInstanceOf[T0]:Boolean"><code>isInstanceOf</code></a>.</p>
 <h3><a href="#refining-schemas" name="refining-schemas" class="anchor"><span class="anchor-link"></span></a>Refining schemas</h3>
 <p>The examples above show how to use <code>xmap</code> to transform a <code>JsonSchema[A]</code> into a <code>JsonSchema[B]</code>. In case the transformation function from <code>A</code> to <code>B</code> can fail (for example, if it applies additional validation), you can use <code>xmapPartial</code> instead of <code>xmap</code>:</p>
-<pre class="prettyprint"><a class="icon go-to-source" href="https://github.com/endpoints4s/endpoints4s/tree/master/json-schema/json-schema/src/test/scala/endpoints4s/algebra/JsonSchemasFixtures.scala#L108-L112" target="_blank" title="Go to snippet source"></a><code class="language-scala">val evenNumberSchema: JsonSchema[Int] =
+<pre class="prettyprint"><a class="icon go-to-source" href="https://github.com/endpoints4s/endpoints4s/tree/master/json-schema/json-schema/src/test/scala/endpoints4s/algebra/JsonSchemasFixtures.scala#L107-L111" target="_blank" title="Go to snippet source"></a><code class="language-scala">val evenNumberSchema: JsonSchema[Int] =
   intJsonSchema.xmapPartial { n =&gt;
     if (n % 2 == 0) Valid(n)
     else Invalid(s&quot;Invalid even integer &#39;$n&#39;&quot;)
@@ -296,7 +296,7 @@ val recursiveSchema: Record[Recursive] = (
 ).xmap(Recursive)(_.next)</code></pre>
 <h3><a href="#alternatives-between-schemas" name="alternatives-between-schemas" class="anchor"><span class="anchor-link"></span></a>Alternatives between schemas</h3>
 <p>You can define a schema as an alternative between other schemas with the operation <code>orFallbackTo</code>:</p>
-<pre class="prettyprint"><a class="icon go-to-source" href="https://github.com/endpoints4s/endpoints4s/tree/master/json-schema/json-schema/src/test/scala/endpoints4s/algebra/JsonSchemasFixtures.scala#L123-L124" target="_blank" title="Go to snippet source"></a><code class="language-scala">val intOrBoolean: JsonSchema[Either[Int, Boolean]] =
+<pre class="prettyprint"><a class="icon go-to-source" href="https://github.com/endpoints4s/endpoints4s/tree/master/json-schema/json-schema/src/test/scala/endpoints4s/algebra/JsonSchemasFixtures.scala#L122-L123" target="_blank" title="Go to snippet source"></a><code class="language-scala">val intOrBoolean: JsonSchema[Either[Int, Boolean]] =
   intJsonSchema.orFallbackTo(booleanJsonSchema)</code></pre><div class="callout warning "><div class="callout-title">Warning</div>
 <p>Because decoders derived from schemas defined with the operation <code>orFallbackTo</code> literally “fallback” from one alternative to another, it makes it impossible to report good decoding failure messages. You should generally prefer using <code>orElse</code> on “tagged” schemas.</p></div>
 <h3><a href="#schemas-documentation" name="schemas-documentation" class="anchor"><span class="anchor-link"></span></a>Schemas documentation</h3>
@@ -344,10 +344,11 @@ val recursiveSchema: Record[Recursive] = (
   <li>the schema of a sealed trait is the alternative of its leaf case  class schemas, discriminated by the case class names,</li>
   <li>each case class field has a corresponding required JSON object property of  the same name and type (for instance, the generic schema for the <code>Rectangle</code>  type has a <code>width</code> required property of type <code>integer</code>),</li>
   <li>each case class field of type <code>Option[A]</code> for some type <code>A</code> has a corresponding  optional JSON object property of the same name and type,</li>
+  <li>each case class field with a default value has a corresponding optional JSON  object property of the same name and type (decoders produce the default value  when the property is missing),</li>
   <li>descriptions can be set for case class fields, case classes, or sealed traits  by annotating these things with the <code>@docs</code> annotation,</li>
   <li>for sealed traits, the discriminator field name can be defined by the <code>@discriminator</code>  annotation, otherwise the <code>defaultDiscriminatorName</code> value is used,</li>
   <li>the schema is named by the <code>@name</code> annotation, if present, or by invoking the  <code>classTagToSchemaName</code> operation with the <code>ClassTag</code> of the type for which the schema  is derived. If you wish to avoid naming the schema, use the <code>@unnamed</code> annotation  (unnamed schemas get inlined in their OpenAPI documentation).</li>
-  <li>the schema title is set with the <code>@title</code> annotation, if present</li>
+  <li>the schema title is set with the <code>@title</code> annotation, if present.</li>
 </ul>
 <p>Here is an example that illustrates how to configure the generic schema derivation process:</p>
 <pre class="prettyprint"><a class="icon go-to-source" href="https://github.com/endpoints4s/endpoints4s/tree/master/json-schema/json-schema-generic/src/test/scala/endpoints4s/generic/JsonSchemasDocs.scala#L26-L39" target="_blank" title="Go to snippet source"></a><code class="language-scala">@discriminator(&quot;kind&quot;)
@@ -371,6 +372,24 @@ case class Rectangle(
   field[Double](&quot;width&quot;) zip
     field[Double](&quot;height&quot;)
 ).as[Rectangle]</code></pre>
+<h3><a href="#mixing-hand-written-and-derived-schemas" name="mixing-hand-written-and-derived-schemas" class="anchor"><span class="anchor-link"></span></a>Mixing hand-written and derived schemas</h3>
+<p>The generic derivation mechanism for sealed traits derives a schema for each case class extending the trait. Sometimes, you want to use a custom schema for one of the case classes. You can achieve this by providing an implicit <code>GenericRecord</code> instance for your case class:</p>
+<pre class="prettyprint"><a class="icon go-to-source" href="https://github.com/endpoints4s/endpoints4s/tree/master/json-schema/json-schema-generic/src/test/scala/endpoints4s/generic/JsonSchemasTest.scala#L60-L75" target="_blank" title="Go to snippet source"></a><code class="language-scala">sealed trait Shape
+case class Circle(radius: Double) extends Shape
+case class Rectangle(width: Double, height: Double) extends Shape
+
+implicit val shapeSchema: JsonSchema[Shape] = {
+  // For some reason, our JSON representation uses a `diameter`
+  // rather than a `radius`
+  val circleSchema: Record[Circle] =
+    field[Double](&quot;diameter&quot;)
+      .xmap(diameter =&gt; Circle(diameter / 2))(circle =&gt; circle.radius * 2)
+  implicit val circleGenericRecord: GenericJsonSchema.GenericRecord[Circle] =
+    new GenericJsonSchema.GenericRecord(circleSchema)
+  // The generic schema for `Shape` will synthesize the schema for `Rectangle`,
+  // but it will use the implicitly provided `GenericRecord[Circle]` for `Circle.
+  genericJsonSchema[Shape]
+}</code></pre>
 <h2><a href="#generic-derivation-of-json-schemas-based-on-macros-" name="generic-derivation-of-json-schemas-based-on-macros-" class="anchor"><span class="anchor-link"></span></a>Generic derivation of JSON schemas (based on macros)</h2>
 <p>An alternative to the module presented in the preceding section is provided as a third-party module: <a href="https://github.com/scalalandio/endpoints-json-schemas-macros">endpoints-json-schemas-macros</a>.</p>
 <p>Please see the README of that project for more information on how to use it and its differences with the module provided by endpoints4s.</p>
@@ -382,7 +401,7 @@ Edit this page
 </div>
 <div class="print-only">
 <span class="md-source-file md-version">
-1.1.0
+1.2.0
 </span>
 </div>
 </article>

@@ -163,7 +163,7 @@ endpoints4s/endpoints4s
     <li><a href="../guides/custom-authentication.html" class="page">Application-specific authentication</a></li>
   </ul></li>
   <li><a href="../comparison.html" class="page">Comparison with similar tools</a></li>
-  <li><a href="../talks.html" class="page">Talks and Publications</a></li>
+  <li><a href="../talks.html" class="page">Talks and Articles</a></li>
   <li><a href="../release-and-compatibility-notes.html" class="page">Release and Compatibility Notes</a></li>
 </ul>
 <nav class="md-nav md-nav--secondary">
@@ -181,7 +181,7 @@ endpoints4s/endpoints4s
 <ul style="display: none">
 <li class="md-nav__item md-version" id="project.version">
 <label class="md-nav__link" for="__version">
-<i class="md-icon" title="Version">label_outline</i> 1.1.0
+<i class="md-icon" title="Version">label_outline</i> 1.2.0
 </label>
 </li>
 </ul>
@@ -223,7 +223,7 @@ endpoints4s/endpoints4s
 <p>The goal of the <code>Tupler</code> type is to compute more useful tuple types by discarding the <code>Unit</code> parameters. For instance, it produces a <code>Request[Long]</code> instead of a <code>Request[(Long, Unit)]</code>. Additionally, nested tuples are flattened: <code>Request[((Long, Boolean), String)]</code> becomes <code>Request[(Long, Boolean, String)]</code>.</p>
 <h2><a href="#how-it-works" name="how-it-works" class="anchor"><span class="anchor-link"></span></a>How it works</h2>
 <p>The <code>Tupler[A, B]</code> type takes two type parameters <code>A</code> and <code>B</code> and defines an abstract type member <code>Out</code>. This <code>Out</code> type defines the “useful” form of tupling <code>A</code> and <code>B</code>.</p>
-<pre class="prettyprint"><a class="icon go-to-source" href="https://github.com/endpoints4s/endpoints4s/tree/master/json-schema/json-schema/src/main/scala/endpoints4s/Tupler.scala#L33-L39" target="_blank" title="Go to snippet source"></a><code class="language-scala">trait Tupler[A, B] {
+<pre class="prettyprint"><a class="icon go-to-source" href="https://github.com/endpoints4s/endpoints4s/tree/master/json-schema/json-schema/src/main/scala/endpoints4s/Tupler.scala#L32-L38" target="_blank" title="Go to snippet source"></a><code class="language-scala">trait Tupler[A, B] {
   type Out
 }</code></pre>
 <p>Algebra operations that want to tuple types <code>A</code> and <code>B</code> take as parameter an implicit <code>tupler: Tupler[A, B]</code> and return a <code>tupler.Out</code> instead of an <code>(A, B)</code>.</p>
@@ -243,7 +243,7 @@ Edit this page
 </div>
 <div class="print-only">
 <span class="md-source-file md-version">
-1.1.0
+1.2.0
 </span>
 </div>
 </article>

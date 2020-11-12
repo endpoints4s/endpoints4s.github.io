@@ -163,7 +163,7 @@ endpoints4s/endpoints4s
     <li><a href="../guides/custom-authentication.html" class="page">Application-specific authentication</a></li>
   </ul></li>
   <li><a href="../comparison.html" class="page">Comparison with similar tools</a></li>
-  <li><a href="../talks.html" class="page">Talks and Publications</a></li>
+  <li><a href="../talks.html" class="page">Talks and Articles</a></li>
   <li><a href="../release-and-compatibility-notes.html" class="page">Release and Compatibility Notes</a></li>
 </ul>
 <nav class="md-nav md-nav--secondary">
@@ -181,7 +181,7 @@ endpoints4s/endpoints4s
 <ul style="display: none">
 <li class="md-nav__item md-version" id="project.version">
 <label class="md-nav__link" for="__version">
-<i class="md-icon" title="Version">label_outline</i> 1.1.0
+<i class="md-icon" title="Version">label_outline</i> 1.2.0
 </label>
 </li>
 </ul>
@@ -215,7 +215,7 @@ endpoints4s/endpoints4s
 <p><a href="../api/endpoints4s/akkahttp/client/index.html">API documentation</a></p>
 <h3><a href="#endpoints" name="endpoints" class="anchor"><span class="anchor-link"></span></a><code>Endpoints</code></h3>
 <p>The <code>Endpoints</code> interpreter fixes the <code>Endpoint[A, B]</code> type to a function from <code>A</code> to <code>Future[B]</code>:</p>
-<pre class="prettyprint"><a class="icon go-to-source" href="https://github.com/endpoints4s/endpoints4s/tree/master/akka-http/client/src/main/scala/endpoints4s/akkahttp/client/Endpoints.scala#L281" target="_blank" title="Go to snippet source"></a><code class="language-scala">type Endpoint[A, B] = A =&gt; Future[B]</code></pre>
+<pre class="prettyprint"><a class="icon go-to-source" href="https://github.com/endpoints4s/endpoints4s/tree/master/akka-http/client/src/main/scala/endpoints4s/akkahttp/client/Endpoints.scala#L279" target="_blank" title="Go to snippet source"></a><code class="language-scala">type Endpoint[A, B] = A =&gt; Future[B]</code></pre>
 <p>This means that, given the following endpoint definition:</p>
 <pre class="prettyprint"><a class="icon go-to-source" href="https://github.com/endpoints4s/endpoints4s/tree/master/algebras/algebra/src/test/scala/endpoints4s/algebra/EndpointsDocs.scala#L85-L86" target="_blank" title="Go to snippet source"></a><code class="language-scala">val someResource: Endpoint[Int, String] =
   endpoint(get(path / &quot;some-resource&quot; / segment[Int]()), ok(textResponse))</code></pre>
@@ -223,7 +223,7 @@ endpoints4s/endpoints4s
 <pre class="prettyprint"><a class="icon go-to-source" href="https://github.com/endpoints4s/endpoints4s/tree/master/akka-http/client/src/test/scala/endpoints4s/akkahttp/client/EndpointsDocs.scala#L9" target="_blank" title="Go to snippet source"></a><code class="language-scala">val eventuallyString: Future[String] = someResource(42)</code></pre>
 <h3><a href="#chunkedentities" name="chunkedentities" class="anchor"><span class="anchor-link"></span></a><code>ChunkedEntities</code></h3>
 <p>The <code>ChunkedEntities</code> interpreter fixes the <code>Chunks[A]</code> type to <code>akka.stream.scaladsl.Source[A, _]</code>:</p>
-<pre class="prettyprint"><a class="icon go-to-source" href="https://github.com/endpoints4s/endpoints4s/tree/master/akka-http/client/src/main/scala/endpoints4s/akkahttp/client/ChunkedEntities.scala#L18" target="_blank" title="Go to snippet source"></a><code class="language-scala">type Chunks[A] = akka.stream.scaladsl.Source[A, _]</code></pre>
+<pre class="prettyprint"><a class="icon go-to-source" href="https://github.com/endpoints4s/endpoints4s/tree/master/akka-http/client/src/main/scala/endpoints4s/akkahttp/client/ChunkedEntities.scala#L17" target="_blank" title="Go to snippet source"></a><code class="language-scala">type Chunks[A] = akka.stream.scaladsl.Source[A, _]</code></pre>
 <p>This means that, given the following endpoint definition:</p>
 <pre class="prettyprint"><a class="icon go-to-source" href="https://github.com/endpoints4s/endpoints4s/tree/master/algebras/algebra/src/test/scala/endpoints4s/algebra/ChunkedEntitiesDocs.scala#L6-L7" target="_blank" title="Go to snippet source"></a><code class="language-scala">val logo: Endpoint[Unit, Chunks[Array[Byte]]] =
   endpoint(get(path / &quot;logo.png&quot;), ok(bytesChunksResponse))</code></pre>
@@ -275,7 +275,7 @@ Edit this page
 </div>
 <div class="print-only">
 <span class="md-source-file md-version">
-1.1.0
+1.2.0
 </span>
 </div>
 </article>

@@ -163,7 +163,7 @@ endpoints4s/endpoints4s
     <li><a href="../guides/custom-authentication.html" class="page">Application-specific authentication</a></li>
   </ul></li>
   <li><a href="../comparison.html" class="page">Comparison with similar tools</a></li>
-  <li><a href="../talks.html" class="page">Talks and Publications</a></li>
+  <li><a href="../talks.html" class="page">Talks and Articles</a></li>
   <li><a href="../release-and-compatibility-notes.html" class="page">Release and Compatibility Notes</a></li>
 </ul>
 <nav class="md-nav md-nav--secondary">
@@ -183,7 +183,7 @@ endpoints4s/endpoints4s
 <ul style="display: none">
 <li class="md-nav__item md-version" id="project.version">
 <label class="md-nav__link" for="__version">
-<i class="md-icon" title="Version">label_outline</i> 1.1.0
+<i class="md-icon" title="Version">label_outline</i> 1.2.0
 </label>
 </li>
 </ul>
@@ -278,8 +278,8 @@ path /? (query &amp; lang)</code></pre>
 <pre class="prettyprint"><a class="icon go-to-source" href="https://github.com/endpoints4s/endpoints4s/tree/master/algebras/algebra/src/test/scala/endpoints4s/algebra/client/EndpointsTestSuite.scala#L335" target="_blank" title="Go to snippet source"></a><code class="language-scala">case class Location(longitude: Double, latitude: Double)</code></pre>
 <p>The <code>QueryString[Location]</code> type means “a query string that carries a <code>Location</code>”. We can define a value of type <code>QueryString[Location]</code> by <em>transforming</em> a query string that carries the longitude and latitude parameters as follows:</p>
 <pre class="prettyprint"><a class="icon go-to-source" href="https://github.com/endpoints4s/endpoints4s/tree/master/algebras/algebra/src/test/scala/endpoints4s/algebra/client/EndpointsTestSuite.scala#L339-L342" target="_blank" title="Go to snippet source"></a><code class="language-scala">val locationQueryString: QueryString[Location] =
-  (qs[Double](&quot;lon&quot;) &amp; qs[Double](&quot;lat&quot;)).xmap {
-    case (lon, lat) =&gt; Location(lon, lat)
+  (qs[Double](&quot;lon&quot;) &amp; qs[Double](&quot;lat&quot;)).xmap { case (lon, lat) =&gt;
+    Location(lon, lat)
   } { location =&gt; (location.longitude, location.latitude) }</code></pre>
 <p>The <code>xmap</code> operation requires the source type and the target type to be equivalent (in the above case, the source type is <code>(Double, Double)</code> and the target type is <code>Location</code>).</p>
 <p>In case the target type is smaller than the source type, you can use the <code>xmapPartial</code> operation, which <em>refines</em> the carried type. As an example, here is how you can define a <code>Segment[LocalDate]</code>:</p>
@@ -361,7 +361,7 @@ Edit this page
 </div>
 <div class="print-only">
 <span class="md-source-file md-version">
-1.1.0
+1.2.0
 </span>
 </div>
 </article>
