@@ -162,6 +162,7 @@ endpoints4s/endpoints4s
     <li><a href="../guides/tupler.html" class="page"><code>Tupler</code></a></li>
     <li><a href="../guides/custom-authentication.html" class="page">Application-specific authentication</a></li>
   </ul></li>
+  <li><a href="../community.html" class="page">Community</a></li>
   <li><a href="../comparison.html" class="page">Comparison with similar tools</a></li>
   <li><a href="../talks.html" class="page">Talks and Articles</a></li>
   <li><a href="../release-and-compatibility-notes.html" class="page">Release and Compatibility Notes</a></li>
@@ -182,7 +183,7 @@ endpoints4s/endpoints4s
 <ul style="display: none">
 <li class="md-nav__item md-version" id="project.version">
 <label class="md-nav__link" for="__version">
-<i class="md-icon" title="Version">label_outline</i> 1.2.0
+<i class="md-icon" title="Version">label_outline</i> 1.3.0
 </label>
 </li>
 </ul>
@@ -214,7 +215,7 @@ endpoints4s/endpoints4s
 <h2><a href="#chunkedentities" name="chunkedentities" class="anchor"><span class="anchor-link"></span></a><code>ChunkedEntities</code></h2>
 <p>This algebra provides vocabulary to describe endpoints whose requests or responses are streamed using the “chunked transfer-encoding” supported by HTTP1.1.</p>
 <p><a href="https://index.scala-lang.org/endpoints4s/endpoints4s/algebra" title="Artifact algebra"><img src="https://img.shields.io/maven-central/v/org.endpoints4s/algebra_2.13?label=algebra&style=for-the-badge" title="Artifact coordinates" /></a></p>
-<p><a href="../api/endpoints4s/algebra/ChunkedEntities.html">API documentation</a></p>
+<p><a href="../api/endpoints4s/algebra/ChunkedEntities.html" title="endpoints4s.algebra.ChunkedEntities"><code>API documentation</code></a></p>
 <p>The <code>ChunkedEntities</code> module enriches the <code>Endpoints</code> algebra with operations for defining request and responses entities carrying stream of values.</p>
 <p>For instance, you can define an endpoint streaming a binary file as follows:</p>
 <pre class="prettyprint"><a class="icon go-to-source" href="https://github.com/endpoints4s/endpoints4s/tree/master/algebras/algebra/src/test/scala/endpoints4s/algebra/ChunkedEntitiesDocs.scala#L6-L7" target="_blank" title="Go to snippet source"></a><code class="language-scala">val logo: Endpoint[Unit, Chunks[Array[Byte]]] =
@@ -223,7 +224,7 @@ endpoints4s/endpoints4s
 <p>Responses are streamed using the <a href="https://en.wikipedia.org/wiki/Chunked_transfer_encoding">chunked transfer-encoding</a>, which is supported by most HTTP 1.1 clients and servers.</p>
 <h2><a href="#chunkedjsonentities" name="chunkedjsonentities" class="anchor"><span class="anchor-link"></span></a><code>ChunkedJsonEntities</code></h2>
 <p><a href="https://index.scala-lang.org/endpoints4s/endpoints4s/algebra" title="Artifact algebra"><img src="https://img.shields.io/maven-central/v/org.endpoints4s/algebra_2.13?label=algebra&style=for-the-badge" title="Artifact coordinates" /></a></p>
-<p><a href="../api/endpoints4s/algebra/ChunkedJsonEntities.html">API documentation</a></p>
+<p><a href="../api/endpoints4s/algebra/ChunkedJsonEntities.html" title="endpoints4s.algebra.ChunkedJsonEntities"><code>API documentation</code></a></p>
 <p>Clients and servers have to agree on the serialization format used by response chunks and WebSocket messages. The <code>ChunkedJsonEntities</code> module provides a <code>jsonChunksRequest</code> constructor and a <code>jsonChunksResponse</code> constructor for defining request entities and response entities carrying streams of values that are serialized into JSON:</p>
 <pre class="prettyprint"><a class="icon go-to-source" href="https://github.com/endpoints4s/endpoints4s/tree/master/algebras/algebra/src/test/scala/endpoints4s/algebra/ChunkedEntitiesDocs.scala#L13-L20" target="_blank" title="Go to snippet source"></a><code class="language-scala">trait JsonStreamingExample
     extends endpoints4s.algebra.Endpoints
@@ -261,13 +262,13 @@ trait ProtobufChunkedEntities extends algebra.ChunkedEntities {
 <p>And then, the <code>protobufChunksRequest</code> operation would have to be implemented on each interpreter.</p>
 </div>
 <div>
-<a href="https://github.com/endpoints4s/endpoints4s/tree/master/documentation/manual/src/paradox/algebras/chunked-entities.md" title="Edit this page" class="md-source-file md-edit">
+<a href="https://github.com/endpoints4s/endpoints4s/tree/master/documentation/manual/src/main/paradox/algebras/chunked-entities.md" title="Edit this page" class="md-source-file md-edit">
 Edit this page
 </a>
 </div>
 <div class="print-only">
 <span class="md-source-file md-version">
-1.2.0
+1.3.0
 </span>
 </div>
 </article>

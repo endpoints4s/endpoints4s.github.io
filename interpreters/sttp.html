@@ -162,6 +162,7 @@ endpoints4s/endpoints4s
     <li><a href="../guides/tupler.html" class="page"><code>Tupler</code></a></li>
     <li><a href="../guides/custom-authentication.html" class="page">Application-specific authentication</a></li>
   </ul></li>
+  <li><a href="../community.html" class="page">Community</a></li>
   <li><a href="../comparison.html" class="page">Comparison with similar tools</a></li>
   <li><a href="../talks.html" class="page">Talks and Articles</a></li>
   <li><a href="../release-and-compatibility-notes.html" class="page">Release and Compatibility Notes</a></li>
@@ -173,7 +174,7 @@ endpoints4s/endpoints4s
 <ul style="display: none">
 <li class="md-nav__item md-version" id="project.version">
 <label class="md-nav__link" for="__version">
-<i class="md-icon" title="Version">label_outline</i> 1.2.0
+<i class="md-icon" title="Version">label_outline</i> 1.3.0
 </label>
 </li>
 </ul>
@@ -186,7 +187,7 @@ endpoints4s/endpoints4s
 <h1><a href="#sttp" name="sttp" class="anchor"><span class="anchor-link"></span></a>sttp</h1>
 <p>Client backed by <a href="https://github.com/softwaremill/sttp">sttp</a>.</p>
 <p><a href="https://index.scala-lang.org/endpoints4s/endpoints4s/sttp-client" title="Artifact sttp-client"><img src="https://img.shields.io/maven-central/v/org.endpoints4s/sttp-client_2.13?label=sttp-client&style=for-the-badge" title="Artifact coordinates" /></a></p>
-<p><a href="../api/endpoints4s/sttp/client/index.html">API documentation</a></p>
+<p><a href="../api/endpoints4s/sttp/client/index.html" title="endpoints4s.sttp.client"><code>API documentation</code></a></p>
 <p>The <code>Endpoints</code> interpreter is parameterized by an sttp backend of type <code>SttpBackend[R, Nothing]</code>, for some type constructor <code>R[_]</code>.</p>
 <p>The <code>Endpoint[A, B]</code> type is fixed as follows:</p>
 <pre class="prettyprint"><a class="icon go-to-source" href="https://github.com/endpoints4s/endpoints4s/tree/master/sttp/client/src/main/scala/endpoints4s/sttp/client/Endpoints.scala#L321" target="_blank" title="Go to snippet source"></a><code class="language-scala">type Endpoint[A, B] = A =&gt; R[B]</code></pre>
@@ -197,13 +198,13 @@ endpoints4s/endpoints4s
 <pre class="prettyprint"><a class="icon go-to-source" href="https://github.com/endpoints4s/endpoints4s/tree/master/sttp/client/src/test/scala/endpoints4s/sttp/client/EndpointsDocs.scala#L9" target="_blank" title="Go to snippet source"></a><code class="language-scala">val string: String = someResource(42)</code></pre>
 </div>
 <div>
-<a href="https://github.com/endpoints4s/endpoints4s/tree/master/documentation/manual/src/paradox/interpreters/sttp.md" title="Edit this page" class="md-source-file md-edit">
+<a href="https://github.com/endpoints4s/endpoints4s/tree/master/documentation/manual/src/main/paradox/interpreters/sttp.md" title="Edit this page" class="md-source-file md-edit">
 Edit this page
 </a>
 </div>
 <div class="print-only">
 <span class="md-source-file md-version">
-1.2.0
+1.3.0
 </span>
 </div>
 </article>

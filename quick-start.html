@@ -162,6 +162,7 @@ endpoints4s/endpoints4s
     <li><a href="guides/tupler.html" class="page"><code>Tupler</code></a></li>
     <li><a href="guides/custom-authentication.html" class="page">Application-specific authentication</a></li>
   </ul></li>
+  <li><a href="community.html" class="page">Community</a></li>
   <li><a href="comparison.html" class="page">Comparison with similar tools</a></li>
   <li><a href="talks.html" class="page">Talks and Articles</a></li>
   <li><a href="release-and-compatibility-notes.html" class="page">Release and Compatibility Notes</a></li>
@@ -187,7 +188,7 @@ endpoints4s/endpoints4s
 <ul style="display: none">
 <li class="md-nav__item md-version" id="project.version">
 <label class="md-nav__link" for="__version">
-<i class="md-icon" title="Version">label_outline</i> 1.2.0
+<i class="md-icon" title="Version">label_outline</i> 1.3.0
 </label>
 </li>
 </ul>
@@ -237,9 +238,9 @@ endpoints4s/endpoints4s
 <pre class="prettyprint"><code class="language-scala">val shared =
   crossProject(JSPlatform, JVMPlatform).crossType(CrossType.Pure).settings(
     libraryDependencies ++= Seq(
-      &quot;org.endpoints4s&quot; %%% &quot;algebra&quot; % &quot;1.2.0&quot;,
+      &quot;org.endpoints4s&quot; %%% &quot;algebra&quot; % &quot;1.3.0&quot;,
       // optional, see explanation below
-      &quot;org.endpoints4s&quot; %%% &quot;json-schema-generic&quot; % &quot;1.2.0&quot;
+      &quot;org.endpoints4s&quot; %%% &quot;json-schema-generic&quot; % &quot;1.3.0&quot;
     )
   )
 
@@ -248,18 +249,18 @@ val sharedJVM = shared.jvm
 
 val client =
   project.enablePlugins(ScalaJSPlugin).settings(
-    libraryDependencies += &quot;org.endpoints4s&quot; %%% &quot;xhr-client&quot; % &quot;1.2.0&quot;
+    libraryDependencies += &quot;org.endpoints4s&quot; %%% &quot;xhr-client&quot; % &quot;2.0.0&quot;
   ).dependsOn(sharedJS)
 
 val server =
   project.settings(
     libraryDependencies ++= Seq(
-      &quot;org.endpoints4s&quot; %% &quot;akka-http-server&quot; % &quot;3.0.0&quot;,
+      &quot;org.endpoints4s&quot; %% &quot;akka-http-server&quot; % &quot;4.0.0&quot;,
       &quot;org.scala-stm&quot; %% &quot;scala-stm&quot; % &quot;0.8&quot;
     )
   ).dependsOn(sharedJVM)
 </code></pre>
-<p>The <code>shared</code> project uses the <a href="algebras/json-schemas.html#generic-derivation-of-json-schemas"><code>json-schema-generic</code> module</a> in addition to the required algebra interface <a href="algebras/endpoints.html"><code>algebra</code></a>, to define the communication endpoints and to automatically derive the JSON schemas of the entities from their Scala type definitions.</p>
+<p>The <code>shared</code> project uses the <a href="algebras/json-schemas.html#generic-derivation-of-json-schemas-based-on-shapeless-"><code>json-schema-generic</code> module</a> in addition to the required algebra interface <a href="algebras/endpoints.html"><code>algebra</code></a>, to define the communication endpoints and to automatically derive the JSON schemas of the entities from their Scala type definitions.</p>
 <p>The <code>client</code> project uses a <a href="interpreters/scalajs-web.html">Scala.js web</a> client interpreter.</p>
 <p>Finally, the <code>server</code> project uses a server interpreter backed by <a href="interpreters/akka-http.html">Akka HTTP</a>. It also uses the scala-stm library for implementing the business logic.</p>
 <h2><a href="#description-of-the-http-endpoints" name="description-of-the-http-endpoints" class="anchor"><span class="anchor-link"></span></a>Description of the HTTP endpoints</h2>
@@ -524,13 +525,13 @@ object DocumentationServer
 <p>Learn about the <a href="design.html">design principles</a> of the <em>endpoints</em> library.</p>
 </div>
 <div>
-<a href="https://github.com/endpoints4s/endpoints4s/tree/master/documentation/manual/src/paradox/quick-start.md" title="Edit this page" class="md-source-file md-edit">
+<a href="https://github.com/endpoints4s/endpoints4s/tree/master/documentation/manual/src/main/paradox/quick-start.md" title="Edit this page" class="md-source-file md-edit">
 Edit this page
 </a>
 </div>
 <div class="print-only">
 <span class="md-source-file md-version">
-1.2.0
+1.3.0
 </span>
 </div>
 </article>
