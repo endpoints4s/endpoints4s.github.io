@@ -182,7 +182,7 @@ endpoints4s/endpoints4s
 <ul style="display: none">
 <li class="md-nav__item md-version" id="project.version">
 <label class="md-nav__link" for="__version">
-<i class="md-icon" title="Version">label_outline</i> 1.3.0
+<i class="md-icon" title="Version">label_outline</i> 1.4.0
 </label>
 </li>
 </ul>
@@ -216,7 +216,7 @@ endpoints4s/endpoints4s
 <h2><a href="#endpoints" name="endpoints" class="anchor"><span class="anchor-link"></span></a>Endpoints</h2>
 <p>The <code>Endpoints</code> interpreter provides an <code>openApi</code> method that takes as parameter a sequence of endpoints for which to generate an OpenAPI document.</p>
 <p>Given the following endpoint definition:</p>
-<pre class="prettyprint"><a class="icon go-to-source" href="https://github.com/endpoints4s/endpoints4s/tree/master/algebras/algebra/src/test/scala/endpoints4s/algebra/EndpointsDocs.scala#L106-L116" target="_blank" title="Go to snippet source"></a><code class="language-scala">import endpoints4s.algebra
+<pre class="prettyprint"><button class="snippet-button copy-snippet" title="Copy snippet to clipboard">copy</button><a class="snippet-button go-to-source" href="https://github.com/endpoints4s/endpoints4s/tree/master/algebras/algebra/src/test/scala/endpoints4s/algebra/EndpointsDocs.scala#L108-L118" target="_blank" title="Go to snippet source">source</a><code class="language-scala">import endpoints4s.algebra
 
 trait DocumentedEndpoints extends algebra.Endpoints {
 
@@ -228,7 +228,7 @@ trait DocumentedEndpoints extends algebra.Endpoints {
 
 }</code></pre>
 <p>It can be documented as follows:</p>
-<pre class="prettyprint"><a class="icon go-to-source" href="https://github.com/endpoints4s/endpoints4s/tree/master/openapi/openapi/src/test/scala/endpoints4s/openapi/EndpointsDocs.scala#L6-L21" target="_blank" title="Go to snippet source"></a><code class="language-scala">import endpoints4s.openapi
+<pre class="prettyprint"><button class="snippet-button copy-snippet" title="Copy snippet to clipboard">copy</button><a class="snippet-button go-to-source" href="https://github.com/endpoints4s/endpoints4s/tree/master/openapi/openapi/src/test/scala/endpoints4s/openapi/EndpointsDocs.scala#L6-L21" target="_blank" title="Go to snippet source">source</a><code class="language-scala">import endpoints4s.openapi
 import endpoints4s.openapi.model.{Info, OpenApi}
 
 object EndpointsDocs extends DocumentedEndpoints with openapi.Endpoints {
@@ -240,9 +240,9 @@ object EndpointsDocs extends DocumentedEndpoints with openapi.Endpoints {
 
 }</code></pre>
 <p>The value returned by the <code>openApi</code> method has type <code>endpoints4s.openapi.models.OpenApi</code>, which is an abstract model for OpenAPI documents. You can encode it into JSON by using the <code>OpenApi.stringEncoder</code> encoder. </p>
-<pre class="prettyprint"><a class="icon go-to-source" href="https://github.com/endpoints4s/endpoints4s/tree/master/openapi/openapi/src/test/scala/endpoints4s/openapi/EndpointsDocs.scala#L18" target="_blank" title="Go to snippet source"></a><code class="language-scala">val apiJson: String = OpenApi.stringEncoder.encode(api)</code></pre>
+<pre class="prettyprint"><button class="snippet-button copy-snippet" title="Copy snippet to clipboard">copy</button><a class="snippet-button go-to-source" href="https://github.com/endpoints4s/endpoints4s/tree/master/openapi/openapi/src/test/scala/endpoints4s/openapi/EndpointsDocs.scala#L18" target="_blank" title="Go to snippet source">source</a><code class="language-scala">val apiJson: String = OpenApi.stringEncoder.encode(api)</code></pre>
 <p>In case the endpoint that serves the documentation is itself defined using <em>endpoints</em>, you can use the <code>JsonEntitiesFromEncoderAndDecoder</code> interpreter to define an endpoint returning the <code>OpenApi</code> document as a JSON entity. Here is an example using Akka HTTP:</p>
-<pre class="prettyprint"><a class="icon go-to-source" href="https://github.com/endpoints4s/endpoints4s/tree/master/documentation/examples/quickstart/server/src/main/scala/quickstart/Main.scala#L16-L27" target="_blank" title="Go to snippet source"></a><code class="language-scala">import endpoints4s.openapi.model.OpenApi
+<pre class="prettyprint"><button class="snippet-button copy-snippet" title="Copy snippet to clipboard">copy</button><a class="snippet-button go-to-source" href="https://github.com/endpoints4s/endpoints4s/tree/master/documentation/examples/quickstart/server/src/main/scala/quickstart/Main.scala#L16-L27" target="_blank" title="Go to snippet source">source</a><code class="language-scala">import endpoints4s.openapi.model.OpenApi
 import endpoints4s.akkahttp.server
 
 object DocumentationServer
@@ -301,7 +301,7 @@ Edit this page
 </div>
 <div class="print-only">
 <span class="md-source-file md-version">
-1.3.0
+1.4.0
 </span>
 </div>
 </article>

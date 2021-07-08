@@ -182,7 +182,7 @@ endpoints4s/endpoints4s
 <ul style="display: none">
 <li class="md-nav__item md-version" id="project.version">
 <label class="md-nav__link" for="__version">
-<i class="md-icon" title="Version">label_outline</i> 1.3.0
+<i class="md-icon" title="Version">label_outline</i> 1.4.0
 </label>
 </li>
 </ul>
@@ -216,22 +216,22 @@ endpoints4s/endpoints4s
 <p><a href="../api/endpoints4s/http4s/client/index.html" title="endpoints4s.http4s.client"><code>API documentation</code></a></p>
 <h3><a href="#endpoints4s-http4s-client-endpoints" name="endpoints4s-http4s-client-endpoints" class="anchor"><span class="anchor-link"></span></a><code>endpoints4s.http4s.client.Endpoints</code></h3>
 <p>The <code>Endpoints</code> interpreter fixes the <code>Endpoint[A, B]</code> type to a <code>Kleisli[Effect, A, B]</code> aka a function from <code>A</code> to <code>Effect[B]</code>, where <code>Effect[_]</code> can be any type constructor <code>F[_]</code> with a valid <code>cats.effect.Sync</code> instance (e.g. <code>cats.effect.IO</code> or <code>monix.eval.Task</code>) :</p>
-<pre class="prettyprint"><a class="icon go-to-source" href="https://github.com/endpoints4s/endpoints4s/tree/master/http4s/client/src/main/scala/endpoints4s/http4s/client/Endpoints.scala#L243" target="_blank" title="Go to snippet source"></a><code class="language-scala">type Endpoint[A, B] = Kleisli[Effect, A, B]</code></pre>
+<pre class="prettyprint"><button class="snippet-button copy-snippet" title="Copy snippet to clipboard">copy</button><a class="snippet-button go-to-source" href="https://github.com/endpoints4s/endpoints4s/tree/master/http4s/client/src/main/scala/endpoints4s/http4s/client/Endpoints.scala#L243" target="_blank" title="Go to snippet source">source</a><code class="language-scala">type Endpoint[A, B] = Kleisli[Effect, A, B]</code></pre>
 <p>This means that, given the following endpoint definition:</p>
-<pre class="prettyprint"><a class="icon go-to-source" href="https://github.com/endpoints4s/endpoints4s/tree/master/algebras/algebra/src/test/scala/endpoints4s/algebra/EndpointsDocs.scala#L85-L86" target="_blank" title="Go to snippet source"></a><code class="language-scala">val someResource: Endpoint[Int, String] =
+<pre class="prettyprint"><button class="snippet-button copy-snippet" title="Copy snippet to clipboard">copy</button><a class="snippet-button go-to-source" href="https://github.com/endpoints4s/endpoints4s/tree/master/algebras/algebra/src/test/scala/endpoints4s/algebra/EndpointsDocs.scala#L87-L88" target="_blank" title="Go to snippet source">source</a><code class="language-scala">val someResource: Endpoint[Int, String] =
   endpoint(get(path / &quot;some-resource&quot; / segment[Int]()), ok(textResponse))</code></pre>
 <p>It can be invoked as follows using <code>IO</code>:</p>
-<pre class="prettyprint"><a class="icon go-to-source" href="https://github.com/endpoints4s/endpoints4s/tree/master/http4s/client/src/test/scala/endpoints4s/http4s/client/EndpointsDocs.scala#L9" target="_blank" title="Go to snippet source"></a><code class="language-scala">val eventuallyString: IO[String] = someResource(42)</code></pre>
+<pre class="prettyprint"><button class="snippet-button copy-snippet" title="Copy snippet to clipboard">copy</button><a class="snippet-button go-to-source" href="https://github.com/endpoints4s/endpoints4s/tree/master/http4s/client/src/test/scala/endpoints4s/http4s/client/EndpointsDocs.scala#L9" target="_blank" title="Go to snippet source">source</a><code class="language-scala">val eventuallyString: IO[String] = someResource(42)</code></pre>
 <h2><a href="#server" name="server" class="anchor"><span class="anchor-link"></span></a>Server</h2>
 <p><a href="https://index.scala-lang.org/endpoints4s/endpoints4s/http4s-server" title="Artifact http4s-server"><img src="https://img.shields.io/maven-central/v/org.endpoints4s/http4s-server_2.13?label=http4s-server&style=for-the-badge" title="Artifact coordinates" /></a></p>
 <p><a href="../api/endpoints4s/http4s/server/index.html" title="endpoints4s.http4s.server"><code>API documentation</code></a></p>
 <h3><a href="#endpoints4s-http4s-server-endpoints" name="endpoints4s-http4s-server-endpoints" class="anchor"><span class="anchor-link"></span></a><code>endpoints4s.http4s.server.Endpoints</code></h3>
 <p>The <code>Endpoints</code> interpreter provides a <code>routesFromEndpoints</code> operation that turns a sequence of endpoints with their implementation into an <code>org.http4s.HttpRoutes[F]</code> value that can be integrated to your http4s application.</p>
 <p>For instance, given the following endpoint definition:</p>
-<pre class="prettyprint"><a class="icon go-to-source" href="https://github.com/endpoints4s/endpoints4s/tree/master/algebras/algebra/src/test/scala/endpoints4s/algebra/EndpointsDocs.scala#L85-L86" target="_blank" title="Go to snippet source"></a><code class="language-scala">val someResource: Endpoint[Int, String] =
+<pre class="prettyprint"><button class="snippet-button copy-snippet" title="Copy snippet to clipboard">copy</button><a class="snippet-button go-to-source" href="https://github.com/endpoints4s/endpoints4s/tree/master/algebras/algebra/src/test/scala/endpoints4s/algebra/EndpointsDocs.scala#L87-L88" target="_blank" title="Go to snippet source">source</a><code class="language-scala">val someResource: Endpoint[Int, String] =
   endpoint(get(path / &quot;some-resource&quot; / segment[Int]()), ok(textResponse))</code></pre>
 <p>It can be implemented as follows:</p>
-<pre class="prettyprint"><a class="icon go-to-source" href="https://github.com/endpoints4s/endpoints4s/tree/master/http4s/server/src/test/scala/endpoints4s/http4s/server/EndpointsDocs.scala#L9-L13" target="_blank" title="Go to snippet source"></a><code class="language-scala">val routes: HttpRoutes[IO] = HttpRoutes.of(
+<pre class="prettyprint"><button class="snippet-button copy-snippet" title="Copy snippet to clipboard">copy</button><a class="snippet-button go-to-source" href="https://github.com/endpoints4s/endpoints4s/tree/master/http4s/server/src/test/scala/endpoints4s/http4s/server/EndpointsDocs.scala#L9-L13" target="_blank" title="Go to snippet source">source</a><code class="language-scala">val routes: HttpRoutes[IO] = HttpRoutes.of(
   routesFromEndpoints(
     someResource.implementedBy(x =&gt; s&quot;Received $x&quot;)
   )
@@ -253,7 +253,7 @@ Edit this page
 </div>
 <div class="print-only">
 <span class="md-source-file md-version">
-1.3.0
+1.4.0
 </span>
 </div>
 </article>

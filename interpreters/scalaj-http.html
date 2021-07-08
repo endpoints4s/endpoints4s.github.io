@@ -174,7 +174,7 @@ endpoints4s/endpoints4s
 <ul style="display: none">
 <li class="md-nav__item md-version" id="project.version">
 <label class="md-nav__link" for="__version">
-<i class="md-icon" title="Version">label_outline</i> 1.3.0
+<i class="md-icon" title="Version">label_outline</i> 1.4.0
 </label>
 </li>
 </ul>
@@ -190,10 +190,10 @@ endpoints4s/endpoints4s
 <p><a href="../api/endpoints4s/scalaj/client/index.html" title="endpoints4s.scalaj.client"><code>API documentation</code></a></p>
 <p>The <code>Endpoints</code> interpreter fixes the <code>Endpoint[A, B]</code> type to a type that provide methods to invoke the endpoint synchronously or asynchronously.</p>
 <p>Given the following endpoint definition:</p>
-<pre class="prettyprint"><a class="icon go-to-source" href="https://github.com/endpoints4s/endpoints4s/tree/master/algebras/algebra/src/test/scala/endpoints4s/algebra/EndpointsDocs.scala#L85-L86" target="_blank" title="Go to snippet source"></a><code class="language-scala">val someResource: Endpoint[Int, String] =
+<pre class="prettyprint"><button class="snippet-button copy-snippet" title="Copy snippet to clipboard">copy</button><a class="snippet-button go-to-source" href="https://github.com/endpoints4s/endpoints4s/tree/master/algebras/algebra/src/test/scala/endpoints4s/algebra/EndpointsDocs.scala#L87-L88" target="_blank" title="Go to snippet source">source</a><code class="language-scala">val someResource: Endpoint[Int, String] =
   endpoint(get(path / &quot;some-resource&quot; / segment[Int]()), ok(textResponse))</code></pre>
 <p>It can be asynchronously invoked as follows:</p>
-<pre class="prettyprint"><a class="icon go-to-source" href="https://github.com/endpoints4s/endpoints4s/tree/master/scalaj/client/src/test/scala/endpoints4s/scalaj/client/EndpointsDocs.scala#L11" target="_blank" title="Go to snippet source"></a><code class="language-scala">val eventuallyString: Future[String] = someResource.callAsync(42)</code></pre>
+<pre class="prettyprint"><button class="snippet-button copy-snippet" title="Copy snippet to clipboard">copy</button><a class="snippet-button go-to-source" href="https://github.com/endpoints4s/endpoints4s/tree/master/scalaj/client/src/test/scala/endpoints4s/scalaj/client/EndpointsDocs.scala#L11" target="_blank" title="Go to snippet source">source</a><code class="language-scala">val eventuallyString: Future[String] = someResource.callAsync(42)</code></pre>
 </div>
 <div>
 <a href="https://github.com/endpoints4s/endpoints4s/tree/master/documentation/manual/src/main/paradox/interpreters/scalaj-http.md" title="Edit this page" class="md-source-file md-edit">
@@ -202,7 +202,7 @@ Edit this page
 </div>
 <div class="print-only">
 <span class="md-source-file md-version">
-1.3.0
+1.4.0
 </span>
 </div>
 </article>
