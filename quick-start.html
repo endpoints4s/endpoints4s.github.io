@@ -188,7 +188,7 @@ endpoints4s/endpoints4s
 <ul style="display: none">
 <li class="md-nav__item md-version" id="project.version">
 <label class="md-nav__link" for="__version">
-<i class="md-icon" title="Version">label_outline</i> 1.4.0
+<i class="md-icon" title="Version">label_outline</i> 1.5.0
 </label>
 </li>
 </ul>
@@ -238,9 +238,9 @@ endpoints4s/endpoints4s
 <pre class="prettyprint"><code class="language-scala">val shared =
   crossProject(JSPlatform, JVMPlatform).crossType(CrossType.Pure).settings(
     libraryDependencies ++= Seq(
-      &quot;org.endpoints4s&quot; %%% &quot;algebra&quot; % &quot;1.4.0&quot;,
+      &quot;org.endpoints4s&quot; %%% &quot;algebra&quot; % &quot;1.5.0&quot;,
       // optional, see explanation below
-      &quot;org.endpoints4s&quot; %%% &quot;json-schema-generic&quot; % &quot;1.4.0&quot;
+      &quot;org.endpoints4s&quot; %%% &quot;json-schema-generic&quot; % &quot;1.5.0&quot;
     )
   )
 
@@ -249,13 +249,13 @@ val sharedJVM = shared.jvm
 
 val client =
   project.enablePlugins(ScalaJSPlugin).settings(
-    libraryDependencies += &quot;org.endpoints4s&quot; %%% &quot;xhr-client&quot; % &quot;3.0.0&quot;
+    libraryDependencies += &quot;org.endpoints4s&quot; %%% &quot;xhr-client&quot; % &quot;3.1.0&quot;
   ).dependsOn(sharedJS)
 
 val server =
   project.settings(
     libraryDependencies ++= Seq(
-      &quot;org.endpoints4s&quot; %% &quot;akka-http-server&quot; % &quot;5.0.0&quot;,
+      &quot;org.endpoints4s&quot; %% &quot;akka-http-server&quot; % &quot;5.1.0&quot;,
       &quot;org.scala-stm&quot; %% &quot;scala-stm&quot; % &quot;0.8&quot;
     )
   ).dependsOn(sharedJVM)
@@ -531,7 +531,7 @@ Edit this page
 </div>
 <div class="print-only">
 <span class="md-source-file md-version">
-1.4.0
+1.5.0
 </span>
 </div>
 </article>

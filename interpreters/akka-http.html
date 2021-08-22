@@ -182,7 +182,7 @@ endpoints4s/endpoints4s
 <ul style="display: none">
 <li class="md-nav__item md-version" id="project.version">
 <label class="md-nav__link" for="__version">
-<i class="md-icon" title="Version">label_outline</i> 1.4.0
+<i class="md-icon" title="Version">label_outline</i> 1.5.0
 </label>
 </li>
 </ul>
@@ -239,7 +239,7 @@ bytesSource.runForeach { bytes =&gt; println(s&quot;Received ${bytes.length} byt
 <p><a href="https://index.scala-lang.org/endpoints4s/endpoints4s/akka-http-server" title="Artifact akka-http-server"><img src="https://img.shields.io/maven-central/v/org.endpoints4s/akka-http-server_2.13?label=akka-http-server&style=for-the-badge" title="Artifact coordinates" /></a></p>
 <p><a href="../api/endpoints4s/akkahttp/server/index.html" title="endpoints4s.akkahttp.server"><code>API documentation</code></a></p><div class="callout warning "><div class="callout-title">Warning</div>
 <p>As explained in the section <a href="https://doc.akka.io/docs/akka/current/common/binary-compatibility-rules.html#mixed-versioning-is-not-allowed">Mixed versioning is not allowed</a> in the Akka documentation, you have to make sure that all the Akka modules of your application depend on the same version of Akka, and that all the Akka HTTP modules of your application depend of the same version of Akka HTTP.</p>
-<p>For your information, the <code>akka-http-server</code> module of endpoints4s depends on Akka 2.6.15 and Akka HTTP 10.2.4.</p></div>
+<p>For your information, the <code>akka-http-server</code> module of endpoints4s depends on Akka 2.6.15 and Akka HTTP 10.2.5.</p></div>
 <h3><a href="#endpoints4s-akkahttp-server-endpoints" name="endpoints4s-akkahttp-server-endpoints" class="anchor"><span class="anchor-link"></span></a><code>endpoints4s.akkahttp.server.Endpoints</code></h3>
 <p>The <code>Endpoints</code> interpreter fixes the <code>Endpoint[A, B]</code> type to something that, given an implementation function <code>A =&gt; B</code>, returns an <code>akka.http.scaladsl.server.Route</code> that can be integrated to your Akka HTTP application.</p>
 <p>For instance, given the following endpoint definition:</p>
@@ -278,7 +278,7 @@ Edit this page
 </div>
 <div class="print-only">
 <span class="md-source-file md-version">
-1.4.0
+1.5.0
 </span>
 </div>
 </article>

@@ -183,7 +183,7 @@ endpoints4s/endpoints4s
 <ul style="display: none">
 <li class="md-nav__item md-version" id="project.version">
 <label class="md-nav__link" for="__version">
-<i class="md-icon" title="Version">label_outline</i> 1.4.0
+<i class="md-icon" title="Version">label_outline</i> 1.5.0
 </label>
 </li>
 </ul>
@@ -255,7 +255,7 @@ case class Rectangle(width: Double, height: Double) extends Shape</code></pre>
 <p>Instead of using <code>orElse</code> you can also make use of the <code>orElseMerge</code> operation. This is similar to <code>orElse</code>, but requires alternatives to share a parent. In the above example, this requirement is met since both <code>Circle</code> and <code>Rectangle</code> extend <code>Shape</code>. The <code>orElseMerge</code> operation turns the <code>Tagged[Circle]</code> and <code>Tagged[Rectangle]</code> values into a <code>Tagged[Shape]</code> without any mapping. Note, however, that <code>orElseMerge</code> uses <code>ClassTag</code> under the hood, and thus requires both alternatives to have distinct types after erasure. Our example is valid because <code>Rectangle</code> and <code>Shape</code> are distinct classes, but consider a type <code>Resource[A]</code>: then the types <code>Resource[Rectangle]</code> and <code>Resource[Circle]</code> have the same erased type (<code>Resource[_]</code>), making them indistinguishable by the <code>orElseMerge</code> operation. See also the documentation of <a href="https://www.scala-lang.org/api/current/scala/Any.html#isInstanceOf[T0]:Boolean"><code>isInstanceOf</code></a>.</p>
 <h3><a href="#refining-schemas" name="refining-schemas" class="anchor"><span class="anchor-link"></span></a>Refining schemas</h3>
 <p>The examples above show how to use <code>xmap</code> to transform a <code>JsonSchema[A]</code> into a <code>JsonSchema[B]</code>. In case the transformation function from <code>A</code> to <code>B</code> can fail (for example, if it applies additional validation), you can use <code>xmapPartial</code> instead of <code>xmap</code>:</p>
-<pre class="prettyprint"><button class="snippet-button copy-snippet" title="Copy snippet to clipboard">copy</button><a class="snippet-button go-to-source" href="https://github.com/endpoints4s/endpoints4s/tree/master/json-schema/json-schema/src/test/scala/endpoints4s/algebra/JsonSchemasFixtures.scala#L168-L172" target="_blank" title="Go to snippet source">source</a><code class="language-scala">val evenNumberSchema: JsonSchema[Int] =
+<pre class="prettyprint"><button class="snippet-button copy-snippet" title="Copy snippet to clipboard">copy</button><a class="snippet-button go-to-source" href="https://github.com/endpoints4s/endpoints4s/tree/master/json-schema/json-schema/src/test/scala/endpoints4s/algebra/JsonSchemasFixtures.scala#L173-L177" target="_blank" title="Go to snippet source">source</a><code class="language-scala">val evenNumberSchema: JsonSchema[Int] =
   intJsonSchema.xmapPartial { n =&gt;
     if (n % 2 == 0) Valid(n)
     else Invalid(s&quot;Invalid even integer &#39;$n&#39;&quot;)
@@ -292,12 +292,12 @@ implicit val pointSchema: JsonSchema[Point] = (
 <p>You can reference a currently being defined schema without causing a <code>StackOverflow</code> error by wrapping it in the <code>lazyRecord</code> or <code>lazyTagged</code> constructor:</p>
 <pre class="prettyprint"><button class="snippet-button copy-snippet" title="Copy snippet to clipboard">copy</button><a class="snippet-button go-to-source" href="https://github.com/endpoints4s/endpoints4s/tree/master/json-schema/json-schema/src/test/scala/endpoints4s/algebra/JsonSchemasDocs.scala#L66-L70" target="_blank" title="Go to snippet source">source</a><code class="language-scala">case class Recursive(next: Option[Recursive])
 
-val recursiveSchema: Record[Recursive] = (
-  optField(&quot;next&quot;)(lazySchema(&quot;Rec&quot;)(recursiveSchema))
+val recursiveSchema: Record[Recursive] = lazyRecord(&quot;Rec&quot;)(
+  optField(&quot;next&quot;)(recursiveSchema)
 ).xmap(Recursive(_))(_.next)</code></pre>
 <h3><a href="#alternatives-between-schemas" name="alternatives-between-schemas" class="anchor"><span class="anchor-link"></span></a>Alternatives between schemas</h3>
 <p>You can define a schema as an alternative between other schemas with the operation <code>orFallbackTo</code>:</p>
-<pre class="prettyprint"><button class="snippet-button copy-snippet" title="Copy snippet to clipboard">copy</button><a class="snippet-button go-to-source" href="https://github.com/endpoints4s/endpoints4s/tree/master/json-schema/json-schema/src/test/scala/endpoints4s/algebra/JsonSchemasFixtures.scala#L183-L184" target="_blank" title="Go to snippet source">source</a><code class="language-scala">val intOrBoolean: JsonSchema[Either[Int, Boolean]] =
+<pre class="prettyprint"><button class="snippet-button copy-snippet" title="Copy snippet to clipboard">copy</button><a class="snippet-button go-to-source" href="https://github.com/endpoints4s/endpoints4s/tree/master/json-schema/json-schema/src/test/scala/endpoints4s/algebra/JsonSchemasFixtures.scala#L188-L189" target="_blank" title="Go to snippet source">source</a><code class="language-scala">val intOrBoolean: JsonSchema[Either[Int, Boolean]] =
   intJsonSchema.orFallbackTo(booleanJsonSchema)</code></pre><div class="callout warning "><div class="callout-title">Warning</div>
 <p>Because decoders derived from schemas defined with the operation <code>orFallbackTo</code> literally “fallback” from one alternative to another, it makes it impossible to report good decoding failure messages. You should generally prefer using <code>orElse</code> on “tagged” schemas.</p></div>
 <h3><a href="#schemas-documentation" name="schemas-documentation" class="anchor"><span class="anchor-link"></span></a>Schemas documentation</h3>
@@ -402,7 +402,7 @@ Edit this page
 </div>
 <div class="print-only">
 <span class="md-source-file md-version">
-1.4.0
+1.5.0
 </span>
 </div>
 </article>
