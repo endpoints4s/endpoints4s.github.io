@@ -145,12 +145,14 @@ endpoints4s/endpoints4s
     <li><a href="../algebras/json-entities.html" class="page">JSON Entities</a></li>
     <li><a href="../algebras/json-schemas.html" class="page">JSON Schemas</a></li>
     <li><a href="../algebras/chunked-entities.html" class="page">Chunked Entities</a></li>
+    <li><a href="../algebras/middlewares.html" class="page">Middlewares</a></li>
     <li><a href="../algebras/assets.html" class="page">Assets</a></li>
     <li><a href="../algebras/mux-endpoints.html" class="page">Multiplexed Endpoints</a></li>
     <li><a href="../interpreters/akka-http.html" class="page">Akka HTTP</a></li>
     <li><a href="../interpreters/play.html" class="page">Play framework</a></li>
     <li><a href="../interpreters/http4s.html" class="page">http4s</a></li>
-    <li><a href="../interpreters/scalajs-web.html" class="page">Scala.js web client</a></li>
+    <li><a href="../interpreters/scalajs-web-xhr.html" class="page">Scala.js web client (XHR)</a></li>
+    <li><a href="../interpreters/scalajs-web-fetch.html" class="page">Scala.js web client (Fetch)</a></li>
     <li><a href="../interpreters/scalaj-http.html" class="active page">scalaj-http</a></li>
     <li><a href="../interpreters/sttp.html" class="page">sttp</a></li>
     <li><a href="../interpreters/openapi.html" class="page">OpenAPI</a></li>
@@ -174,7 +176,7 @@ endpoints4s/endpoints4s
 <ul style="display: none">
 <li class="md-nav__item md-version" id="project.version">
 <label class="md-nav__link" for="__version">
-<i class="md-icon" title="Version">label_outline</i> 1.5.0
+<i class="md-icon" title="Version">label_outline</i> 1.6.0
 </label>
 </li>
 </ul>
@@ -190,10 +192,10 @@ endpoints4s/endpoints4s
 <p><a href="../api/endpoints4s/scalaj/client/index.html" title="endpoints4s.scalaj.client"><code>API documentation</code></a></p>
 <p>The <code>Endpoints</code> interpreter fixes the <code>Endpoint[A, B]</code> type to a type that provide methods to invoke the endpoint synchronously or asynchronously.</p>
 <p>Given the following endpoint definition:</p>
-<pre class="prettyprint"><button class="snippet-button copy-snippet" title="Copy snippet to clipboard">copy</button><a class="snippet-button go-to-source" href="https://github.com/endpoints4s/endpoints4s/tree/master/algebras/algebra/src/test/scala/endpoints4s/algebra/EndpointsDocs.scala#L87-L88" target="_blank" title="Go to snippet source">source</a><code class="language-scala">val someResource: Endpoint[Int, String] =
+<pre class="prettyprint"><button class="snippet-button copy-snippet" title="Copy snippet to clipboard">copy</button><a class="snippet-button go-to-source" href="https://github.com/endpoints4s/endpoints4s/tree/master/scalaj/client/src/test/scala/endpoints4s/scalaj/client/EndpointsDocs.scala#L10-L11" target="_blank" title="Go to snippet source">source</a><code class="language-scala">val someResource: Endpoint[Int, String] =
   endpoint(get(path / &quot;some-resource&quot; / segment[Int]()), ok(textResponse))</code></pre>
 <p>It can be asynchronously invoked as follows:</p>
-<pre class="prettyprint"><button class="snippet-button copy-snippet" title="Copy snippet to clipboard">copy</button><a class="snippet-button go-to-source" href="https://github.com/endpoints4s/endpoints4s/tree/master/scalaj/client/src/test/scala/endpoints4s/scalaj/client/EndpointsDocs.scala#L11" target="_blank" title="Go to snippet source">source</a><code class="language-scala">val eventuallyString: Future[String] = someResource.callAsync(42)</code></pre>
+<pre class="prettyprint"><button class="snippet-button copy-snippet" title="Copy snippet to clipboard">copy</button><a class="snippet-button go-to-source" href="https://github.com/endpoints4s/endpoints4s/tree/master/scalaj/client/src/test/scala/endpoints4s/scalaj/client/EndpointsDocs.scala#L17" target="_blank" title="Go to snippet source">source</a><code class="language-scala">val eventuallyString: Future[String] = someResource.callAsync(42)</code></pre>
 </div>
 <div>
 <a href="https://github.com/endpoints4s/endpoints4s/tree/master/documentation/manual/src/main/paradox/interpreters/scalaj-http.md" title="Edit this page" class="md-source-file md-edit">
@@ -202,7 +204,7 @@ Edit this page
 </div>
 <div class="print-only">
 <span class="md-source-file md-version">
-1.5.0
+1.6.0
 </span>
 </div>
 </article>
@@ -212,7 +214,7 @@ Edit this page
 <footer class="md-footer">
 <div class="md-footer-nav">
 <nav class="md-footer-nav__inner md-grid">
-<a href="../interpreters/scalajs-web.html" title="Scala.js web client" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+<a href="../interpreters/scalajs-web-fetch.html" title="Scala.js web client (Fetch)" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
 <div class="md-flex__cell md-flex__cell--shrink">
 <i class="md-icon md-icon--arrow-back md-footer-nav__button"></i>
 </div>
@@ -221,7 +223,7 @@ Edit this page
 <span class="md-footer-nav__direction">
 Previous
 </span>
-Scala.js web client
+Scala.js web client (Fetch)
 </span>
 </div>
 </a>

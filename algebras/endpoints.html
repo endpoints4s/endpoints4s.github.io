@@ -145,12 +145,14 @@ endpoints4s/endpoints4s
     <li><a href="../algebras/json-entities.html" class="page">JSON Entities</a></li>
     <li><a href="../algebras/json-schemas.html" class="page">JSON Schemas</a></li>
     <li><a href="../algebras/chunked-entities.html" class="page">Chunked Entities</a></li>
+    <li><a href="../algebras/middlewares.html" class="page">Middlewares</a></li>
     <li><a href="../algebras/assets.html" class="page">Assets</a></li>
     <li><a href="../algebras/mux-endpoints.html" class="page">Multiplexed Endpoints</a></li>
     <li><a href="../interpreters/akka-http.html" class="page">Akka HTTP</a></li>
     <li><a href="../interpreters/play.html" class="page">Play framework</a></li>
     <li><a href="../interpreters/http4s.html" class="page">http4s</a></li>
-    <li><a href="../interpreters/scalajs-web.html" class="page">Scala.js web client</a></li>
+    <li><a href="../interpreters/scalajs-web-xhr.html" class="page">Scala.js web client (XHR)</a></li>
+    <li><a href="../interpreters/scalajs-web-fetch.html" class="page">Scala.js web client (Fetch)</a></li>
     <li><a href="../interpreters/scalaj-http.html" class="page">scalaj-http</a></li>
     <li><a href="../interpreters/sttp.html" class="page">sttp</a></li>
     <li><a href="../interpreters/openapi.html" class="page">OpenAPI</a></li>
@@ -175,6 +177,7 @@ endpoints4s/endpoints4s
     <li><a href="../algebras/endpoints.html#endpoint" class="header">Endpoint</a></li>
     <li><a href="../algebras/endpoints.html#request" class="header">Request</a></li>
     <li><a href="../algebras/endpoints.html#response" class="header">Response</a></li>
+    <li><a href="../algebras/endpoints.html#middlewares" class="header">Middlewares</a></li>
     <li><a href="../algebras/endpoints.html#next-step" class="header">Next Step</a></li>
   </ul></li>
 </ul>
@@ -184,7 +187,7 @@ endpoints4s/endpoints4s
 <ul style="display: none">
 <li class="md-nav__item md-version" id="project.version">
 <label class="md-nav__link" for="__version">
-<i class="md-icon" title="Version">label_outline</i> 1.5.0
+<i class="md-icon" title="Version">label_outline</i> 1.6.0
 </label>
 </li>
 </ul>
@@ -202,6 +205,7 @@ endpoints4s/endpoints4s
     <li><a href="../algebras/endpoints.html#endpoint" class="header">Endpoint</a></li>
     <li><a href="../algebras/endpoints.html#request" class="header">Request</a></li>
     <li><a href="../algebras/endpoints.html#response" class="header">Response</a></li>
+    <li><a href="../algebras/endpoints.html#middlewares" class="header">Middlewares</a></li>
     <li><a href="../algebras/endpoints.html#next-step" class="header">Next Step</a></li>
   </ul></li>
 </ul>
@@ -278,15 +282,15 @@ path /? (query &amp; lang)</code></pre>
 <h4><a href="#transforming-and-refining-url-constituents" name="transforming-and-refining-url-constituents" class="anchor"><span class="anchor-link"></span></a>Transforming and Refining URL Constituents</h4>
 <p>All the data types involved in a URL description (<code>Path[A]</code>, <code>Segment[A]</code>, <code>QueryString[A]</code>, etc.) have an <code>xmap</code> and an <code>xmapPartial</code> operations, for transforming or refining their carried type.</p>
 <p>For instance, consider the following user-defined <code>Location</code> type, containing a <code>longitude</code> and a <code>latitude</code>:</p>
-<pre class="prettyprint"><button class="snippet-button copy-snippet" title="Copy snippet to clipboard">copy</button><a class="snippet-button go-to-source" href="https://github.com/endpoints4s/endpoints4s/tree/master/algebras/algebra/src/test/scala/endpoints4s/algebra/client/EndpointsTestSuite.scala#L349" target="_blank" title="Go to snippet source">source</a><code class="language-scala">case class Location(longitude: Double, latitude: Double)</code></pre>
+<pre class="prettyprint"><button class="snippet-button copy-snippet" title="Copy snippet to clipboard">copy</button><a class="snippet-button go-to-source" href="https://github.com/endpoints4s/endpoints4s/tree/master/algebras/testkit/src/main/scala/endpoints4s/algebra/client/UrlEncodingTestSuite.scala#L124" target="_blank" title="Go to snippet source">source</a><code class="language-scala">case class Location(longitude: Double, latitude: Double)</code></pre>
 <p>The <code>QueryString[Location]</code> type means “a query string that carries a <code>Location</code>”. We can define a value of type <code>QueryString[Location]</code> by <em>transforming</em> a query string that carries the longitude and latitude parameters as follows:</p>
-<pre class="prettyprint"><button class="snippet-button copy-snippet" title="Copy snippet to clipboard">copy</button><a class="snippet-button go-to-source" href="https://github.com/endpoints4s/endpoints4s/tree/master/algebras/algebra/src/test/scala/endpoints4s/algebra/client/EndpointsTestSuite.scala#L353-L356" target="_blank" title="Go to snippet source">source</a><code class="language-scala">val locationQueryString: QueryString[Location] =
+<pre class="prettyprint"><button class="snippet-button copy-snippet" title="Copy snippet to clipboard">copy</button><a class="snippet-button go-to-source" href="https://github.com/endpoints4s/endpoints4s/tree/master/algebras/testkit/src/main/scala/endpoints4s/algebra/client/UrlEncodingTestSuite.scala#L128-L131" target="_blank" title="Go to snippet source">source</a><code class="language-scala">val locationQueryString: QueryString[Location] =
   (qs[Double](&quot;lon&quot;) &amp; qs[Double](&quot;lat&quot;)).xmap { case (lon, lat) =&gt;
     Location(lon, lat)
   } { location =&gt; (location.longitude, location.latitude) }</code></pre>
 <p>The <code>xmap</code> operation requires the source type and the target type to be equivalent (in the above case, the source type is <code>(Double, Double)</code> and the target type is <code>Location</code>).</p>
 <p>In case the target type is smaller than the source type, you can use the <code>xmapPartial</code> operation, which <em>refines</em> the carried type. As an example, here is how you can define a <code>Segment[LocalDate]</code>:</p>
-<pre class="prettyprint"><button class="snippet-button copy-snippet" title="Copy snippet to clipboard">copy</button><a class="snippet-button go-to-source" href="https://github.com/endpoints4s/endpoints4s/tree/master/algebras/algebra/src/test/scala/endpoints4s/algebra/EndpointsDocs.scala#L92-L103" target="_blank" title="Go to snippet source">source</a><code class="language-scala">import java.time.LocalDate
+<pre class="prettyprint"><button class="snippet-button copy-snippet" title="Copy snippet to clipboard">copy</button><a class="snippet-button go-to-source" href="https://github.com/endpoints4s/endpoints4s/tree/master/algebras/algebra/src/test/scala/endpoints4s/algebra/EndpointsDocs.scala#L86-L97" target="_blank" title="Go to snippet source">source</a><code class="language-scala">import java.time.LocalDate
 import endpoints4s.{Invalid, Valid}
 
 implicit def localDateSegment(implicit
@@ -354,6 +358,8 @@ val aTextResponse: Response[String] = response(OK, textResponse)</code></pre>
 </ul>
 <p>By default, client errors are reported as an <a href="../api/endpoints4s/Invalid.html" title="endpoints4s.Invalid"><code>Invalid</code></a> value, serialized into a Bad Request (400) response, as a JSON array containing string messages. You can change the provided serialization format by overriding the <a href="../api/endpoints4s/algebra/BuiltInErrors.html#clientErrorsResponseEntity:BuiltInErrors.this.ResponseEntity[endpoints4s.Invalid]" title="endpoints4s.algebra.BuiltInErrors"><code>clientErrorsResponseEntity</code></a> operation.</p>
 <p>Similarly, by default server errors are reported as a <code>Throwable</code> value, serialized into an Internal Server Error (500) response, as a JSON array containing string messages. You can change the provided serialization format by overriding the <a href="../api/endpoints4s/algebra/BuiltInErrors.html#serverErrorResponseEntity:BuiltInErrors.this.ResponseEntity[Throwable]" title="endpoints4s.algebra.BuiltInErrors"><code>serverErrorResponseEntity</code></a> operation.</p>
+<h2><a href="#middlewares" name="middlewares" class="anchor"><span class="anchor-link"></span></a>Middlewares</h2>
+<p>Transformations of endpoint requests and responses can be defined in a reusable way as so-called middlewares. They are documented in a <a href="middlewares.html">dedicated page</a>.</p>
 <h2><a href="#next-step" name="next-step" class="anchor"><span class="anchor-link"></span></a>Next Step</h2>
 <p>See how you can describe endpoints with <a href="json-entities.html">JSON entities</a>.</p>
 </div>
@@ -364,7 +370,7 @@ Edit this page
 </div>
 <div class="print-only">
 <span class="md-source-file md-version">
-1.5.0
+1.6.0
 </span>
 </div>
 </article>

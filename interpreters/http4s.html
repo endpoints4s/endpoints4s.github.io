@@ -145,12 +145,14 @@ endpoints4s/endpoints4s
     <li><a href="../algebras/json-entities.html" class="page">JSON Entities</a></li>
     <li><a href="../algebras/json-schemas.html" class="page">JSON Schemas</a></li>
     <li><a href="../algebras/chunked-entities.html" class="page">Chunked Entities</a></li>
+    <li><a href="../algebras/middlewares.html" class="page">Middlewares</a></li>
     <li><a href="../algebras/assets.html" class="page">Assets</a></li>
     <li><a href="../algebras/mux-endpoints.html" class="page">Multiplexed Endpoints</a></li>
     <li><a href="../interpreters/akka-http.html" class="page">Akka HTTP</a></li>
     <li><a href="../interpreters/play.html" class="page">Play framework</a></li>
     <li><a href="../interpreters/http4s.html" class="active page">http4s</a></li>
-    <li><a href="../interpreters/scalajs-web.html" class="page">Scala.js web client</a></li>
+    <li><a href="../interpreters/scalajs-web-xhr.html" class="page">Scala.js web client (XHR)</a></li>
+    <li><a href="../interpreters/scalajs-web-fetch.html" class="page">Scala.js web client (Fetch)</a></li>
     <li><a href="../interpreters/scalaj-http.html" class="page">scalaj-http</a></li>
     <li><a href="../interpreters/sttp.html" class="page">sttp</a></li>
     <li><a href="../interpreters/openapi.html" class="page">OpenAPI</a></li>
@@ -182,7 +184,7 @@ endpoints4s/endpoints4s
 <ul style="display: none">
 <li class="md-nav__item md-version" id="project.version">
 <label class="md-nav__link" for="__version">
-<i class="md-icon" title="Version">label_outline</i> 1.5.0
+<i class="md-icon" title="Version">label_outline</i> 1.6.0
 </label>
 </li>
 </ul>
@@ -215,23 +217,35 @@ endpoints4s/endpoints4s
 <p><a href="https://index.scala-lang.org/endpoints4s/endpoints4s/http4s-client" title="Artifact http4s-client"><img src="https://img.shields.io/maven-central/v/org.endpoints4s/http4s-client_2.13?label=http4s-client&style=for-the-badge" title="Artifact coordinates" /></a></p>
 <p><a href="../api/endpoints4s/http4s/client/index.html" title="endpoints4s.http4s.client"><code>API documentation</code></a></p>
 <h3><a href="#endpoints4s-http4s-client-endpoints" name="endpoints4s-http4s-client-endpoints" class="anchor"><span class="anchor-link"></span></a><code>endpoints4s.http4s.client.Endpoints</code></h3>
-<p>The <code>Endpoints</code> interpreter fixes the <code>Endpoint[A, B]</code> type to a <code>Kleisli[Effect, A, B]</code> aka a function from <code>A</code> to <code>Effect[B]</code>, where <code>Effect[_]</code> can be any type constructor <code>F[_]</code> with a valid <code>cats.effect.Sync</code> instance (e.g. <code>cats.effect.IO</code> or <code>monix.eval.Task</code>) :</p>
-<pre class="prettyprint"><button class="snippet-button copy-snippet" title="Copy snippet to clipboard">copy</button><a class="snippet-button go-to-source" href="https://github.com/endpoints4s/endpoints4s/tree/master/http4s/client/src/main/scala/endpoints4s/http4s/client/Endpoints.scala#L248" target="_blank" title="Go to snippet source">source</a><code class="language-scala">type Endpoint[A, B] = Kleisli[Effect, A, B]</code></pre>
+<p>The <code>Endpoints</code> interpreter provides a trait <code>Endpoint[A, B]</code> with methods <code>send</code> and <code>sendAndConsume</code>, to invoke an endpoint.</p>
 <p>This means that, given the following endpoint definition:</p>
-<pre class="prettyprint"><button class="snippet-button copy-snippet" title="Copy snippet to clipboard">copy</button><a class="snippet-button go-to-source" href="https://github.com/endpoints4s/endpoints4s/tree/master/algebras/algebra/src/test/scala/endpoints4s/algebra/EndpointsDocs.scala#L87-L88" target="_blank" title="Go to snippet source">source</a><code class="language-scala">val someResource: Endpoint[Int, String] =
+<pre class="prettyprint"><button class="snippet-button copy-snippet" title="Copy snippet to clipboard">copy</button><a class="snippet-button go-to-source" href="https://github.com/endpoints4s/endpoints4s/tree/master/http4s/client/shared/src/test/scala/endpoints4s/http4s/client/EndpointsDocs.scala#L8-L9" target="_blank" title="Go to snippet source">source</a><code class="language-scala">val someResource: Endpoint[Int, String] =
   endpoint(get(path / &quot;some-resource&quot; / segment[Int]()), ok(textResponse))</code></pre>
 <p>It can be invoked as follows using <code>IO</code>:</p>
-<pre class="prettyprint"><button class="snippet-button copy-snippet" title="Copy snippet to clipboard">copy</button><a class="snippet-button go-to-source" href="https://github.com/endpoints4s/endpoints4s/tree/master/http4s/client/src/test/scala/endpoints4s/http4s/client/EndpointsDocs.scala#L9" target="_blank" title="Go to snippet source">source</a><code class="language-scala">val eventuallyString: IO[String] = someResource(42)</code></pre>
+<pre class="prettyprint"><button class="snippet-button copy-snippet" title="Copy snippet to clipboard">copy</button><a class="snippet-button go-to-source" href="https://github.com/endpoints4s/endpoints4s/tree/master/http4s/client/shared/src/test/scala/endpoints4s/http4s/client/EndpointsDocs.scala#L15" target="_blank" title="Go to snippet source">source</a><code class="language-scala">val eventuallyString: IO[String] = someResource.sendAndConsume(42)</code></pre>
+<h3><a href="#chunkedentities" name="chunkedentities" class="anchor"><span class="anchor-link"></span></a><code>ChunkedEntities</code></h3>
+<p>The <code>ChunkedEntities</code> interpreter fixes the <code>Chunks[A]</code> type to <code>fs2.Stream[Effect, A]</code>:</p>
+<pre class="prettyprint"><button class="snippet-button copy-snippet" title="Copy snippet to clipboard">copy</button><a class="snippet-button go-to-source" href="https://github.com/endpoints4s/endpoints4s/tree/master/http4s/client/shared/src/main/scala/endpoints4s/http4s/client/ChunkedEntities.scala#L8" target="_blank" title="Go to snippet source">source</a><code class="language-scala">type Chunks[A] = fs2.Stream[Effect, A]</code></pre>
+<p>This means that, given the following endpoint definition:</p>
+<pre class="prettyprint"><button class="snippet-button copy-snippet" title="Copy snippet to clipboard">copy</button><a class="snippet-button go-to-source" href="https://github.com/endpoints4s/endpoints4s/tree/master/http4s/client/shared/src/test/scala/endpoints4s/http4s/client/ChunkedEntitiesDocs.scala#L9-L10" target="_blank" title="Go to snippet source">source</a><code class="language-scala">val logo: Endpoint[Unit, Chunks[Array[Byte]]] =
+  endpoint(get(path / &quot;logo.png&quot;), ok(bytesChunksResponse))</code></pre>
+<p>It can be invoked as follows:</p>
+<pre class="prettyprint"><button class="snippet-button copy-snippet" title="Copy snippet to clipboard">copy</button><a class="snippet-button go-to-source" href="https://github.com/endpoints4s/endpoints4s/tree/master/http4s/client/shared/src/test/scala/endpoints4s/http4s/client/ChunkedEntitiesDocs.scala#L17-L22" target="_blank" title="Go to snippet source">source</a><code class="language-scala">val bytesSource: Resource[Effect, fs2.Stream[Effect, Array[Byte]]] =
+  logo.send(())
+
+bytesSource.use(stream =&gt;
+  stream.evalMap { bytes =&gt; IO(println(s&quot;Received ${bytes.length} bytes&quot;)) }.compile.drain
+)</code></pre>
 <h2><a href="#server" name="server" class="anchor"><span class="anchor-link"></span></a>Server</h2>
 <p><a href="https://index.scala-lang.org/endpoints4s/endpoints4s/http4s-server" title="Artifact http4s-server"><img src="https://img.shields.io/maven-central/v/org.endpoints4s/http4s-server_2.13?label=http4s-server&style=for-the-badge" title="Artifact coordinates" /></a></p>
 <p><a href="../api/endpoints4s/http4s/server/index.html" title="endpoints4s.http4s.server"><code>API documentation</code></a></p>
 <h3><a href="#endpoints4s-http4s-server-endpoints" name="endpoints4s-http4s-server-endpoints" class="anchor"><span class="anchor-link"></span></a><code>endpoints4s.http4s.server.Endpoints</code></h3>
 <p>The <code>Endpoints</code> interpreter provides a <code>routesFromEndpoints</code> operation that turns a sequence of endpoints with their implementation into an <code>org.http4s.HttpRoutes[F]</code> value that can be integrated to your http4s application.</p>
 <p>For instance, given the following endpoint definition:</p>
-<pre class="prettyprint"><button class="snippet-button copy-snippet" title="Copy snippet to clipboard">copy</button><a class="snippet-button go-to-source" href="https://github.com/endpoints4s/endpoints4s/tree/master/algebras/algebra/src/test/scala/endpoints4s/algebra/EndpointsDocs.scala#L87-L88" target="_blank" title="Go to snippet source">source</a><code class="language-scala">val someResource: Endpoint[Int, String] =
+<pre class="prettyprint"><button class="snippet-button copy-snippet" title="Copy snippet to clipboard">copy</button><a class="snippet-button go-to-source" href="https://github.com/endpoints4s/endpoints4s/tree/master/http4s/server/src/test/scala/endpoints4s/http4s/server/EndpointsDocs.scala#L9-L10" target="_blank" title="Go to snippet source">source</a><code class="language-scala">val someResource: Endpoint[Int, String] =
   endpoint(get(path / &quot;some-resource&quot; / segment[Int]()), ok(textResponse))</code></pre>
 <p>It can be implemented as follows:</p>
-<pre class="prettyprint"><button class="snippet-button copy-snippet" title="Copy snippet to clipboard">copy</button><a class="snippet-button go-to-source" href="https://github.com/endpoints4s/endpoints4s/tree/master/http4s/server/src/test/scala/endpoints4s/http4s/server/EndpointsDocs.scala#L9-L13" target="_blank" title="Go to snippet source">source</a><code class="language-scala">val routes: HttpRoutes[IO] = HttpRoutes.of(
+<pre class="prettyprint"><button class="snippet-button copy-snippet" title="Copy snippet to clipboard">copy</button><a class="snippet-button go-to-source" href="https://github.com/endpoints4s/endpoints4s/tree/master/http4s/server/src/test/scala/endpoints4s/http4s/server/EndpointsDocs.scala#L16-L20" target="_blank" title="Go to snippet source">source</a><code class="language-scala">val routes: HttpRoutes[IO] = HttpRoutes.of(
   routesFromEndpoints(
     someResource.implementedBy(x =&gt; s&quot;Received $x&quot;)
   )
@@ -253,7 +267,7 @@ Edit this page
 </div>
 <div class="print-only">
 <span class="md-source-file md-version">
-1.5.0
+1.6.0
 </span>
 </div>
 </article>
@@ -276,13 +290,13 @@ Play framework
 </span>
 </div>
 </a>
-<a href="../interpreters/scalajs-web.html" title="Scala.js web client" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
+<a href="../interpreters/scalajs-web-xhr.html" title="Scala.js web client (XHR)" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
 <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
 <span class="md-flex__ellipsis">
 <span class="md-footer-nav__direction">
 Next
 </span>
-Scala.js web client
+Scala.js web client (XHR)
 </span>
 </div>
 <div class="md-flex__cell md-flex__cell--shrink">

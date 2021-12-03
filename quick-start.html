@@ -145,12 +145,14 @@ endpoints4s/endpoints4s
     <li><a href="algebras/json-entities.html" class="page">JSON Entities</a></li>
     <li><a href="algebras/json-schemas.html" class="page">JSON Schemas</a></li>
     <li><a href="algebras/chunked-entities.html" class="page">Chunked Entities</a></li>
+    <li><a href="algebras/middlewares.html" class="page">Middlewares</a></li>
     <li><a href="algebras/assets.html" class="page">Assets</a></li>
     <li><a href="algebras/mux-endpoints.html" class="page">Multiplexed Endpoints</a></li>
     <li><a href="interpreters/akka-http.html" class="page">Akka HTTP</a></li>
     <li><a href="interpreters/play.html" class="page">Play framework</a></li>
     <li><a href="interpreters/http4s.html" class="page">http4s</a></li>
-    <li><a href="interpreters/scalajs-web.html" class="page">Scala.js web client</a></li>
+    <li><a href="interpreters/scalajs-web-xhr.html" class="page">Scala.js web client (XHR)</a></li>
+    <li><a href="interpreters/scalajs-web-fetch.html" class="page">Scala.js web client (Fetch)</a></li>
     <li><a href="interpreters/scalaj-http.html" class="page">scalaj-http</a></li>
     <li><a href="interpreters/sttp.html" class="page">sttp</a></li>
     <li><a href="interpreters/openapi.html" class="page">OpenAPI</a></li>
@@ -188,7 +190,7 @@ endpoints4s/endpoints4s
 <ul style="display: none">
 <li class="md-nav__item md-version" id="project.version">
 <label class="md-nav__link" for="__version">
-<i class="md-icon" title="Version">label_outline</i> 1.5.0
+<i class="md-icon" title="Version">label_outline</i> 1.6.0
 </label>
 </li>
 </ul>
@@ -238,9 +240,9 @@ endpoints4s/endpoints4s
 <pre class="prettyprint"><code class="language-scala">val shared =
   crossProject(JSPlatform, JVMPlatform).crossType(CrossType.Pure).settings(
     libraryDependencies ++= Seq(
-      &quot;org.endpoints4s&quot; %%% &quot;algebra&quot; % &quot;1.5.0&quot;,
+      &quot;org.endpoints4s&quot; %%% &quot;algebra&quot; % &quot;1.6.0&quot;,
       // optional, see explanation below
-      &quot;org.endpoints4s&quot; %%% &quot;json-schema-generic&quot; % &quot;1.5.0&quot;
+      &quot;org.endpoints4s&quot; %%% &quot;json-schema-generic&quot; % &quot;1.6.0&quot;
     )
   )
 
@@ -249,19 +251,20 @@ val sharedJVM = shared.jvm
 
 val client =
   project.enablePlugins(ScalaJSPlugin).settings(
-    libraryDependencies += &quot;org.endpoints4s&quot; %%% &quot;xhr-client&quot; % &quot;3.1.0&quot;
+    libraryDependencies += &quot;org.endpoints4s&quot; %%% &quot;xhr-client&quot; % &quot;4.0.0&quot;
   ).dependsOn(sharedJS)
 
 val server =
   project.settings(
     libraryDependencies ++= Seq(
-      &quot;org.endpoints4s&quot; %% &quot;akka-http-server&quot; % &quot;5.1.0&quot;,
+      &quot;org.endpoints4s&quot; %% &quot;akka-http-server&quot; % &quot;6.0.0&quot;,
+      &quot;com.typesafe.akka&quot; %% &quot;akka-stream&quot; % &quot;2.6.15&quot;,
       &quot;org.scala-stm&quot; %% &quot;scala-stm&quot; % &quot;0.8&quot;
     )
   ).dependsOn(sharedJVM)
 </code></pre>
 <p>The <code>shared</code> project uses the <a href="algebras/json-schemas.html#generic-derivation-of-json-schemas-based-on-shapeless-"><code>json-schema-generic</code> module</a> in addition to the required algebra interface <a href="algebras/endpoints.html"><code>algebra</code></a>, to define the communication endpoints and to automatically derive the JSON schemas of the entities from their Scala type definitions.</p>
-<p>The <code>client</code> project uses a <a href="interpreters/scalajs-web.html">Scala.js web</a> client interpreter.</p>
+<p>The <code>client</code> project uses a <a href="interpreters/scalajs-web-xhr.html">Scala.js web (XHR)</a> client interpreter.</p>
 <p>Finally, the <code>server</code> project uses a server interpreter backed by <a href="interpreters/akka-http.html">Akka HTTP</a>. It also uses the scala-stm library for implementing the business logic.</p>
 <h2><a href="#description-of-the-http-endpoints" name="description-of-the-http-endpoints" class="anchor"><span class="anchor-link"></span></a>Description of the HTTP endpoints</h2>
 <p>In the <code>shared</code> project, define a <code>CounterEndpoints</code> trait describing two endpoints, one for getting a counter value and one for incrementing it:</p>
@@ -306,7 +309,8 @@ case class Increment(step: Int)</code></pre>
 <p>The <code>currentValue</code> and <code>increment</code> members define the endpoints for getting the counter current value or incrementing it, as their names suggest. The <code>counterSchema</code> and <code>incrementSchema</code> members define a JSON schema that will be used to serialize and deserialize the request and response entities.</p>
 <h2><a href="#client-implementation" name="client-implementation" class="anchor"><span class="anchor-link"></span></a>Client implementation</h2>
 <p>A client implementation of the endpoints can be obtained by mixing so-called “interpreters” to the <code>CounterEndpoints</code> trait defined above. In this example, you want to get a JavaScript (Scala.js) client that uses <code>XMLHttpRequest</code> under the hood. Defines the following <code>CounterClient</code> object in the <code>client</code> project:</p>
-<pre class="prettyprint"><button class="snippet-button copy-snippet" title="Copy snippet to clipboard">copy</button><a class="snippet-button go-to-source" href="https://github.com/endpoints4s/endpoints4s/tree/master/documentation/examples/quickstart/client/src/main/scala/quickstart/CounterClient.scala#L4-L13" target="_blank" title="Go to snippet source">source</a><code class="language-scala">import endpoints4s.xhr
+<pre class="prettyprint"><button class="snippet-button copy-snippet" title="Copy snippet to clipboard">copy</button><a class="snippet-button go-to-source" href="https://github.com/endpoints4s/endpoints4s/tree/master/documentation/examples/quickstart/client/src/main/scala/quickstart/CounterClient.scala#L4-L16" target="_blank" title="Go to snippet source">source</a><code class="language-scala">import endpoints4s.xhr
+import endpoints4s.xhr.EndpointsSettings
 
 /** Defines an HTTP client for the endpoints described in the `CounterEndpoints` trait.
   * The derived HTTP client uses XMLHttpRequest to perform requests and returns
@@ -315,7 +319,9 @@ case class Increment(step: Int)</code></pre>
 object CounterClient
     extends CounterEndpoints
     with xhr.thenable.Endpoints
-    with xhr.JsonEntitiesFromSchemas</code></pre>
+    with xhr.JsonEntitiesFromSchemas {
+  lazy val settings: EndpointsSettings = EndpointsSettings()
+}</code></pre>
 <p>And then, the <code>CounterClient</code> object can be used as follows:</p>
 <pre class="prettyprint"><button class="snippet-button copy-snippet" title="Copy snippet to clipboard">copy</button><a class="snippet-button go-to-source" href="https://github.com/endpoints4s/endpoints4s/tree/master/documentation/examples/quickstart/client/src/main/scala/quickstart/Usage.scala#L6-L11" target="_blank" title="Go to snippet source">source</a><code class="language-scala">import scala.scalajs.js
 
@@ -531,7 +537,7 @@ Edit this page
 </div>
 <div class="print-only">
 <span class="md-source-file md-version">
-1.5.0
+1.6.0
 </span>
 </div>
 </article>

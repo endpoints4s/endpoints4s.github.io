@@ -145,12 +145,14 @@ endpoints4s/endpoints4s
     <li><a href="../algebras/json-entities.html" class="page">JSON Entities</a></li>
     <li><a href="../algebras/json-schemas.html" class="page">JSON Schemas</a></li>
     <li><a href="../algebras/chunked-entities.html" class="page">Chunked Entities</a></li>
+    <li><a href="../algebras/middlewares.html" class="page">Middlewares</a></li>
     <li><a href="../algebras/assets.html" class="page">Assets</a></li>
     <li><a href="../algebras/mux-endpoints.html" class="page">Multiplexed Endpoints</a></li>
     <li><a href="../interpreters/akka-http.html" class="page">Akka HTTP</a></li>
     <li><a href="../interpreters/play.html" class="page">Play framework</a></li>
     <li><a href="../interpreters/http4s.html" class="page">http4s</a></li>
-    <li><a href="../interpreters/scalajs-web.html" class="page">Scala.js web client</a></li>
+    <li><a href="../interpreters/scalajs-web-xhr.html" class="page">Scala.js web client (XHR)</a></li>
+    <li><a href="../interpreters/scalajs-web-fetch.html" class="page">Scala.js web client (Fetch)</a></li>
     <li><a href="../interpreters/scalaj-http.html" class="page">scalaj-http</a></li>
     <li><a href="../interpreters/sttp.html" class="page">sttp</a></li>
     <li><a href="../interpreters/openapi.html" class="page">OpenAPI</a></li>
@@ -184,7 +186,7 @@ endpoints4s/endpoints4s
 <ul style="display: none">
 <li class="md-nav__item md-version" id="project.version">
 <label class="md-nav__link" for="__version">
-<i class="md-icon" title="Version">label_outline</i> 1.5.0
+<i class="md-icon" title="Version">label_outline</i> 1.6.0
 </label>
 </li>
 </ul>
@@ -230,10 +232,10 @@ endpoints4s/endpoints4s
   <li>signalling a bad request in case the authentication failed.</li>
 </ul>
 <p>A JWT contains information about the logged-in user (for instance, his name), and that information is serialized and is cryptographically signed by the server (that’s why clients can not forge an arbitrary JWT). In our case, the user information we are interested in is only its name:</p>
-<pre class="prettyprint"><button class="snippet-button copy-snippet" title="Copy snippet to clipboard">copy</button><a class="snippet-button go-to-source" href="https://github.com/endpoints4s/endpoints4s/tree/master/documentation/examples/authentication/src/main/scala/authentication/Authentication.scala#L115" target="_blank" title="Go to snippet source">source</a><code class="language-scala">case class UserInfo(name: String)</code></pre>
+<pre class="prettyprint"><button class="snippet-button copy-snippet" title="Copy snippet to clipboard">copy</button><a class="snippet-button go-to-source" href="https://github.com/endpoints4s/endpoints4s/tree/master/documentation/examples/authentication/src/main/scala/authentication/Authentication.scala#L114" target="_blank" title="Go to snippet source">source</a><code class="language-scala">case class UserInfo(name: String)</code></pre>
 <p>The type used to model the authentication token will be different on client-side and server-side. On server-side, we are only interested in the user info and we want to let the algebra interpreter serialize and sign it. However, on client-side we need to also keep the serialized form since clients can not compute it. Since we want to represent the same concept with different concrete types on the server and client sides, we model it in the algebra with an abstract type member <code>AuthenticationToken</code>.</p>
 <p>In the end, we need to add the following members to our algebra:</p>
-<pre class="prettyprint"><button class="snippet-button copy-snippet" title="Copy snippet to clipboard">copy</button><a class="snippet-button go-to-source" href="https://github.com/endpoints4s/endpoints4s/tree/master/documentation/examples/authentication/src/main/scala/authentication/Authentication.scala#L9-L110" target="_blank" title="Go to snippet source">source</a><code class="language-scala">import endpoints4s.algebra
+<pre class="prettyprint"><button class="snippet-button copy-snippet" title="Copy snippet to clipboard">copy</button><a class="snippet-button go-to-source" href="https://github.com/endpoints4s/endpoints4s/tree/master/documentation/examples/authentication/src/main/scala/authentication/Authentication.scala#L8-L109" target="_blank" title="Go to snippet source">source</a><code class="language-scala">import endpoints4s.algebra
 
 /** Algebra interface for defining authenticated endpoints using JWT.
   */
@@ -279,7 +281,7 @@ trait AuthenticationEndpoints extends algebra.Endpoints with Authentication {
 <p>The endpoint takes request using the <code>GET</code> method, the <code>/login</code> URL and a query string parameter <code>apiKey</code> containing the credentials. The returned response is either a “Bad Request”, or a “Ok” with the issued authentication token.</p>
 <h3><a href="#authentication-server-interpreter" name="authentication-server-interpreter" class="anchor"><span class="anchor-link"></span></a>Authentication server interpreter</h3>
 <p>The server interpreter fixes the <code>AuthenticationToken</code> type member to <code>UserInfo</code> and implements the <code>authenticationToken</code> and <code>wheneverValid</code> methods:</p>
-<pre class="prettyprint"><button class="snippet-button copy-snippet" title="Copy snippet to clipboard">copy</button><a class="snippet-button go-to-source" href="https://github.com/endpoints4s/endpoints4s/tree/master/documentation/examples/authentication/src/main/scala/authentication/Authentication.scala#L14-L267" target="_blank" title="Go to snippet source">source</a><code class="language-scala">import endpoints4s.play.server
+<pre class="prettyprint"><button class="snippet-button copy-snippet" title="Copy snippet to clipboard">copy</button><a class="snippet-button go-to-source" href="https://github.com/endpoints4s/endpoints4s/tree/master/documentation/examples/authentication/src/main/scala/authentication/Authentication.scala#L13-L295" target="_blank" title="Go to snippet source">source</a><code class="language-scala">import endpoints4s.play.server
 import pdi.jwt.JwtSession
 import pdi.jwt.JwtSession.RichResult
 
@@ -335,7 +337,7 @@ class Server(
 <p>The traits provided by endpoints4s are shown in gray.</p>
 <h3><a href="#authentication-client-interpreter" name="authentication-client-interpreter" class="anchor"><span class="anchor-link"></span></a>Authentication client interpreter</h3>
 <p>The implementation of the client interpreter repeats the same recipe: we define a trait <code>ClientAuthentication</code>, which extends <code>Authentication</code> and mixes a <code>client.Endpoints</code> base interpreter:</p>
-<pre class="prettyprint"><button class="snippet-button copy-snippet" title="Copy snippet to clipboard">copy</button><a class="snippet-button go-to-source" href="https://github.com/endpoints4s/endpoints4s/tree/master/documentation/examples/authentication/src/main/scala/authentication/Authentication.scala#L20-L201" target="_blank" title="Go to snippet source">source</a><code class="language-scala">import endpoints4s.play.client
+<pre class="prettyprint"><button class="snippet-button copy-snippet" title="Copy snippet to clipboard">copy</button><a class="snippet-button go-to-source" href="https://github.com/endpoints4s/endpoints4s/tree/master/documentation/examples/authentication/src/main/scala/authentication/Authentication.scala#L19-L200" target="_blank" title="Go to snippet source">source</a><code class="language-scala">import endpoints4s.play.client
 
 /** Interpreter for the [[Authentication]] algebra interface that produces
   * a Play client (using `play.api.libs.ws.WSClient`).
@@ -393,7 +395,7 @@ trait ClientAuthentication extends client.Endpoints with Authentication {
 <p>Such protected endpoints take requests containing the serialized token in their <code>Authorization</code> HTTP header, and return a 401 (<code>Unauthorized</code>) response in case the token is not found or is invalid.</p>
 <h3><a href="#protected-endpoints-algebra" name="protected-endpoints-algebra" class="anchor"><span class="anchor-link"></span></a>Protected endpoints algebra</h3>
 <p>To define protected endpoints, we need to enrich the <code>Authentication</code> algebra with additional vocabulary. First, we need a way to define that requests that must contain the authentication token. Second, we need a way to define that responses might be <code>Unauthorized</code>. Last, we need a convenient <code>Endpoint</code> constructor that puts all the pieces together.</p>
-<pre class="prettyprint"><button class="snippet-button copy-snippet" title="Copy snippet to clipboard">copy</button><a class="snippet-button go-to-source" href="https://github.com/endpoints4s/endpoints4s/tree/master/documentation/examples/authentication/src/main/scala/authentication/Authentication.scala#L59-L106" target="_blank" title="Go to snippet source">source</a><code class="language-scala">/** A request with the given `method`, `url` and `entity`, and which is rejected by the server if it
+<pre class="prettyprint"><button class="snippet-button copy-snippet" title="Copy snippet to clipboard">copy</button><a class="snippet-button go-to-source" href="https://github.com/endpoints4s/endpoints4s/tree/master/documentation/examples/authentication/src/main/scala/authentication/Authentication.scala#L58-L105" target="_blank" title="Go to snippet source">source</a><code class="language-scala">/** A request with the given `method`, `url` and `entity`, and which is rejected by the server if it
   * doesn’t contain a valid JWT.
   */
 private[authentication] def authenticatedRequest[U, E, UE, UET](
@@ -460,7 +462,7 @@ val someResource: Endpoint[AuthenticationToken, String] =
 <p>Since the request URL is static and the request has no entity, the information carried by the request is just the <code>AuthenticationToken</code>.</p>
 <h3><a href="#protected-endpoints-server-interpreter" name="protected-endpoints-server-interpreter" class="anchor"><span class="anchor-link"></span></a>Protected endpoints server interpreter</h3>
 <p>Our Play-based server is implemented as follows:</p>
-<pre class="prettyprint"><button class="snippet-button copy-snippet" title="Copy snippet to clipboard">copy</button><a class="snippet-button go-to-source" href="https://github.com/endpoints4s/endpoints4s/tree/master/documentation/examples/authentication/src/main/scala/authentication/Authentication.scala#L224-L263" target="_blank" title="Go to snippet source">source</a><code class="language-scala">def authenticatedRequest[U, E, UE, UET](
+<pre class="prettyprint"><button class="snippet-button copy-snippet" title="Copy snippet to clipboard">copy</button><a class="snippet-button go-to-source" href="https://github.com/endpoints4s/endpoints4s/tree/master/documentation/examples/authentication/src/main/scala/authentication/Authentication.scala#L223-L291" target="_blank" title="Go to snippet source">source</a><code class="language-scala">def authenticatedRequest[U, E, UE, UET](
     method: Method,
     url: Url[U],
     entity: RequestEntity[E]
@@ -483,17 +485,46 @@ val someResource: Endpoint[AuthenticationToken, String] =
       )
   }
 
-  extractMethodUrlAndHeaders(method, url, authenticationTokenRequestHeaders)
-    .toRequest[UET] {
-      case (_, None) =&gt;
-        _ =&gt; Some(BodyParser(_ =&gt; Accumulator.done(Left(Results.Unauthorized))))
-      case (u, Some(token)) =&gt;
-        hdrs =&gt; entity(hdrs).map(_.map(e =&gt; tuplerUET(tuplerUE(u, e), token)))
-    } { uet =&gt;
-      val (ue, t) = tuplerUET.unapply(uet)
+  // alias parameters to not clash with `Request` members
+  val urlArg = url
+  val methodArg = method
+  val entityArg = entity
+
+  new Request[UET] {
+    type UrlData = U
+    type HeadersData = Option[AuthenticationToken]
+    type EntityData = E
+
+    def url: Url[U] = urlArg
+    def headers: RequestHeaders[Option[UserInfo]] = authenticationTokenRequestHeaders
+    def method: Method = methodArg
+    def entity: RequestEntity[E] = entityArg
+
+    def aggregateAndValidate(
+        urlData: U,
+        headersData: Option[UserInfo],
+        entityData: E
+    ): Validated[UET] =
+      headersData match {
+        case None        =&gt; sys.error(&quot;Unsupported&quot;)
+        case Some(token) =&gt; Valid(tuplerUET(tuplerUE(urlData, entityData), token))
+      }
+
+    def matchRequest(requestHeader: RequestHeader): Option[RequestEntity[UET]] =
+      matchRequestAndParseHeaders(requestHeader) {
+        case (_, None) =&gt;
+          _ =&gt; Some(BodyParser(_ =&gt; Accumulator.done(Left(Results.Unauthorized))))
+        case (u, Some(token)) =&gt;
+          hs =&gt; entity(hs).map(_.map(e =&gt; tuplerUET(tuplerUE(u, e), token)))
+      }
+
+    def urlData(a: UET): U = {
+      val (ue, _) = tuplerUET.unapply(a)
       val (u, _) = tuplerUE.unapply(ue)
-      (u, Some(t))
+      u
     }
+
+  }
 }
 
 // Does nothing because `authenticatedReqest` already
@@ -506,7 +537,7 @@ def wheneverAuthenticated[A](response: Response[A]): Response[A] = response</cod
 someResource.implementedBy(token =&gt; s&quot;Hello ${token.name}!&quot;)</code></pre>
 <h3><a href="#protected-endpoints-client-interpreter" name="protected-endpoints-client-interpreter" class="anchor"><span class="anchor-link"></span></a>Protected endpoints client interpreter</h3>
 <p>And our Play-based client is implemented as follows:</p>
-<pre class="prettyprint"><button class="snippet-button copy-snippet" title="Copy snippet to clipboard">copy</button><a class="snippet-button go-to-source" href="https://github.com/endpoints4s/endpoints4s/tree/master/documentation/examples/authentication/src/main/scala/authentication/Authentication.scala#L172-L197" target="_blank" title="Go to snippet source">source</a><code class="language-scala">def authenticatedRequest[U, E, UE, UET](
+<pre class="prettyprint"><button class="snippet-button copy-snippet" title="Copy snippet to clipboard">copy</button><a class="snippet-button go-to-source" href="https://github.com/endpoints4s/endpoints4s/tree/master/documentation/examples/authentication/src/main/scala/authentication/Authentication.scala#L171-L196" target="_blank" title="Go to snippet source">source</a><code class="language-scala">def authenticatedRequest[U, E, UE, UET](
     method: Method,
     url: Url[U],
     entity: RequestEntity[E]
@@ -554,7 +585,7 @@ Edit this page
 </div>
 <div class="print-only">
 <span class="md-source-file md-version">
-1.5.0
+1.6.0
 </span>
 </div>
 </article>

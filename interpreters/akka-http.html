@@ -145,12 +145,14 @@ endpoints4s/endpoints4s
     <li><a href="../algebras/json-entities.html" class="page">JSON Entities</a></li>
     <li><a href="../algebras/json-schemas.html" class="page">JSON Schemas</a></li>
     <li><a href="../algebras/chunked-entities.html" class="page">Chunked Entities</a></li>
+    <li><a href="../algebras/middlewares.html" class="page">Middlewares</a></li>
     <li><a href="../algebras/assets.html" class="page">Assets</a></li>
     <li><a href="../algebras/mux-endpoints.html" class="page">Multiplexed Endpoints</a></li>
     <li><a href="../interpreters/akka-http.html" class="active page">Akka HTTP</a></li>
     <li><a href="../interpreters/play.html" class="page">Play framework</a></li>
     <li><a href="../interpreters/http4s.html" class="page">http4s</a></li>
-    <li><a href="../interpreters/scalajs-web.html" class="page">Scala.js web client</a></li>
+    <li><a href="../interpreters/scalajs-web-xhr.html" class="page">Scala.js web client (XHR)</a></li>
+    <li><a href="../interpreters/scalajs-web-fetch.html" class="page">Scala.js web client (Fetch)</a></li>
     <li><a href="../interpreters/scalaj-http.html" class="page">scalaj-http</a></li>
     <li><a href="../interpreters/sttp.html" class="page">sttp</a></li>
     <li><a href="../interpreters/openapi.html" class="page">OpenAPI</a></li>
@@ -182,7 +184,7 @@ endpoints4s/endpoints4s
 <ul style="display: none">
 <li class="md-nav__item md-version" id="project.version">
 <label class="md-nav__link" for="__version">
-<i class="md-icon" title="Version">label_outline</i> 1.5.0
+<i class="md-icon" title="Version">label_outline</i> 1.6.0
 </label>
 </li>
 </ul>
@@ -210,18 +212,27 @@ endpoints4s/endpoints4s
 <article class="md-content__inner md-typeset">
 <div class="md-content__searchable">
 <h1><a href="#akka-http" name="akka-http" class="anchor"><span class="anchor-link"></span></a>Akka HTTP</h1>
-<p>Client and server backed by <a href="https://doc.akka.io/docs/akka-http/current/">Akka HTTP</a>.</p>
+<p>Client and server backed by <a href="https://doc.akka.io/docs/akka-http/current/">Akka HTTP</a>.</p><div class="callout warning "><div class="callout-title">Warning</div>
+<p>As explained in the section <a href="https://doc.akka.io/docs/akka/current/common/binary-compatibility-rules.html#mixed-versioning-is-not-allowed">Mixed versioning is not allowed</a> in the Akka documentation, you have to make sure that all the Akka modules of your application have the same version.</p>
+<p>For this reason, the interpreters <code>akka-http-server</code> and <code>akka-http-client</code> have marked their dependency to Akka as “provided”.</p>
+<p>As a consequence, to use these interpreters you will have to explicitly add a dependency on <code>akka-stream</code>:</p>
+<pre class="prettyprint"><code class="language-scala">&quot;com.typesafe.akka&quot; %% &quot;akka-stream&quot; % &quot;&lt;akka-version&gt;&quot;
+</code></pre>
+<p>Where <code>&lt;akka-version&gt;</code> is binary compatible and higher or equal to 2.6.15.</p></div>
 <h2><a href="#client" name="client" class="anchor"><span class="anchor-link"></span></a>Client</h2>
 <p><a href="https://index.scala-lang.org/endpoints4s/endpoints4s/akka-http-client" title="Artifact akka-http-client"><img src="https://img.shields.io/maven-central/v/org.endpoints4s/akka-http-client_2.13?label=akka-http-client&style=for-the-badge" title="Artifact coordinates" /></a></p>
 <p><a href="../api/endpoints4s/akkahttp/client/index.html" title="endpoints4s.akkahttp.client"><code>API documentation</code></a></p>
 <h3><a href="#endpoints4s-akkahttp-client-endpoints" name="endpoints4s-akkahttp-client-endpoints" class="anchor"><span class="anchor-link"></span></a><code>endpoints4s.akkahttp.client.Endpoints</code></h3>
 <p>The <code>Endpoints</code> interpreter fixes the <code>Endpoint[A, B]</code> type to a function from <code>A</code> to <code>Future[B]</code>:</p>
-<pre class="prettyprint"><button class="snippet-button copy-snippet" title="Copy snippet to clipboard">copy</button><a class="snippet-button go-to-source" href="https://github.com/endpoints4s/endpoints4s/tree/master/akka-http/client/src/main/scala/endpoints4s/akkahttp/client/Endpoints.scala#L279" target="_blank" title="Go to snippet source">source</a><code class="language-scala">type Endpoint[A, B] = A =&gt; Future[B]</code></pre>
+<pre class="prettyprint"><button class="snippet-button copy-snippet" title="Copy snippet to clipboard">copy</button><a class="snippet-button go-to-source" href="https://github.com/endpoints4s/endpoints4s/tree/master/akka-http/client/src/main/scala/endpoints4s/akkahttp/client/Endpoints.scala#L318-L321" target="_blank" title="Go to snippet source">source</a><code class="language-scala">case class Endpoint[A, B](
+    request: Request[A],
+    response: Response[B]
+) extends (A =&gt; Future[B])</code></pre>
 <p>This means that, given the following endpoint definition:</p>
-<pre class="prettyprint"><button class="snippet-button copy-snippet" title="Copy snippet to clipboard">copy</button><a class="snippet-button go-to-source" href="https://github.com/endpoints4s/endpoints4s/tree/master/algebras/algebra/src/test/scala/endpoints4s/algebra/EndpointsDocs.scala#L87-L88" target="_blank" title="Go to snippet source">source</a><code class="language-scala">val someResource: Endpoint[Int, String] =
+<pre class="prettyprint"><button class="snippet-button copy-snippet" title="Copy snippet to clipboard">copy</button><a class="snippet-button go-to-source" href="https://github.com/endpoints4s/endpoints4s/tree/master/akka-http/client/src/test/scala/endpoints4s/akkahttp/client/EndpointsDocs.scala#L8-L9" target="_blank" title="Go to snippet source">source</a><code class="language-scala">val someResource: Endpoint[Int, String] =
   endpoint(get(path / &quot;some-resource&quot; / segment[Int]()), ok(textResponse))</code></pre>
 <p>It can be invoked as follows:</p>
-<pre class="prettyprint"><button class="snippet-button copy-snippet" title="Copy snippet to clipboard">copy</button><a class="snippet-button go-to-source" href="https://github.com/endpoints4s/endpoints4s/tree/master/akka-http/client/src/test/scala/endpoints4s/akkahttp/client/EndpointsDocs.scala#L9" target="_blank" title="Go to snippet source">source</a><code class="language-scala">val eventuallyString: Future[String] = someResource(42)</code></pre>
+<pre class="prettyprint"><button class="snippet-button copy-snippet" title="Copy snippet to clipboard">copy</button><a class="snippet-button go-to-source" href="https://github.com/endpoints4s/endpoints4s/tree/master/akka-http/client/src/test/scala/endpoints4s/akkahttp/client/EndpointsDocs.scala#L15" target="_blank" title="Go to snippet source">source</a><code class="language-scala">val eventuallyString: Future[String] = someResource(42)</code></pre>
 <h3><a href="#endpoints4s-akkahttp-client-chunkedentities" name="endpoints4s-akkahttp-client-chunkedentities" class="anchor"><span class="anchor-link"></span></a><code>endpoints4s.akkahttp.client.ChunkedEntities</code></h3>
 <p>The <code>ChunkedEntities</code> interpreter fixes the <code>Chunks[A]</code> type to <code>akka.stream.scaladsl.Source[A, _]</code>:</p>
 <pre class="prettyprint"><button class="snippet-button copy-snippet" title="Copy snippet to clipboard">copy</button><a class="snippet-button go-to-source" href="https://github.com/endpoints4s/endpoints4s/tree/master/akka-http/client/src/main/scala/endpoints4s/akkahttp/client/ChunkedEntities.scala#L17" target="_blank" title="Go to snippet source">source</a><code class="language-scala">type Chunks[A] = akka.stream.scaladsl.Source[A, _]</code></pre>
@@ -229,7 +240,7 @@ endpoints4s/endpoints4s
 <pre class="prettyprint"><button class="snippet-button copy-snippet" title="Copy snippet to clipboard">copy</button><a class="snippet-button go-to-source" href="https://github.com/endpoints4s/endpoints4s/tree/master/algebras/algebra/src/test/scala/endpoints4s/algebra/ChunkedEntitiesDocs.scala#L6-L7" target="_blank" title="Go to snippet source">source</a><code class="language-scala">val logo: Endpoint[Unit, Chunks[Array[Byte]]] =
   endpoint(get(path / &quot;logo.png&quot;), ok(bytesChunksResponse))</code></pre>
 <p>It can be invoked as follows:</p>
-<pre class="prettyprint"><button class="snippet-button copy-snippet" title="Copy snippet to clipboard">copy</button><a class="snippet-button go-to-source" href="https://github.com/endpoints4s/endpoints4s/tree/master/akka-http/client/src/test/scala/endpoints4s/akkahttp/client/ChunkedEntitiesDocs.scala#L9-L14" target="_blank" title="Go to snippet source">source</a><code class="language-scala">import akka.stream.scaladsl.Source
+<pre class="prettyprint"><button class="snippet-button copy-snippet" title="Copy snippet to clipboard">copy</button><a class="snippet-button go-to-source" href="https://github.com/endpoints4s/endpoints4s/tree/master/akka-http/client/src/test/scala/endpoints4s/akkahttp/client/ChunkedEntitiesDocs.scala#L16-L21" target="_blank" title="Go to snippet source">source</a><code class="language-scala">import akka.stream.scaladsl.Source
 
 val bytesSource: Source[Array[Byte], _] =
   Source.futureSource(logo(()))
@@ -237,16 +248,14 @@ val bytesSource: Source[Array[Byte], _] =
 bytesSource.runForeach { bytes =&gt; println(s&quot;Received ${bytes.length} bytes&quot;) }</code></pre>
 <h2><a href="#server" name="server" class="anchor"><span class="anchor-link"></span></a>Server</h2>
 <p><a href="https://index.scala-lang.org/endpoints4s/endpoints4s/akka-http-server" title="Artifact akka-http-server"><img src="https://img.shields.io/maven-central/v/org.endpoints4s/akka-http-server_2.13?label=akka-http-server&style=for-the-badge" title="Artifact coordinates" /></a></p>
-<p><a href="../api/endpoints4s/akkahttp/server/index.html" title="endpoints4s.akkahttp.server"><code>API documentation</code></a></p><div class="callout warning "><div class="callout-title">Warning</div>
-<p>As explained in the section <a href="https://doc.akka.io/docs/akka/current/common/binary-compatibility-rules.html#mixed-versioning-is-not-allowed">Mixed versioning is not allowed</a> in the Akka documentation, you have to make sure that all the Akka modules of your application depend on the same version of Akka, and that all the Akka HTTP modules of your application depend of the same version of Akka HTTP.</p>
-<p>For your information, the <code>akka-http-server</code> module of endpoints4s depends on Akka 2.6.15 and Akka HTTP 10.2.5.</p></div>
+<p><a href="../api/endpoints4s/akkahttp/server/index.html" title="endpoints4s.akkahttp.server"><code>API documentation</code></a></p>
 <h3><a href="#endpoints4s-akkahttp-server-endpoints" name="endpoints4s-akkahttp-server-endpoints" class="anchor"><span class="anchor-link"></span></a><code>endpoints4s.akkahttp.server.Endpoints</code></h3>
 <p>The <code>Endpoints</code> interpreter fixes the <code>Endpoint[A, B]</code> type to something that, given an implementation function <code>A =&gt; B</code>, returns an <code>akka.http.scaladsl.server.Route</code> that can be integrated to your Akka HTTP application.</p>
 <p>For instance, given the following endpoint definition:</p>
-<pre class="prettyprint"><button class="snippet-button copy-snippet" title="Copy snippet to clipboard">copy</button><a class="snippet-button go-to-source" href="https://github.com/endpoints4s/endpoints4s/tree/master/algebras/algebra/src/test/scala/endpoints4s/algebra/EndpointsDocs.scala#L87-L88" target="_blank" title="Go to snippet source">source</a><code class="language-scala">val someResource: Endpoint[Int, String] =
+<pre class="prettyprint"><button class="snippet-button copy-snippet" title="Copy snippet to clipboard">copy</button><a class="snippet-button go-to-source" href="https://github.com/endpoints4s/endpoints4s/tree/master/akka-http/server/src/test/scala/endpoints4s/akkahttp/server/EndpointsDocs.scala#L8-L9" target="_blank" title="Go to snippet source">source</a><code class="language-scala">val someResource: Endpoint[Int, String] =
   endpoint(get(path / &quot;some-resource&quot; / segment[Int]()), ok(textResponse))</code></pre>
 <p>It can be implemented as follows:</p>
-<pre class="prettyprint"><button class="snippet-button copy-snippet" title="Copy snippet to clipboard">copy</button><a class="snippet-button go-to-source" href="https://github.com/endpoints4s/endpoints4s/tree/master/akka-http/server/src/test/scala/endpoints4s/akkahttp/server/EndpointsDocs.scala#L9-L10" target="_blank" title="Go to snippet source">source</a><code class="language-scala">val route: Route =
+<pre class="prettyprint"><button class="snippet-button copy-snippet" title="Copy snippet to clipboard">copy</button><a class="snippet-button go-to-source" href="https://github.com/endpoints4s/endpoints4s/tree/master/akka-http/server/src/test/scala/endpoints4s/akkahttp/server/EndpointsDocs.scala#L15-L16" target="_blank" title="Go to snippet source">source</a><code class="language-scala">val route: Route =
   someResource.implementedBy(x =&gt; s&quot;Received $x&quot;)</code></pre>
 <p>Alternatively, there is also a method <code>implementedByAsync</code> that takes an implementing function returning a <code>Future[B]</code>.</p>
 <h3><a href="#endpoints4s-akkahttp-server-chunkedentities" name="endpoints4s-akkahttp-server-chunkedentities" class="anchor"><span class="anchor-link"></span></a><code>endpoints4s.akkahttp.server.ChunkedEntities</code></h3>
@@ -255,7 +264,7 @@ bytesSource.runForeach { bytes =&gt; println(s&quot;Received ${bytes.length} byt
 <pre class="prettyprint"><button class="snippet-button copy-snippet" title="Copy snippet to clipboard">copy</button><a class="snippet-button go-to-source" href="https://github.com/endpoints4s/endpoints4s/tree/master/algebras/algebra/src/test/scala/endpoints4s/algebra/ChunkedEntitiesDocs.scala#L6-L7" target="_blank" title="Go to snippet source">source</a><code class="language-scala">val logo: Endpoint[Unit, Chunks[Array[Byte]]] =
   endpoint(get(path / &quot;logo.png&quot;), ok(bytesChunksResponse))</code></pre>
 <p>It can be implemented as follows:</p>
-<pre class="prettyprint"><button class="snippet-button copy-snippet" title="Copy snippet to clipboard">copy</button><a class="snippet-button go-to-source" href="https://github.com/endpoints4s/endpoints4s/tree/master/akka-http/server/src/test/scala/endpoints4s/akkahttp/server/ChunkedEntitiesDocs.scala#L10-L16" target="_blank" title="Go to snippet source">source</a><code class="language-scala">import java.nio.file.Paths
+<pre class="prettyprint"><button class="snippet-button copy-snippet" title="Copy snippet to clipboard">copy</button><a class="snippet-button go-to-source" href="https://github.com/endpoints4s/endpoints4s/tree/master/akka-http/server/src/test/scala/endpoints4s/akkahttp/server/ChunkedEntitiesDocs.scala#L15-L21" target="_blank" title="Go to snippet source">source</a><code class="language-scala">import java.nio.file.Paths
 import akka.stream.scaladsl.FileIO
 
 val logoRoute: Route =
@@ -278,7 +287,7 @@ Edit this page
 </div>
 <div class="print-only">
 <span class="md-source-file md-version">
-1.5.0
+1.6.0
 </span>
 </div>
 </article>
