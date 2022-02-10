@@ -149,11 +149,9 @@ endpoints4s/endpoints4s
     <li><a href="../algebras/assets.html" class="page">Assets</a></li>
     <li><a href="../algebras/mux-endpoints.html" class="page">Multiplexed Endpoints</a></li>
     <li><a href="../interpreters/akka-http.html" class="active page">Akka HTTP</a></li>
-    <li><a href="../interpreters/play.html" class="page">Play framework</a></li>
     <li><a href="../interpreters/http4s.html" class="page">http4s</a></li>
     <li><a href="../interpreters/scalajs-web-xhr.html" class="page">Scala.js web client (XHR)</a></li>
     <li><a href="../interpreters/scalajs-web-fetch.html" class="page">Scala.js web client (Fetch)</a></li>
-    <li><a href="../interpreters/scalaj-http.html" class="page">scalaj-http</a></li>
     <li><a href="../interpreters/sttp.html" class="page">sttp</a></li>
     <li><a href="../interpreters/openapi.html" class="page">OpenAPI</a></li>
     <li><a href="../interpreters/circe.html" class="page">Circe</a></li>
@@ -184,7 +182,7 @@ endpoints4s/endpoints4s
 <ul style="display: none">
 <li class="md-nav__item md-version" id="project.version">
 <label class="md-nav__link" for="__version">
-<i class="md-icon" title="Version">label_outline</i> 1.6.0
+<i class="md-icon" title="Version">label_outline</i> 1.7.0
 </label>
 </li>
 </ul>
@@ -235,7 +233,7 @@ endpoints4s/endpoints4s
 <pre class="prettyprint"><button class="snippet-button copy-snippet" title="Copy snippet to clipboard">copy</button><a class="snippet-button go-to-source" href="https://github.com/endpoints4s/endpoints4s/tree/master/akka-http/client/src/test/scala/endpoints4s/akkahttp/client/EndpointsDocs.scala#L15" target="_blank" title="Go to snippet source">source</a><code class="language-scala">val eventuallyString: Future[String] = someResource(42)</code></pre>
 <h3><a href="#endpoints4s-akkahttp-client-chunkedentities" name="endpoints4s-akkahttp-client-chunkedentities" class="anchor"><span class="anchor-link"></span></a><code>endpoints4s.akkahttp.client.ChunkedEntities</code></h3>
 <p>The <code>ChunkedEntities</code> interpreter fixes the <code>Chunks[A]</code> type to <code>akka.stream.scaladsl.Source[A, _]</code>:</p>
-<pre class="prettyprint"><button class="snippet-button copy-snippet" title="Copy snippet to clipboard">copy</button><a class="snippet-button go-to-source" href="https://github.com/endpoints4s/endpoints4s/tree/master/akka-http/client/src/main/scala/endpoints4s/akkahttp/client/ChunkedEntities.scala#L17" target="_blank" title="Go to snippet source">source</a><code class="language-scala">type Chunks[A] = akka.stream.scaladsl.Source[A, _]</code></pre>
+<pre class="prettyprint"><button class="snippet-button copy-snippet" title="Copy snippet to clipboard">copy</button><a class="snippet-button go-to-source" href="https://github.com/endpoints4s/endpoints4s/tree/master/akka-http/client/src/main/scala/endpoints4s/akkahttp/client/ChunkedEntities.scala#L20" target="_blank" title="Go to snippet source">source</a><code class="language-scala">type Chunks[A] = akka.stream.scaladsl.Source[A, _]</code></pre>
 <p>This means that, given the following endpoint definition:</p>
 <pre class="prettyprint"><button class="snippet-button copy-snippet" title="Copy snippet to clipboard">copy</button><a class="snippet-button go-to-source" href="https://github.com/endpoints4s/endpoints4s/tree/master/algebras/algebra/src/test/scala/endpoints4s/algebra/ChunkedEntitiesDocs.scala#L6-L7" target="_blank" title="Go to snippet source">source</a><code class="language-scala">val logo: Endpoint[Unit, Chunks[Array[Byte]]] =
   endpoint(get(path / &quot;logo.png&quot;), ok(bytesChunksResponse))</code></pre>
@@ -287,7 +285,7 @@ Edit this page
 </div>
 <div class="print-only">
 <span class="md-source-file md-version">
-1.6.0
+1.7.0
 </span>
 </div>
 </article>
@@ -310,13 +308,13 @@ Multiplexed Endpoints
 </span>
 </div>
 </a>
-<a href="../interpreters/play.html" title="Play framework" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
+<a href="../interpreters/http4s.html" title="http4s" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
 <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
 <span class="md-flex__ellipsis">
 <span class="md-footer-nav__direction">
 Next
 </span>
-Play framework
+http4s
 </span>
 </div>
 <div class="md-flex__cell md-flex__cell--shrink">

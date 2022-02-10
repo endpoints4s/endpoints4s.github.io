@@ -149,11 +149,9 @@ endpoints4s/endpoints4s
     <li><a href="../algebras/assets.html" class="page">Assets</a></li>
     <li><a href="../algebras/mux-endpoints.html" class="page">Multiplexed Endpoints</a></li>
     <li><a href="../interpreters/akka-http.html" class="page">Akka HTTP</a></li>
-    <li><a href="../interpreters/play.html" class="page">Play framework</a></li>
     <li><a href="../interpreters/http4s.html" class="active page">http4s</a></li>
     <li><a href="../interpreters/scalajs-web-xhr.html" class="page">Scala.js web client (XHR)</a></li>
     <li><a href="../interpreters/scalajs-web-fetch.html" class="page">Scala.js web client (Fetch)</a></li>
-    <li><a href="../interpreters/scalaj-http.html" class="page">scalaj-http</a></li>
     <li><a href="../interpreters/sttp.html" class="page">sttp</a></li>
     <li><a href="../interpreters/openapi.html" class="page">OpenAPI</a></li>
     <li><a href="../interpreters/circe.html" class="page">Circe</a></li>
@@ -184,7 +182,7 @@ endpoints4s/endpoints4s
 <ul style="display: none">
 <li class="md-nav__item md-version" id="project.version">
 <label class="md-nav__link" for="__version">
-<i class="md-icon" title="Version">label_outline</i> 1.6.0
+<i class="md-icon" title="Version">label_outline</i> 1.7.0
 </label>
 </li>
 </ul>
@@ -225,7 +223,7 @@ endpoints4s/endpoints4s
 <pre class="prettyprint"><button class="snippet-button copy-snippet" title="Copy snippet to clipboard">copy</button><a class="snippet-button go-to-source" href="https://github.com/endpoints4s/endpoints4s/tree/master/http4s/client/shared/src/test/scala/endpoints4s/http4s/client/EndpointsDocs.scala#L15" target="_blank" title="Go to snippet source">source</a><code class="language-scala">val eventuallyString: IO[String] = someResource.sendAndConsume(42)</code></pre>
 <h3><a href="#chunkedentities" name="chunkedentities" class="anchor"><span class="anchor-link"></span></a><code>ChunkedEntities</code></h3>
 <p>The <code>ChunkedEntities</code> interpreter fixes the <code>Chunks[A]</code> type to <code>fs2.Stream[Effect, A]</code>:</p>
-<pre class="prettyprint"><button class="snippet-button copy-snippet" title="Copy snippet to clipboard">copy</button><a class="snippet-button go-to-source" href="https://github.com/endpoints4s/endpoints4s/tree/master/http4s/client/shared/src/main/scala/endpoints4s/http4s/client/ChunkedEntities.scala#L8" target="_blank" title="Go to snippet source">source</a><code class="language-scala">type Chunks[A] = fs2.Stream[Effect, A]</code></pre>
+<pre class="prettyprint"><button class="snippet-button copy-snippet" title="Copy snippet to clipboard">copy</button><a class="snippet-button go-to-source" href="https://github.com/endpoints4s/endpoints4s/tree/master/http4s/client/shared/src/main/scala/endpoints4s/http4s/client/ChunkedEntities.scala#L12" target="_blank" title="Go to snippet source">source</a><code class="language-scala">type Chunks[A] = fs2.Stream[Effect, A]</code></pre>
 <p>This means that, given the following endpoint definition:</p>
 <pre class="prettyprint"><button class="snippet-button copy-snippet" title="Copy snippet to clipboard">copy</button><a class="snippet-button go-to-source" href="https://github.com/endpoints4s/endpoints4s/tree/master/http4s/client/shared/src/test/scala/endpoints4s/http4s/client/ChunkedEntitiesDocs.scala#L9-L10" target="_blank" title="Go to snippet source">source</a><code class="language-scala">val logo: Endpoint[Unit, Chunks[Array[Byte]]] =
   endpoint(get(path / &quot;logo.png&quot;), ok(bytesChunksResponse))</code></pre>
@@ -267,7 +265,7 @@ Edit this page
 </div>
 <div class="print-only">
 <span class="md-source-file md-version">
-1.6.0
+1.7.0
 </span>
 </div>
 </article>
@@ -277,7 +275,7 @@ Edit this page
 <footer class="md-footer">
 <div class="md-footer-nav">
 <nav class="md-footer-nav__inner md-grid">
-<a href="../interpreters/play.html" title="Play framework" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+<a href="../interpreters/akka-http.html" title="Akka HTTP" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
 <div class="md-flex__cell md-flex__cell--shrink">
 <i class="md-icon md-icon--arrow-back md-footer-nav__button"></i>
 </div>
@@ -286,7 +284,7 @@ Edit this page
 <span class="md-footer-nav__direction">
 Previous
 </span>
-Play framework
+Akka HTTP
 </span>
 </div>
 </a>

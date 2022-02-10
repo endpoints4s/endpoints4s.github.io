@@ -149,11 +149,9 @@ endpoints4s/endpoints4s
     <li><a href="../algebras/assets.html" class="page">Assets</a></li>
     <li><a href="../algebras/mux-endpoints.html" class="page">Multiplexed Endpoints</a></li>
     <li><a href="../interpreters/akka-http.html" class="page">Akka HTTP</a></li>
-    <li><a href="../interpreters/play.html" class="page">Play framework</a></li>
     <li><a href="../interpreters/http4s.html" class="page">http4s</a></li>
     <li><a href="../interpreters/scalajs-web-xhr.html" class="page">Scala.js web client (XHR)</a></li>
     <li><a href="../interpreters/scalajs-web-fetch.html" class="active page">Scala.js web client (Fetch)</a></li>
-    <li><a href="../interpreters/scalaj-http.html" class="page">scalaj-http</a></li>
     <li><a href="../interpreters/sttp.html" class="page">sttp</a></li>
     <li><a href="../interpreters/openapi.html" class="page">OpenAPI</a></li>
     <li><a href="../interpreters/circe.html" class="page">Circe</a></li>
@@ -176,7 +174,7 @@ endpoints4s/endpoints4s
 <ul style="display: none">
 <li class="md-nav__item md-version" id="project.version">
 <label class="md-nav__link" for="__version">
-<i class="md-icon" title="Version">label_outline</i> 1.6.0
+<i class="md-icon" title="Version">label_outline</i> 1.7.0
 </label>
 </li>
 </ul>
@@ -196,7 +194,7 @@ endpoints4s/endpoints4s
 <pre class="prettyprint"><button class="snippet-button copy-snippet" title="Copy snippet to clipboard">copy</button><a class="snippet-button go-to-source" href="https://github.com/endpoints4s/endpoints4s/tree/master/fetch/client/src/test/scala/endpoints4s/fetch/future/EndpointsDocs.scala#L9-L10" target="_blank" title="Go to snippet source">source</a><code class="language-scala">val someResource: Endpoint[Int, String] =
   endpoint(get(path / &quot;some-resource&quot; / segment[Int]()), ok(textResponse))</code></pre>
 <p>It can be invoked as follows:</p>
-<pre class="prettyprint"><button class="snippet-button copy-snippet" title="Copy snippet to clipboard">copy</button><a class="snippet-button go-to-source" href="https://github.com/endpoints4s/endpoints4s/tree/master/fetch/client/src/test/scala/endpoints4s/fetch/future/EndpointsDocs.scala#L17" target="_blank" title="Go to snippet source">source</a><code class="language-scala">val eventuallyString: Future[String] = someResource(42)</code></pre>
+<pre class="prettyprint"><button class="snippet-button copy-snippet" title="Copy snippet to clipboard">copy</button><a class="snippet-button go-to-source" href="https://github.com/endpoints4s/endpoints4s/tree/master/fetch/client/src/test/scala/endpoints4s/fetch/future/EndpointsDocs.scala#L16" target="_blank" title="Go to snippet source">source</a><code class="language-scala">val eventuallyString: Future[String] = someResource(42).future</code></pre>
 </div>
 <div>
 <a href="https://github.com/endpoints4s/endpoints4s/tree/master/documentation/manual/src/main/paradox/interpreters/scalajs-web-fetch.md" title="Edit this page" class="md-source-file md-edit">
@@ -205,7 +203,7 @@ Edit this page
 </div>
 <div class="print-only">
 <span class="md-source-file md-version">
-1.6.0
+1.7.0
 </span>
 </div>
 </article>
@@ -228,13 +226,13 @@ Scala.js web client (XHR)
 </span>
 </div>
 </a>
-<a href="../interpreters/scalaj-http.html" title="scalaj-http" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
+<a href="../interpreters/sttp.html" title="sttp" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
 <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
 <span class="md-flex__ellipsis">
 <span class="md-footer-nav__direction">
 Next
 </span>
-scalaj-http
+sttp
 </span>
 </div>
 <div class="md-flex__cell md-flex__cell--shrink">

@@ -149,11 +149,9 @@ endpoints4s/endpoints4s
     <li><a href="algebras/assets.html" class="page">Assets</a></li>
     <li><a href="algebras/mux-endpoints.html" class="page">Multiplexed Endpoints</a></li>
     <li><a href="interpreters/akka-http.html" class="page">Akka HTTP</a></li>
-    <li><a href="interpreters/play.html" class="page">Play framework</a></li>
     <li><a href="interpreters/http4s.html" class="page">http4s</a></li>
     <li><a href="interpreters/scalajs-web-xhr.html" class="page">Scala.js web client (XHR)</a></li>
     <li><a href="interpreters/scalajs-web-fetch.html" class="page">Scala.js web client (Fetch)</a></li>
-    <li><a href="interpreters/scalaj-http.html" class="page">scalaj-http</a></li>
     <li><a href="interpreters/sttp.html" class="page">sttp</a></li>
     <li><a href="interpreters/openapi.html" class="page">OpenAPI</a></li>
     <li><a href="interpreters/circe.html" class="page">Circe</a></li>
@@ -186,7 +184,7 @@ endpoints4s/endpoints4s
 <ul style="display: none">
 <li class="md-nav__item md-version" id="project.version">
 <label class="md-nav__link" for="__version">
-<i class="md-icon" title="Version">label_outline</i> 1.6.0
+<i class="md-icon" title="Version">label_outline</i> 1.7.0
 </label>
 </li>
 </ul>
@@ -233,11 +231,11 @@ endpoints4s/endpoints4s
   <li>algebras’ dependencies can be found in their super types ;</li>
   <li>interpreters are traits that have the same name as the algebra they  implement (they can be found by looking at the “known subclasses”  of an algebra, in the Scaladoc) ;
     <ul>
-      <li>e.g. the <a href="api/endpoints4s/play/client/Urls.html" title="endpoints4s.play.client.Urls"><code>`endpoints4s.play.client.Urls`</code></a> trait  defines a Play-based interpreter for the <code>Urls</code> algebra.</li>
+      <li>e.g. the <a href="api/endpoints4s/http4s/client/Urls.html" title="endpoints4s.http4s.client.Urls"><code>`endpoints4s.http4s.client.Urls`</code></a> trait  defines an http4s-based interpreter for the <code>Urls</code> algebra.</li>
     </ul>
   </li>
   <li>compatible interpreters are in the same package ;</li>
-  <li>e.g. the <a href="api/endpoints4s/play/client/index.html" title="endpoints4s.play.client"><code>`endpoints4s.play.client`</code></a> package provides interpreters that are all based on <a href="https://github.com/playframework/play-ws">Play WS</a> under the hood.</li>
+  <li>e.g. the <a href="api/endpoints4s/http4s/client/index.html" title="endpoints4s.http4s.client"><code>`endpoints4s.http4s.client`</code></a> package provides client interpreters that are all based on <a href="https://http4s.org">http4s</a> under the hood.</li>
 </ul>
 <h2><a href="#matching-algebras-and-interpreters" name="matching-algebras-and-interpreters" class="anchor"><span class="anchor-link"></span></a>Matching Algebras and Interpreters</h2>
 <p>To define endpoint descriptions you need to select which algebras you need. For instance:</p>
@@ -304,44 +302,44 @@ trait MyAkkaHttpServer extends MyCustomAlgebra
   </thead>
   <tbody>
     <tr>
-      <td><a href="interpreters/akka-http.html">Akka HTTP</a></td>
-      <td>Client and server backed by <a href="https://doc.akka.io/docs/akka-http/current/">Akka HTTP</a></td>
+      <td><a href="interpreters/akka-http.html">Akka HTTP</a> </td>
+      <td>Client and server backed by <a href="https://doc.akka.io/docs/akka-http/current/">Akka HTTP</a> </td>
     </tr>
     <tr>
-      <td><a href="interpreters/play.html">Play framework</a></td>
-      <td>Client and server backed by <a href="https://www.playframework.com/">Play framework</a></td>
+      <td><a href="interpreters/http4s.html">http4s</a> </td>
+      <td>Client and server backed by <a href="https://http4s.org">http4s</a> </td>
     </tr>
     <tr>
-      <td><a href="interpreters/http4s.html">http4s</a></td>
-      <td>Client and server backed by <a href="https://http4s.org">http4s</a></td>
+      <td><a href="https://endpoints.github.io/play">Play framework</a> </td>
+      <td>Client and server backed by <a href="https://www.playframework.com/">Play framework</a> </td>
     </tr>
     <tr>
-      <td><a href="interpreters/scalajs-web-xhr.html">Scala.js web (XHR)</a></td>
-      <td>Scala.js web client using <code>XMLHttpRequest</code></td>
+      <td><a href="interpreters/scalajs-web-xhr.html">Scala.js web (XHR)</a> </td>
+      <td>Scala.js web client using <code>XMLHttpRequest</code> </td>
     </tr>
     <tr>
-      <td><a href="interpreters/scalajs-web-fetch.html">Scala.js web (Fetch)</a></td>
-      <td>Scala.js web client using <code>Fetch</code></td>
+      <td><a href="interpreters/scalajs-web-fetch.html">Scala.js web (Fetch)</a> </td>
+      <td>Scala.js web client using <code>Fetch</code> </td>
     </tr>
     <tr>
-      <td><a href="interpreters/scalaj-http.html">scalaj-http</a></td>
-      <td>JVM client backed by <a href="https://github.com/scalaj/scalaj-http">scalaj-http</a></td>
+      <td><a href="https://endpoints4s.github.io/scalaj">scalaj-http</a> </td>
+      <td>JVM client backed by <a href="https://github.com/scalaj/scalaj-http">scalaj-http</a> </td>
     </tr>
     <tr>
-      <td><a href="interpreters/sttp.html">sttp</a></td>
-      <td>JVM client backed by <a href="https://github.com/softwaremill/sttp">sttp</a></td>
+      <td><a href="interpreters/sttp.html">sttp</a> </td>
+      <td>JVM client backed by <a href="https://github.com/softwaremill/sttp">sttp</a> </td>
     </tr>
     <tr>
-      <td><a href="interpreters/openapi.html">OpenAPI</a></td>
-      <td>Generates <a href="https://github.com/OAI/OpenAPI-Specification">OpenAPI</a> documents for endpoints definitions</td>
+      <td><a href="interpreters/openapi.html">OpenAPI</a> </td>
+      <td>Generates <a href="https://github.com/OAI/OpenAPI-Specification">OpenAPI</a> documents for endpoints definitions </td>
     </tr>
     <tr>
-      <td><a href="interpreters/circe.html">circe</a></td>
-      <td>Builds <a href="http://circe.github.io/circe/">circe</a> codecs out of JSON schema definitions</td>
+      <td><a href="interpreters/circe.html">circe</a> </td>
+      <td>Builds <a href="http://circe.github.io/circe/">circe</a> codecs out of JSON schema definitions </td>
     </tr>
     <tr>
-      <td><a href="interpreters/play-json.html">Play JSON</a></td>
-      <td>Builds <a href="https://github.com/playframework/play-json">Play JSON</a> Reads and Writes out of JSON schema definitions</td>
+      <td><a href="interpreters/play-json.html">Play JSON</a> </td>
+      <td>Builds <a href="https://github.com/playframework/play-json">Play JSON</a> Reads and Writes out of JSON schema definitions </td>
     </tr>
   </tbody>
 </table><div class="callout note "><div class="callout-title">Note</div>
@@ -354,7 +352,7 @@ Edit this page
 </div>
 <div class="print-only">
 <span class="md-source-file md-version">
-1.6.0
+1.7.0
 </span>
 </div>
 </article>

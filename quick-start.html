@@ -149,11 +149,9 @@ endpoints4s/endpoints4s
     <li><a href="algebras/assets.html" class="page">Assets</a></li>
     <li><a href="algebras/mux-endpoints.html" class="page">Multiplexed Endpoints</a></li>
     <li><a href="interpreters/akka-http.html" class="page">Akka HTTP</a></li>
-    <li><a href="interpreters/play.html" class="page">Play framework</a></li>
     <li><a href="interpreters/http4s.html" class="page">http4s</a></li>
     <li><a href="interpreters/scalajs-web-xhr.html" class="page">Scala.js web client (XHR)</a></li>
     <li><a href="interpreters/scalajs-web-fetch.html" class="page">Scala.js web client (Fetch)</a></li>
-    <li><a href="interpreters/scalaj-http.html" class="page">scalaj-http</a></li>
     <li><a href="interpreters/sttp.html" class="page">sttp</a></li>
     <li><a href="interpreters/openapi.html" class="page">OpenAPI</a></li>
     <li><a href="interpreters/circe.html" class="page">Circe</a></li>
@@ -190,7 +188,7 @@ endpoints4s/endpoints4s
 <ul style="display: none">
 <li class="md-nav__item md-version" id="project.version">
 <label class="md-nav__link" for="__version">
-<i class="md-icon" title="Version">label_outline</i> 1.6.0
+<i class="md-icon" title="Version">label_outline</i> 1.7.0
 </label>
 </li>
 </ul>
@@ -240,9 +238,9 @@ endpoints4s/endpoints4s
 <pre class="prettyprint"><code class="language-scala">val shared =
   crossProject(JSPlatform, JVMPlatform).crossType(CrossType.Pure).settings(
     libraryDependencies ++= Seq(
-      &quot;org.endpoints4s&quot; %%% &quot;algebra&quot; % &quot;1.6.0&quot;,
+      &quot;org.endpoints4s&quot; %%% &quot;algebra&quot; % &quot;1.7.0&quot;,
       // optional, see explanation below
-      &quot;org.endpoints4s&quot; %%% &quot;json-schema-generic&quot; % &quot;1.6.0&quot;
+      &quot;org.endpoints4s&quot; %%% &quot;json-schema-generic&quot; % &quot;1.7.0&quot;
     )
   )
 
@@ -251,13 +249,13 @@ val sharedJVM = shared.jvm
 
 val client =
   project.enablePlugins(ScalaJSPlugin).settings(
-    libraryDependencies += &quot;org.endpoints4s&quot; %%% &quot;xhr-client&quot; % &quot;4.0.0&quot;
+    libraryDependencies += &quot;org.endpoints4s&quot; %%% &quot;xhr-client&quot; % &quot;5.0.0&quot;
   ).dependsOn(sharedJS)
 
 val server =
   project.settings(
     libraryDependencies ++= Seq(
-      &quot;org.endpoints4s&quot; %% &quot;akka-http-server&quot; % &quot;6.0.0&quot;,
+      &quot;org.endpoints4s&quot; %% &quot;akka-http-server&quot; % &quot;6.1.0&quot;,
       &quot;com.typesafe.akka&quot; %% &quot;akka-stream&quot; % &quot;2.6.15&quot;,
       &quot;org.scala-stm&quot; %% &quot;scala-stm&quot; % &quot;0.8&quot;
     )
@@ -328,12 +326,12 @@ object CounterClient
 /** Performs an XMLHttpRequest on the `currentValue` endpoint, and then
   * deserializes the JSON response as a `Counter`.
   */
-val eventuallyCounter: js.Thenable[Counter] = CounterClient.currentValue(())</code></pre>
+val eventuallyCounter: js.Thenable[Counter] = CounterClient.currentValue(()).thenable</code></pre>
 <p>And also:</p>
 <pre class="prettyprint"><button class="snippet-button copy-snippet" title="Copy snippet to clipboard">copy</button><a class="snippet-button go-to-source" href="https://github.com/endpoints4s/endpoints4s/tree/master/documentation/examples/quickstart/client/src/main/scala/quickstart/Usage.scala#L15-L18" target="_blank" title="Go to snippet source">source</a><code class="language-scala">/** Serializes the `Increment` value into JSON and performs an XMLHttpRequest
   * on the `increment` endpoint.
   */
-val eventuallyDone: js.Thenable[Unit] = CounterClient.increment(Increment(42))</code></pre>
+val eventuallyDone: js.Thenable[Unit] = CounterClient.increment(Increment(42)).thenable</code></pre>
 <p>As you can see, invoking an endpoint consists of calling a function on the <code>CounterClient</code> object. endpoints4s then builds an HTTP request (according to the endpoint description), sends it to the server, and eventually decodes the HTTP response (according to the endpoint description).</p>
 <h2><a href="#server-implementation" name="server-implementation" class="anchor"><span class="anchor-link"></span></a>Server implementation</h2>
 <p>Similarly, a server implementation of the endpoints can be obtained by mixing the appropriate interpreters to the <code>CounterEndpoints</code> trait. In this example, you want to get a JVM server that uses Akka HTTP under the hood. Create the following <code>CounterServer</code> class in the <code>server</code> project:</p>
@@ -537,7 +535,7 @@ Edit this page
 </div>
 <div class="print-only">
 <span class="md-source-file md-version">
-1.6.0
+1.7.0
 </span>
 </div>
 </article>
