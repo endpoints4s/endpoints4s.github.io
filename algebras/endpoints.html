@@ -185,7 +185,7 @@ endpoints4s/endpoints4s
 <ul style="display: none">
 <li class="md-nav__item md-version" id="project.version">
 <label class="md-nav__link" for="__version">
-<i class="md-icon" title="Version">label_outline</i> 1.8.0
+<i class="md-icon" title="Version">label_outline</i> 1.9.0
 </label>
 </li>
 </ul>
@@ -280,9 +280,9 @@ path /? (query &amp; lang)</code></pre>
 <h4><a href="#transforming-and-refining-url-constituents" name="transforming-and-refining-url-constituents" class="anchor"><span class="anchor-link"></span></a>Transforming and Refining URL Constituents</h4>
 <p>All the data types involved in a URL description (<code>Path[A]</code>, <code>Segment[A]</code>, <code>QueryString[A]</code>, etc.) have an <code>xmap</code> and an <code>xmapPartial</code> operations, for transforming or refining their carried type.</p>
 <p>For instance, consider the following user-defined <code>Location</code> type, containing a <code>longitude</code> and a <code>latitude</code>:</p>
-<pre class="prettyprint"><button class="snippet-button copy-snippet" title="Copy snippet to clipboard">copy</button><a class="snippet-button go-to-source" href="https://github.com/endpoints4s/endpoints4s/tree/master/algebras/testkit/src/main/scala/endpoints4s/algebra/client/UrlEncodingTestSuite.scala#L124" target="_blank" title="Go to snippet source">source</a><code class="language-scala">case class Location(longitude: Double, latitude: Double)</code></pre>
+<pre class="prettyprint"><button class="snippet-button copy-snippet" title="Copy snippet to clipboard">copy</button><a class="snippet-button go-to-source" href="https://github.com/endpoints4s/endpoints4s/tree/master/algebras/testkit/src/main/scala/endpoints4s/algebra/client/UrlEncodingTestSuite.scala#L126" target="_blank" title="Go to snippet source">source</a><code class="language-scala">case class Location(longitude: Double, latitude: Double)</code></pre>
 <p>The <code>QueryString[Location]</code> type means “a query string that carries a <code>Location</code>”. We can define a value of type <code>QueryString[Location]</code> by <em>transforming</em> a query string that carries the longitude and latitude parameters as follows:</p>
-<pre class="prettyprint"><button class="snippet-button copy-snippet" title="Copy snippet to clipboard">copy</button><a class="snippet-button go-to-source" href="https://github.com/endpoints4s/endpoints4s/tree/master/algebras/testkit/src/main/scala/endpoints4s/algebra/client/UrlEncodingTestSuite.scala#L128-L131" target="_blank" title="Go to snippet source">source</a><code class="language-scala">val locationQueryString: QueryString[Location] =
+<pre class="prettyprint"><button class="snippet-button copy-snippet" title="Copy snippet to clipboard">copy</button><a class="snippet-button go-to-source" href="https://github.com/endpoints4s/endpoints4s/tree/master/algebras/testkit/src/main/scala/endpoints4s/algebra/client/UrlEncodingTestSuite.scala#L130-L133" target="_blank" title="Go to snippet source">source</a><code class="language-scala">val locationQueryString: QueryString[Location] =
   (qs[Double](&quot;lon&quot;) &amp; qs[Double](&quot;lat&quot;)).xmap { case (lon, lat) =&gt;
     Location(lon, lat)
   } { location =&gt; (location.longitude, location.latitude) }</code></pre>
@@ -368,7 +368,7 @@ Edit this page
 </div>
 <div class="print-only">
 <span class="md-source-file md-version">
-1.8.0
+1.9.0
 </span>
 </div>
 </article>
