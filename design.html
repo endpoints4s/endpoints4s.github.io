@@ -148,9 +148,8 @@ endpoints4s/endpoints4s
     <li><a href="algebras/middlewares.html" class="page">Middlewares</a></li>
     <li><a href="algebras/assets.html" class="page">Assets</a></li>
     <li><a href="algebras/mux-endpoints.html" class="page">Multiplexed Endpoints</a></li>
-    <li><a href="interpreters/akka-http.html" class="page">Akka HTTP</a></li>
+    <li><a href="interpreters/pekko-http.html" class="page">Pekko HTTP</a></li>
     <li><a href="interpreters/http4s.html" class="page">http4s</a></li>
-    <li><a href="interpreters/scalajs-web-xhr.html" class="page">Scala.js web client (XHR)</a></li>
     <li><a href="interpreters/scalajs-web-fetch.html" class="page">Scala.js web client (Fetch)</a></li>
     <li><a href="interpreters/sttp.html" class="page">sttp</a></li>
     <li><a href="interpreters/openapi.html" class="page">OpenAPI</a></li>
@@ -183,7 +182,7 @@ endpoints4s/endpoints4s
 <ul style="display: none">
 <li class="md-nav__item md-version" id="project.version">
 <label class="md-nav__link" for="__version">
-<i class="md-icon" title="Version">label_outline</i> 1.10.0
+<i class="md-icon" title="Version">label_outline</i> 1.11.0
 </label>
 </li>
 </ul>
@@ -265,7 +264,7 @@ trait Endpoints extends endpoints4s.algebra.Endpoints {
 <p><strong>Algebras</strong> are traits that provide abstract type members and methods defining how to <strong>construct</strong> and <strong>combine</strong> endpoint descriptions.</p>
 <p><strong>Interpreters</strong> are traits that extend algebras, and give them a concrete meaning by fixing their type members and implementing their methods accordingly.</p>
 <h2><a href="#modular-algebras" name="modular-algebras" class="anchor"><span class="anchor-link"></span></a>Modular Algebras</h2>
-<p>The separation between descriptions and interpretations provides one dimension of modularity: a same endpoint description can be interpreted with a client interpreter, a server interpreter, or documentation interpreter. Even more, the client and server stacks can be completely different (one can use Play framework while the other uses Akka, for instance). Here is a diagram illustrating the fact that multiple interpreters can be applied to a same algebra:</p>
+<p>The separation between descriptions and interpretations provides one dimension of modularity: a same endpoint description can be interpreted with a client interpreter, a server interpreter, or documentation interpreter. Even more, the client and server stacks can be completely different (one can use Play framework while the other uses Pekko, for instance). Here is a diagram illustrating the fact that multiple interpreters can be applied to a same algebra:</p>
 <p><img src="multiple-interpreters.svg" alt="multiple-interpreters" /></p><div class="callout note "><div class="callout-title">Note</div>
 <p>From that perspective, endpoint descriptions are equivalent to protobuf or Swagger files: they are machine-readable descriptors for a service. As a consequence, if you want to share a descriptor of your service with the outside world, one option is to publish the artifact containing the traits that provide your endpoint descriptions. Downstream users will then be able to turn these descriptions to a client of their choice by applying the interpreter of their choice. Of course, this works only if your users use Scala. For the rest of the world, you can distribute the descriptor produced by the OpenAPI interpreter.</p></div>
 <p>The fact that algebras are defined in traits and that we can mix several traits together provides a second dimension of modularity: the algebra itself is modular. For instance, you have seen in the code example at the top of this page that two algebras were used together: <code>algebra.Endpoints</code> and <code>algebra.JsonEntitiesFromSchemas</code>. The diagram below shows a couple of algebras and their relations:</p>
@@ -291,7 +290,7 @@ Edit this page
 </div>
 <div class="print-only">
 <span class="md-source-file md-version">
-1.10.0
+1.11.0
 </span>
 </div>
 </article>

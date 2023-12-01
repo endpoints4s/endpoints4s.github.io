@@ -148,9 +148,8 @@ endpoints4s/endpoints4s
     <li><a href="algebras/middlewares.html" class="page">Middlewares</a></li>
     <li><a href="algebras/assets.html" class="page">Assets</a></li>
     <li><a href="algebras/mux-endpoints.html" class="page">Multiplexed Endpoints</a></li>
-    <li><a href="interpreters/akka-http.html" class="page">Akka HTTP</a></li>
+    <li><a href="interpreters/pekko-http.html" class="page">Pekko HTTP</a></li>
     <li><a href="interpreters/http4s.html" class="page">http4s</a></li>
-    <li><a href="interpreters/scalajs-web-xhr.html" class="page">Scala.js web client (XHR)</a></li>
     <li><a href="interpreters/scalajs-web-fetch.html" class="page">Scala.js web client (Fetch)</a></li>
     <li><a href="interpreters/sttp.html" class="page">sttp</a></li>
     <li><a href="interpreters/openapi.html" class="page">OpenAPI</a></li>
@@ -184,7 +183,7 @@ endpoints4s/endpoints4s
 <ul style="display: none">
 <li class="md-nav__item md-version" id="project.version">
 <label class="md-nav__link" for="__version">
-<i class="md-icon" title="Version">label_outline</i> 1.10.0
+<i class="md-icon" title="Version">label_outline</i> 1.11.0
 </label>
 </li>
 </ul>
@@ -245,10 +244,10 @@ trait MyCustomAlgebra extends algebra.Endpoints
   with algebra.JsonEntitiesFromSchemas
   with algebra.BasicAuthentication
 </code></pre>
-<p>Then, to interpret the endpoint descriptions you need to build an interpreter that matches this algebra. By following the aforementioned naming conventions, you should be looking for all the traits that have the same names as your algebra modules and that are in the package of the interpreter you want to use. For instance, to build an Akka-HTTP server:</p>
-<pre class="prettyprint"><code class="language-scala">import endpoints4s.akkahttp.server
+<p>Then, to interpret the endpoint descriptions you need to build an interpreter that matches this algebra. By following the aforementioned naming conventions, you should be looking for all the traits that have the same names as your algebra modules and that are in the package of the interpreter you want to use. For instance, to build an Pekko-HTTP server:</p>
+<pre class="prettyprint"><code class="language-scala">import endpoints4s.pekkohttp.server
 
-trait MyAkkaHttpServer extends MyCustomAlgebra
+trait MyPekkoHttpServer extends MyCustomAlgebra
   with server.Endpoints
   with server.JsonEntitiesFromSchemas
   with server.BasicAuthentication
@@ -292,7 +291,7 @@ trait MyAkkaHttpServer extends MyCustomAlgebra
   </tbody>
 </table>
 <h2><a href="#interpreters" name="interpreters" class="anchor"><span class="anchor-link"></span></a>Interpreters</h2>
-<p>Interpreters give a concrete meaning to the vocabulary and operations provided by the algebras. They usually rely on other libraries (e.g. circe, Akka HTTP, etc.) to do so. Pick the interpreters that fit your existing stack!</p>
+<p>Interpreters give a concrete meaning to the vocabulary and operations provided by the algebras. They usually rely on other libraries (e.g. circe, Pekko HTTP, etc.) to do so. Pick the interpreters that fit your existing stack!</p>
 <table>
   <thead>
     <tr>
@@ -302,7 +301,11 @@ trait MyAkkaHttpServer extends MyCustomAlgebra
   </thead>
   <tbody>
     <tr>
-      <td><a href="interpreters/akka-http.html">Akka HTTP</a> </td>
+      <td><a href="interpreters/pekko-http.html">Pekko HTTP</a> </td>
+      <td>Client and server backed by <a href="https://pekko.apache.org/docs/pekko/current/">Pekko HTTP</a> </td>
+    </tr>
+    <tr>
+      <td><a href="https://endpoints4s.github.io/akka-http">Akka HTTP</a> </td>
       <td>Client and server backed by <a href="https://doc.akka.io/docs/akka-http/current/">Akka HTTP</a> </td>
     </tr>
     <tr>
@@ -310,16 +313,16 @@ trait MyAkkaHttpServer extends MyCustomAlgebra
       <td>Client and server backed by <a href="https://http4s.org">http4s</a> </td>
     </tr>
     <tr>
-      <td><a href="https://endpoints.github.io/play">Play framework</a> </td>
+      <td><a href="https://endpoints4s.github.io/play">Play framework</a> </td>
       <td>Client and server backed by <a href="https://www.playframework.com/">Play framework</a> </td>
-    </tr>
-    <tr>
-      <td><a href="interpreters/scalajs-web-xhr.html">Scala.js web (XHR)</a> </td>
-      <td>Scala.js web client using <code>XMLHttpRequest</code> </td>
     </tr>
     <tr>
       <td><a href="interpreters/scalajs-web-fetch.html">Scala.js web (Fetch)</a> </td>
       <td>Scala.js web client using <code>Fetch</code> </td>
+    </tr>
+    <tr>
+      <td><a href="https://endpoints4s.github.io/xhr">Scala.js web (XHR)</a> </td>
+      <td>Scala.js web client using <code>XMLHttpRequest</code> </td>
     </tr>
     <tr>
       <td><a href="https://endpoints4s.github.io/scalaj">scalaj-http</a> </td>
@@ -343,7 +346,7 @@ trait MyAkkaHttpServer extends MyCustomAlgebra
     </tr>
   </tbody>
 </table><div class="callout note "><div class="callout-title">Note</div>
-<p>You can have different stacks on the client-side and the server-side. For instance, you can have a server backed by Play framework, a client backed by Akka HTTP, and another client backed by Scala.js (for web browsers).</p></div>
+<p>You can have different stacks on the client-side and the server-side. For instance, you can have a server backed by Play framework, a client backed by Pekko HTTP, and another client backed by Scala.js (for web browsers).</p></div>
 </div>
 <div>
 <a href="https://github.com/endpoints4s/endpoints4s/tree/master/documentation/manual/src/main/paradox/algebras-and-interpreters.md" title="Edit this page" class="md-source-file md-edit">
@@ -352,7 +355,7 @@ Edit this page
 </div>
 <div class="print-only">
 <span class="md-source-file md-version">
-1.10.0
+1.11.0
 </span>
 </div>
 </article>

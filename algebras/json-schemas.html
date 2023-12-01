@@ -148,9 +148,8 @@ endpoints4s/endpoints4s
     <li><a href="../algebras/middlewares.html" class="page">Middlewares</a></li>
     <li><a href="../algebras/assets.html" class="page">Assets</a></li>
     <li><a href="../algebras/mux-endpoints.html" class="page">Multiplexed Endpoints</a></li>
-    <li><a href="../interpreters/akka-http.html" class="page">Akka HTTP</a></li>
+    <li><a href="../interpreters/pekko-http.html" class="page">Pekko HTTP</a></li>
     <li><a href="../interpreters/http4s.html" class="page">http4s</a></li>
-    <li><a href="../interpreters/scalajs-web-xhr.html" class="page">Scala.js web client (XHR)</a></li>
     <li><a href="../interpreters/scalajs-web-fetch.html" class="page">Scala.js web client (Fetch)</a></li>
     <li><a href="../interpreters/sttp.html" class="page">sttp</a></li>
     <li><a href="../interpreters/openapi.html" class="page">OpenAPI</a></li>
@@ -183,7 +182,7 @@ endpoints4s/endpoints4s
 <ul style="display: none">
 <li class="md-nav__item md-version" id="project.version">
 <label class="md-nav__link" for="__version">
-<i class="md-icon" title="Version">label_outline</i> 1.10.0
+<i class="md-icon" title="Version">label_outline</i> 1.11.0
 </label>
 </li>
 </ul>
@@ -230,6 +229,7 @@ endpoints4s/endpoints4s
 <p>The <code>field</code> constructor defines a JSON object schema with one field of the given type and name (and an optional text documentation). Two other constructors, <code>optField</code> and <code>optFieldWithDefault</code>, define optional fields in a JSON object.</p>
 <p>The return type of <code>rectangleSchema</code> is declared to be <code>JsonSchema[Rectangle]</code>, but we could have used a more specific type: <code>Record[Rectangle]</code>. This subtype of <code>JsonSchema[Rectangle]</code> provides additional operations such as <code>zip</code> or <code>tagged</code> (see the next section).</p>
 <p>In the above example, we actually define two JSON object schemas (one for the <code>width</code> field, of type <code>Record[Double]</code>, and one for the <code>height</code> field, of type <code>Record[Double]</code>), and then we combine them into a single JSON object schema by using the <code>zip</code> operation. Finally, we call the <code>xmap</code> operation to turn the <code>Record[(Double, Double)]</code> value returned by the <code>zip</code> operation into a <code>Record[Rectangle]</code>.</p>
+<p>The <code>preciseField</code> constructor defines a JSON object schema similar to <code>optField</code>. <code>preciseField</code> allows finer control by making a distinction between the property set with a <code>null</code> value and the absence of the property. </p>
 <h3><a href="#sum-types-sealed-traits-" name="sum-types-sealed-traits-" class="anchor"><span class="anchor-link"></span></a>Sum types (sealed traits)</h3>
 <p>It is also possible to define schemas for sum types. Consider the following type definition, defining a <code>Shape</code>, which can be either a <code>Circle</code> or a <code>Rectangle</code>:</p>
 <pre class="prettyprint"><button class="snippet-button copy-snippet" title="Copy snippet to clipboard">copy</button><a class="snippet-button go-to-source" href="https://github.com/endpoints4s/endpoints4s/tree/master/json-schema/json-schema/src/test/scala/endpoints4s/algebra/JsonSchemasDocs.scala#L20-L22" target="_blank" title="Go to snippet source">source</a><code class="language-scala">sealed trait Shape
@@ -402,7 +402,7 @@ Edit this page
 </div>
 <div class="print-only">
 <span class="md-source-file md-version">
-1.10.0
+1.11.0
 </span>
 </div>
 </article>
